@@ -11,9 +11,9 @@ export const index = async (req: Request, res: Response) => {
 export const store = async (req: Request, res: Response) => {
   const { name, assetUrl } = req.body;
   try {
-    const category = await prisma.category.create({ data: { name, assetUrl } });
-
     if (!name) return res.status(400).json({ message: "Bad request" });
+
+    const category = await prisma.category.create({ data: { name, assetUrl } });
 
     return res.status(200).json({ category });
   } catch (error) {
@@ -40,7 +40,7 @@ export const show = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const { name, assetUrl } = req.body;
+  const { name, assetUrl, userId } = req.body;
   try {
     if (!name) return res.status(500).json({ message: "Bad Request" });
     const exist = await prisma.category.findFirst({ where: { id } });
@@ -52,6 +52,7 @@ export const update = async (req: Request, res: Response) => {
       where: { id },
       data: { name, assetUrl },
     });
+
     return res.status(200).json({ category });
   } catch (error) {
     return res.status(500).json({ error });

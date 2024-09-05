@@ -1,6 +1,20 @@
 import express from "express";
-import { index } from "../controller/lesson.controller";
+import {
+  destroy,
+  index,
+  show,
+  store,
+  update,
+} from "../controller/lesson.controller";
 
-export const lessornRouter = express.Router();
+export const lessonRouter = express.Router();
 
-lessornRouter.get("/", index);
+lessonRouter.get("/", index);
+
+lessonRouter.get("/:id", show);
+
+lessonRouter.post("/", store);
+
+lessonRouter.put("/:id", update);
+
+lessonRouter.delete("/:id", destroy);
