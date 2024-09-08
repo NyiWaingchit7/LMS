@@ -6,15 +6,16 @@ import {
   store,
   update,
 } from "../controller/user.controller";
+import { checkauth } from "../../utils/auth";
 
 export const userRouter = express.Router();
 
-userRouter.get("/", index);
+userRouter.get("/", checkauth, index);
 
-userRouter.get("/:id", show);
+userRouter.get("/:id", checkauth, show);
 
-userRouter.post("/", store);
+userRouter.post("/", checkauth, store);
 
-userRouter.put("/:id", update);
+userRouter.put("/:id", checkauth, update);
 
-userRouter.delete("/:id", destroy);
+userRouter.delete("/:id", checkauth, destroy);

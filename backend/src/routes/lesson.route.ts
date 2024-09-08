@@ -6,15 +6,16 @@ import {
   store,
   update,
 } from "../controller/lesson.controller";
+import { checkauth } from "../../utils/auth";
 
 export const lessonRouter = express.Router();
 
-lessonRouter.get("/", index);
+lessonRouter.get("/", checkauth, index);
 
-lessonRouter.get("/:id", show);
+lessonRouter.get("/:id", checkauth, show);
 
-lessonRouter.post("/", store);
+lessonRouter.post("/", checkauth, store);
 
-lessonRouter.put("/:id", update);
+lessonRouter.put("/:id", checkauth, update);
 
-lessonRouter.delete("/:id", destroy);
+lessonRouter.delete("/:id", checkauth, destroy);
