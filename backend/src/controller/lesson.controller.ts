@@ -24,7 +24,8 @@ export const store = async (req: Request, res: Response) => {
   const { title, description, content, assetImage, assetVideo } = req.body;
   try {
     const isvalid = title && description;
-    if (!isvalid) return res.status(400).json({ message: "Bad request!" });
+    if (!isvalid)
+      return res.status(400).json({ message: "All fields are required!" });
     const lesson = await prisma.lesson.create({
       data: { title, description, content, assetImage, assetVideo },
     });
@@ -46,7 +47,8 @@ export const update = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "The lesson can not be found!" });
 
     const isvalid = title && description;
-    if (!isvalid) return res.status(400).json({ message: "Bad request!" });
+    if (!isvalid)
+      return res.status(400).json({ message: "All fields are required!" });
 
     const lesson = await prisma.lesson.update({
       where: { id },

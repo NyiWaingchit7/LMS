@@ -11,7 +11,8 @@ export const store = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   try {
     const isValid = username && email && password;
-    if (!isValid) return res.status(400).json({ message: "bad request" });
+    if (!isValid)
+      return res.status(400).json({ message: "All fields are required" });
     const hashPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
       data: { username, email, password: hashPassword },
@@ -39,7 +40,8 @@ export const update = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   try {
     const isValid = username && email;
-    if (!isValid) return res.status(400).json({ message: "bad request" });
+    if (!isValid)
+      return res.status(400).json({ message: "All fields are required" });
 
     const exist = await prisma.user.findFirst({ where: { id } });
     if (!exist)

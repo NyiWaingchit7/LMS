@@ -38,18 +38,18 @@ model Lecture {
   title             String
   description       String
   deleted           Boolean             @default(false)
+  isPremium         Boolean             @default(false)
   LectureonCategory LectureonCategory[]
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt
 }
 
 model LectureonCategory {
+  id         Int      @id @default(autoincrement())
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
   lecture    Lecture  @relation(fields: [lectureId], references: [id])
   lectureId  Int
-
-  @@id([categoryId, lectureId])
 }
 
 model Lesson {

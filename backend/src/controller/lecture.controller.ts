@@ -21,16 +21,25 @@ export const show = async (req: Request, res: Response) => {
 };
 
 export const store = async (req: Request, res: Response) => {
-  const { title, description } = req.body;
+  const { title, description, isPremium, categories } = req.body;
   try {
-    const isvalid = title && description;
-    if (!isvalid) return res.status(400).json({ message: "Bad request!" });
+    const isvalid = title && description && categories.length > 1;
+    if (!isvalid)
+      return res.status(400).json({ message: "All fields are required!" });
 
     const lecture = await prisma.lecture.create({
-      data: { title, description },
+      data: { title, description, isPremium },
     });
 
-    return res.status(200).json({ lecture });
+    const data = await prisma.$transaction(
+      categories.map((d: number) =>
+        prisma.lectureonCategory.create({
+          data: { lectureId: lecture.id, categoryId: d },
+        })
+      )
+    );
+
+    return res.status(200).json({ lecture, data });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -38,7 +47,7 @@ export const store = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const { title, description } = req.body;
+  const { title, description, isPremium, categories } = req.body;
   try {
     const exist = await prisma.lecture.findFirst({
       where: { id, deleted: false },
@@ -47,14 +56,25 @@ export const update = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "The lecture can not be found!" });
 
     const isvalid = title && description;
-    if (!isvalid) return res.status(400).json({ message: "Bad request!" });
+    if (!isvalid)
+      return res.status(400).json({ message: "All fields are required!" });
 
     const lecture = await prisma.lecture.update({
       where: { id },
-      data: { title, description },
+      data: { title, description, isPremium },
     });
 
-    return res.status(200).json({ lecture });
+    await prisma.lectureonCategory.deleteMany({ where: { lectureId: id } });
+
+    const data = await prisma.$transaction(
+      categories.map((d: number) =>
+        prisma.lectureonCategory.create({
+          data: { lectureId: lecture.id, categoryId: d },
+        })
+      )
+    );
+
+    return res.status(200).json({ lecture, data });
   } catch (error) {
     res.status(500).json({ error });
   }
