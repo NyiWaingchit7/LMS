@@ -42,6 +42,7 @@ model Lecture {
   LectureonCategory LectureonCategory[]
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt
+  Lesson            Lesson[]
 }
 
 model LectureonCategory {
@@ -59,7 +60,42 @@ model Lesson {
   content     String?
   assetImage  String?
   assetVideo  String?
+  lecture     Lecture  @relation(fields: [lectureId], references: [id])
+  lectureId   Int
   deleted     Boolean  @default(false)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+}
+
+model Student {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  password   String
+  assetUrl   String?
+  phone      String?
+  deleted    Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model PaymentBank {
+  id             Int              @id @default(autoincrement())
+  name           String
+  asserUrl       String
+  deleted        Boolean          @default(false)
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  PaymentAccount PaymentAccount[]
+}
+
+model PaymentAccount {
+  id              Int         @id @default(autoincrement())
+  name            String
+  phone_number    String
+  payment_bank    PaymentBank @relation(fields: [payment_bank_id], references: [id])
+  payment_bank_id Int
+  deleted         Boolean     @default(false)
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt
 }

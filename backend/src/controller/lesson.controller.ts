@@ -21,13 +21,14 @@ export const show = async (req: Request, res: Response) => {
 };
 
 export const store = async (req: Request, res: Response) => {
-  const { title, description, content, assetImage, assetVideo } = req.body;
+  const { title, description, content, assetImage, assetVideo, lectureId } =
+    req.body;
   try {
-    const isvalid = title && description;
+    const isvalid = title && description && lectureId;
     if (!isvalid)
       return res.status(400).json({ message: "All fields are required!" });
     const lesson = await prisma.lesson.create({
-      data: { title, description, content, assetImage, assetVideo },
+      data: { title, description, content, assetImage, assetVideo, lectureId },
     });
 
     return res.status(200).json({ lesson });
@@ -38,7 +39,8 @@ export const store = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const { title, description, content, assetImage, assetVideo } = req.body;
+  const { title, description, content, assetImage, assetVideo, lectureId } =
+    req.body;
   try {
     const exist = await prisma.lesson.findFirst({
       where: { id, deleted: false },
@@ -46,13 +48,13 @@ export const update = async (req: Request, res: Response) => {
     if (!exist)
       return res.status(400).json({ message: "The lesson can not be found!" });
 
-    const isvalid = title && description;
+    const isvalid = title && description && lectureId;
     if (!isvalid)
       return res.status(400).json({ message: "All fields are required!" });
 
     const lesson = await prisma.lesson.update({
       where: { id },
-      data: { title, description, content, assetImage, assetVideo },
+      data: { title, description, content, assetImage, assetVideo, lectureId },
     });
 
     return res.status(200).json({ lesson });

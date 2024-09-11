@@ -1,4 +1,5 @@
 import express from "express";
-import { index } from "../controller/app.controller";
+import { index, login } from "../controller/app.controller";
 export const appRouter = express.Router();
-appRouter.get("/login", index);
+appRouter.get("/", index);
+appRouter.post("/log-in", login);

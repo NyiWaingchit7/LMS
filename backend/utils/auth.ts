@@ -8,9 +8,11 @@ export const checkauth = (req: Request, res: Response, next: NextFunction) => {
 
   if (!authorization) return res.status(401).json({ message: "unauthorize!" });
   try {
-    const accessToken = authorization.split("")[1];
+    const accessToken = authorization.split(" ")[1];
     const validate = jwt.verify(accessToken, config.jwtSecret);
+
     if (!validate) return res.status(401).json({ message: "unauthorize!" });
+    next();
   } catch (error) {
     return res.status(500).json({ error });
   }
