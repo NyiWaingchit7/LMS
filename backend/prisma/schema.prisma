@@ -82,7 +82,7 @@ model Student {
 model PaymentBank {
   id             Int              @id @default(autoincrement())
   name           String
-  asserUrl       String
+  assetUrl       String?
   deleted        Boolean          @default(false)
   created_at     DateTime         @default(now())
   updated_at     DateTime         @updatedAt
