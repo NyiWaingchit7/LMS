@@ -43,6 +43,7 @@ model Lecture {
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt
   Lesson            Lesson[]
+  Purchase          Purchase[]
 }
 
 model LectureonCategory {
@@ -68,15 +69,16 @@ model Lesson {
 }
 
 model Student {
-  id         Int      @id @default(autoincrement())
+  id         Int        @id @default(autoincrement())
   name       String
   email      String
   password   String
   assetUrl   String?
   phone      String?
-  deleted    Boolean  @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  deleted    Boolean    @default(false)
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  Purchase   Purchase[]
 }
 
 model PaymentBank {
@@ -98,4 +100,23 @@ model PaymentAccount {
   deleted         Boolean     @default(false)
   created_at      DateTime    @default(now())
   updated_at      DateTime    @updatedAt
+}
+
+model Purchase {
+  id               Int      @id @default(autoincrement())
+  lecture          Lecture  @relation(fields: [lectureId], references: [id])
+  lectureId        Int
+  student          Student  @relation(fields: [studentId], references: [id])
+  studentId        Int
+  payment_assetUrl String
+  payment_status   Status   @default(PENDING)
+  deleted          Boolean  @default(false)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+}
+
+enum Status {
+  PENDING
+  CONFIRMED
+  CANCELLED
 }

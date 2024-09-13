@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 export const index = async (req: Request, res: Response) => {
   const paymentAccounts = await prisma.paymentAccount.findMany({
     where: { deleted: false },
+    include: { payment_bank: true },
   });
   return res.status(200).json({ paymentAccounts });
 };
@@ -14,6 +15,7 @@ export const show = async (req: Request, res: Response) => {
   try {
     const paymentAccount = await prisma.paymentAccount.findFirst({
       where: { id, deleted: false },
+      include: { payment_bank: true },
     });
     if (!paymentAccount)
       return res
@@ -33,6 +35,7 @@ export const store = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "All fields are required!" });
     const paymentAccount = await prisma.paymentAccount.create({
       data: { name, phone_number, payment_bank_id },
+      include: { payment_bank: true },
     });
 
     return res.status(200).json({ paymentAccount });
@@ -60,6 +63,7 @@ export const update = async (req: Request, res: Response) => {
     const paymentAccount = await prisma.paymentAccount.update({
       where: { id },
       data: { name, phone_number, payment_bank_id },
+      include: { payment_bank: true },
     });
 
     return res.status(200).json({ paymentAccount });

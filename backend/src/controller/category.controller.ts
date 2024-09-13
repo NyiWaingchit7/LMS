@@ -4,6 +4,7 @@ import { prisma } from "../../utils/db";
 export const index = async (req: Request, res: Response) => {
   const categories = await prisma.category.findMany({
     where: { deleted: false },
+    include: { LectureonCategory: { include: { lecture: true } } },
   });
   return res.status(200).json({ categories });
 };
@@ -14,7 +15,10 @@ export const store = async (req: Request, res: Response) => {
     if (!name)
       return res.status(400).json({ message: "All fields are required" });
 
-    const category = await prisma.category.create({ data: { name, assetUrl } });
+    const category = await prisma.category.create({
+      data: { name, assetUrl },
+      include: { LectureonCategory: { include: { lecture: true } } },
+    });
 
     return res.status(200).json({ category });
   } catch (error) {
@@ -27,6 +31,7 @@ export const show = async (req: Request, res: Response) => {
   try {
     const category = await prisma.category.findFirst({
       where: { id, deleted: false },
+      include: { LectureonCategory: { include: { lecture: true } } },
     });
     if (!category)
       return res
@@ -53,6 +58,7 @@ export const update = async (req: Request, res: Response) => {
     const category = await prisma.category.update({
       where: { id },
       data: { name, assetUrl },
+      include: { LectureonCategory: { include: { lecture: true } } },
     });
 
     return res.status(200).json({ category });

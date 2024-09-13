@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 export const index = async (req: Request, res: Response) => {
   const paymentBanks = await prisma.paymentBank.findMany({
     where: { deleted: false },
+    include: { PaymentAccount: true },
   });
   return res.status(200).json({ paymentBanks });
 };
@@ -14,6 +15,7 @@ export const show = async (req: Request, res: Response) => {
   try {
     const paymentBank = await prisma.paymentBank.findFirst({
       where: { id, deleted: false },
+      include: { PaymentAccount: true },
     });
     if (!paymentBank)
       return res

@@ -4,6 +4,8 @@ import { checkauth } from "../../utils/auth";
 import {
   destroy,
   index,
+  login,
+  register,
   show,
   store,
   update,
@@ -14,6 +16,10 @@ export const studentRouter = express.Router();
 studentRouter.get("/", checkauth, index);
 
 studentRouter.get("/:id", checkauth, show);
+
+studentRouter.post("/register", register);
+
+studentRouter.post("/login", login);
 
 studentRouter.post("/", checkauth, store);
 

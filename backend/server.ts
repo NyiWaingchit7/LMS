@@ -18,13 +18,13 @@ app.use(express.json());
 
 const port = 4000;
 
-app.use("/api/v1/auth", appRouter);
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/categories", categoryRouter);
-app.use("/api/v1/lectures", lectureRouter);
-app.use("/api/v1/lessons", lessonRouter);
-app.use("/api/v1/students", studentRouter);
-app.use("/api/v1/payment-banks", paymentBankRouter);
-app.use("/api/v1/payment-account", paymentAccountRouter);
+app.use("/api/v1/admin/auth", appRouter);
+app.use("/api/v1/admin/users", userRouter);
+app.use("/api/v1/admin/categories", categoryRouter);
+app.use("/api/v1/admin/lectures", lectureRouter);
+app.use("/api/v1/admin/lessons", lessonRouter);
+app.use("/api/v1/admin/students", studentRouter);
+app.use("/api/v1/admin/payment-banks", paymentBankRouter);
+app.use("/api/v1/admin/payment-accounts", paymentAccountRouter);
 
 app.listen(port, () => console.log(`server is runnig at ${port}`));
