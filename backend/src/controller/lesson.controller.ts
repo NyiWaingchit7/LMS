@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 
 export const index = async (req: Request, res: Response) => {
-  const lessons = await prisma.lesson.findMany({ where: { deleted: false } });
+  const lessons = await prisma.lesson.findMany({
+    where: { deleted: false },
+    include: { lecture: true },
+  });
   return res.status(200).json({ lessons });
 };
 
@@ -10,6 +13,7 @@ export const show = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   try {
     const lesson = await prisma.lesson.findFirst({
+      include: { lecture: true },
       where: { id, deleted: false },
     });
     if (!lesson)
@@ -55,6 +59,7 @@ export const update = async (req: Request, res: Response) => {
     const lesson = await prisma.lesson.update({
       where: { id },
       data: { title, description, content, assetImage, assetVideo, lectureId },
+      include: { lecture: true },
     });
 
     return res.status(200).json({ lesson });

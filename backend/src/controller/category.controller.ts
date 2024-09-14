@@ -75,6 +75,8 @@ export const destroy = async (req: Request, res: Response) => {
       return res
         .status(400)
         .json({ message: "This category can not be found" });
+    await prisma.lectureonCategory.deleteMany({ where: { categoryId: id } });
+
     await prisma.category.update({ where: { id }, data: { deleted: true } });
     return res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {

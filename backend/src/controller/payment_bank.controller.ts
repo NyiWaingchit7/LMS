@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 export const index = async (req: Request, res: Response) => {
   const paymentBanks = await prisma.paymentBank.findMany({
     where: { deleted: false },
-    include: { PaymentAccount: true },
+    include: { PaymentAccount: { where: { deleted: false } } },
   });
   return res.status(200).json({ paymentBanks });
 };
@@ -15,7 +15,7 @@ export const show = async (req: Request, res: Response) => {
   try {
     const paymentBank = await prisma.paymentBank.findFirst({
       where: { id, deleted: false },
-      include: { PaymentAccount: true },
+      include: { PaymentAccount: { where: { deleted: false } } },
     });
     if (!paymentBank)
       return res
@@ -60,6 +60,7 @@ export const update = async (req: Request, res: Response) => {
     const paymentBank = await prisma.paymentBank.update({
       where: { id },
       data: { name, assetUrl },
+      include: { PaymentAccount: { where: { deleted: false } } },
     });
 
     return res.status(200).json({ paymentBank });
