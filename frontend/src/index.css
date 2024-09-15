@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+@layer base {
+  body {
+    @apply bg-whiten text-black;
+  }
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+header {
+  position: sticky !important;
+  top: 0px;
+}
