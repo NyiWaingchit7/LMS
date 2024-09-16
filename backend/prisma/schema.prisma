@@ -37,8 +37,10 @@ model Lecture {
   id                Int                 @id @default(autoincrement())
   title             String
   description       String
-  deleted           Boolean             @default(false)
   isPremium         Boolean             @default(false)
+  price             Int                 @default(0)
+  discount_price    Int                 @default(0)
+  deleted           Boolean             @default(false)
   LectureonCategory LectureonCategory[]
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt

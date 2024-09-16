@@ -11,7 +11,7 @@ export const Layout = ({ children }: Prop) => {
       <SideBar />
       <div className="relative flex flex-1 flex-col ">
         <TopBar />
-        <div className="min-h-screen -z-[9999] relative mx-auto overflow-y-auto p-4 md:p-6 xl:p-10">
+        <div className="min-h-screen relative mx-auto overflow-y-auto p-4 md:p-6 xl:p-10">
           {children}
         </div>
       </div>
