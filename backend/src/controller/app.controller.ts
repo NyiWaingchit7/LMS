@@ -19,14 +19,14 @@ export const login = async (req: Request, res: Response) => {
     const user = await prisma.user.findFirst({ where: { email } });
     if (!user)
       return res
-        .status(404)
+        .status(400)
         .json({ message: "There is no user with this email" });
 
     const passwordValidate = await bcrypt.compare(password, user.password);
     if (!passwordValidate)
       return res.status(400).json({ message: "Wrong password" });
     const token = jwt.sign(user, config.jwtSecret);
-    return res.status(200).json({ token });
+    return res.status(200).json({ token, user });
   } catch (error) {
     return res.status(500).json({ error });
   }
