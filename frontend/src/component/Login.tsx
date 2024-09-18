@@ -2,6 +2,10 @@ import { Box, Button, TextField } from "@mui/material";
 import { InputLabel } from "./InputLabel";
 import { useState } from "react";
 import { config } from "../utils/config";
+import { useAppDispatch } from "../store/hooks";
+import { handleLogin } from "../store/slice/authSlice";
+import { errorHelper } from "../utils/errorHelper";
+import { Navigate, useNavigate } from "react-router-dom";
 interface DefaultForm {
   email: string;
   password: string;
@@ -13,11 +17,16 @@ const defaultForm: DefaultForm = {
 export const LogIn = () => {
   const [loginForm, setForm] = useState<DefaultForm>(defaultForm);
   const url = config.apiUrl;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log(url);
+  const onSuccess = () => {
+    console.log("success");
+    navigate("/");
+  };
 
-    console.log(loginForm);
+  const handleSubmit = () => {
+    dispatch(handleLogin({ ...loginForm, onSuccess, onError: errorHelper }));
   };
 
   return (
@@ -52,7 +61,7 @@ export const LogIn = () => {
             />
           </Box>
           <Box className="flex justify-end">
-            <Button variant="contained" color="primary" onClick={handleLogin}>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
               Log in
             </Button>
           </Box>
