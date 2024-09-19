@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export const TopBar = () => {
   const navigate = useNavigate();
   return (
-    <header className="sticky top-0 z-10 overflow-y-hidden bg-white px-5 py-4 flex justify-end shadow-lg ">
+    <header className="sticky top-0 z-10  bg-white px-5 py-4 flex justify-end shadow-lg ">
       <Button
         variant="contained"
         sx={{ fontSize: "12px", textTransform: "capitalize" }}

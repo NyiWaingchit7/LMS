@@ -3,7 +3,7 @@ interface Props {
 }
 export const InputLabel = ({ label }: Props) => {
   return (
-    <label htmlFor={label} className="capitalize">
+    <label htmlFor={label} className="block capitalize font-medium mb-2">
       {label}
     </label>
   );

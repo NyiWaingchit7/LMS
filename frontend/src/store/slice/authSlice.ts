@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginOption, LoginSlice } from "../../types/auth";
 import { config } from "../../utils/config";
+import { errorHelper } from "../../utils/errorHelper";
 
 const initialState: LoginSlice = {
   items: [],
@@ -11,7 +12,7 @@ const initialState: LoginSlice = {
 export const handleLogin = createAsyncThunk(
   "login/user",
   async (option: LoginOption, thunkApi) => {
-    const { email, password, onSuccess, onError } = option;
+    const { email, password, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/auth/log-in`, {
         method: "POST",
@@ -27,7 +28,7 @@ export const handleLogin = createAsyncThunk(
       localStorage.setItem("accessToken", data.token);
       onSuccess && onSuccess();
     } catch (error: any) {
-      onError && onError(error.message);
+      errorHelper(error.message);
     }
   }
 );

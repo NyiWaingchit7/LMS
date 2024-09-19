@@ -7,13 +7,15 @@ interface Prop {
 
 export const Layout = ({ children }: Prop) => {
   return (
-    <div className="relative flex">
+    <div className="flex h-screen overflow-hidden">
       <SideBar />
-      <div className="relative flex flex-1 flex-col ">
+      <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         <TopBar />
-        <div className="min-h-screen relative mx-auto overflow-y-auto p-4 md:p-6 xl:p-10">
-          {children}
-        </div>
+        <main className="min-h-full">
+          <div className="min-h-full mx-auto max-w-screen-xl p-4 md:p-6 2xl:p-10">
+            <slot className="min-h-full">{children}</slot>
+          </div>
+        </main>
       </div>
     </div>
   );

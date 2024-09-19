@@ -16,7 +16,6 @@ const defaultForm: DefaultForm = {
 };
 export const LogIn = () => {
   const [loginForm, setForm] = useState<DefaultForm>(defaultForm);
-  const url = config.apiUrl;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -35,10 +34,11 @@ export const LogIn = () => {
         <Box>
           <img src="./logo.png" className="w-20" alt="" />
         </Box>
-        <Box className="flex flex-col gap-4 bg-white px-5 py-5 rounded-lg shadow-lg ">
-          <Box className="flex flex-col gap-2">
+        <Box className=" bg-white px-5 py-5 rounded-lg shadow-lg ">
+          <Box className="mb-5">
             <InputLabel label={"email"} />
             <TextField
+              size="small"
               id="email"
               autoComplete="off"
               type="email"
@@ -48,9 +48,10 @@ export const LogIn = () => {
               }}
             />
           </Box>
-          <Box className="flex flex-col gap-2">
+          <Box>
             <InputLabel label={"password"} />
             <TextField
+              size="small"
               id="password"
               autoComplete="off"
               type="password"
