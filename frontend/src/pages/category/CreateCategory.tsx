@@ -4,7 +4,7 @@ import { Form } from "./Partials/Form";
 
 export const CreateCategory = () => {
   return (
-    <Layout>
+    <Layout title="Add Category">
       <HeadLine header="Add Category" />
       <Form />
     </Layout>

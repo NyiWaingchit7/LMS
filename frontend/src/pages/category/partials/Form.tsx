@@ -52,7 +52,14 @@ export const Form = ({ category }: Props) => {
         />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
-        <Button size="small" variant="outlined" color="secondary">
+        <Button
+          size="small"
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            navigate("/category");
+          }}
+        >
           Back
         </Button>
         <Button size="small" variant="contained" onClick={handleSubmit}>

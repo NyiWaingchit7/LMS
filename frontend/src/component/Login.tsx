@@ -1,11 +1,10 @@
 import { Box, Button, TextField } from "@mui/material";
 import { InputLabel } from "./InputLabel";
 import { useState } from "react";
-import { config } from "../utils/config";
 import { useAppDispatch } from "../store/hooks";
 import { handleLogin } from "../store/slice/authSlice";
 import { errorHelper } from "../utils/errorHelper";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 interface DefaultForm {
   email: string;
   password: string;
@@ -61,7 +60,7 @@ export const LogIn = () => {
               }
             />
           </Box>
-          <Box className="flex justify-end">
+          <Box className="flex justify-end mt-5">
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               Log in
             </Button>
