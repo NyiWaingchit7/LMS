@@ -1,5 +1,4 @@
 import {
-  Box,
   Paper,
   Table,
   TableBody,
@@ -33,7 +32,7 @@ export const ListTable = ({ data }: Props) => {
     );
   };
   return (
-    <TableContainer component={Paper} className="mt-5">
+    <TableContainer component={Paper} className="mt-5 capitalize">
       <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
@@ -65,9 +64,14 @@ export const ListTable = ({ data }: Props) => {
               </TableRow>
             ))
           ) : (
-            <TableCell sx={{ textAlign: "center", width: "100%" }}>
-              No data found
-            </TableCell>
+            <TableRow>
+              <TableCell
+                colSpan={3}
+                sx={{ textAlign: "center", width: "100%" }}
+              >
+                No data found
+              </TableCell>
+            </TableRow>
           )}
         </TableBody>
       </Table>

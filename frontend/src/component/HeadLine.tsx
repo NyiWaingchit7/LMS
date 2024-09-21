@@ -8,7 +8,7 @@ export const HeadLine = ({ header }: Props) => {
     <div className="flex justify-between items-center my-5">
       <h3 className="text-3xl font-semibold">{header}</h3>
       <div className="flex items-center gap-2 font-semibold">
-        <Link to={"/"} className="">
+        <Link to={"/"} className="text-primary">
           Home /
         </Link>
         <div>{header}</div>

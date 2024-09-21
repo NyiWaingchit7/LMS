@@ -23,7 +23,7 @@ export const ShowCategory = () => {
       <HeadLine header="Show Category" />
       <Paper className="px-5 py-5">
         <h3 className="font-bold my-3">Show Category</h3>
-        <table className="w-full text-left">
+        <table className="w-full text-left capitalize">
           <tbody>
             <tr>
               <th className="px-2 py-3 " scope="col">

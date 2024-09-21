@@ -6,6 +6,8 @@ import { Category } from "../pages/category/Category";
 import { CreateCategory } from "../pages/category/CreateCategory";
 import { EditCategory } from "../pages/category/EditCategory";
 import { ShowCategory } from "../pages/category/ShowCategory";
+import { Lecture } from "../pages/lecture/Lecture";
+import { CreateLecture } from "../pages/lecture/CreateLecture";
 
 export const Router = () => {
   return (
@@ -17,6 +19,8 @@ export const Router = () => {
           <Route path="/categories/:id" Component={ShowCategory} />
           <Route path="/categories/create" Component={CreateCategory} />
           <Route path="/categories/:id/edit" Component={EditCategory} />
+          <Route path="/lectures" Component={Lecture} />
+          <Route path="/lectures/create" Component={CreateLecture} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>

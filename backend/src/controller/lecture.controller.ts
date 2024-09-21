@@ -34,7 +34,7 @@ export const store = async (req: Request, res: Response) => {
   const { title, description, isPremium, categories, price, discount_price } =
     req.body;
   try {
-    const isvalid = title && description && price && categories.length >= 1;
+    const isvalid = title && description && categories.length >= 1;
     if (!isvalid)
       return res.status(400).json({ message: "All fields are required!" });
 
@@ -67,7 +67,7 @@ export const update = async (req: Request, res: Response) => {
     if (!exist)
       return res.status(400).json({ message: "The lecture can not be found!" });
 
-    const isvalid = title && description && price && categories.length >= 1;
+    const isvalid = title && description && categories.length >= 1;
     if (!isvalid)
       return res.status(400).json({ message: "All fields are required!" });
 
