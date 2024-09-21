@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Paper, TextField } from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
 import { useEffect, useState } from "react";
 import { Category } from "../../../types/category";
@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../../store/hooks";
 import {
   handleCreateCategory,
   handleGetCategory,
+  handleUpdateCategory,
 } from "../../../store/slice/categorySlice";
 import { useNavigate } from "react-router-dom";
 
@@ -25,20 +26,31 @@ export const Form = ({ category }: Props) => {
 
   const onSuccess = () => {
     dispatch(handleGetCategory());
-    navigate("/category");
+    navigate("/categories");
   };
 
   const handleSubmit = () => {
     dispatch(handleCreateCategory({ ...sumbitForm, onSuccess }));
   };
+
+  const handleUpdate = () => {
+    dispatch(
+      handleUpdateCategory({
+        id: category?.id as number,
+        ...sumbitForm,
+        onSuccess: () => {
+          alert("update success");
+        },
+      })
+    );
+  };
   useEffect(() => {
     if (category) {
-      defaultForm.name = category.name || "";
-      defaultForm.assetUrl = category.assetUrl || "";
+      setForm(category);
     }
   }, [category]);
   return (
-    <div className="px-5 py-3 bg-white rounded-lg shadow-lg mt-5">
+    <Paper className="px-5 py-3 mt-5">
       <div>
         <InputLabel label="name" />
         <TextField
@@ -48,6 +60,7 @@ export const Form = ({ category }: Props) => {
           fullWidth
           required
           autoComplete="off"
+          value={sumbitForm.name}
           onChange={(e) => setForm({ ...sumbitForm, name: e.target.value })}
         />
       </div>
@@ -57,15 +70,21 @@ export const Form = ({ category }: Props) => {
           variant="outlined"
           color="secondary"
           onClick={() => {
-            navigate("/category");
+            navigate("/categories");
           }}
         >
           Back
         </Button>
-        <Button size="small" variant="contained" onClick={handleSubmit}>
-          Sumbit
+        <Button
+          size="small"
+          variant="contained"
+          onClick={() => {
+            category ? handleUpdate() : handleSubmit();
+          }}
+        >
+          {category ? "Update" : "Submit"}
         </Button>
       </div>
-    </div>
+    </Paper>
   );
 };

@@ -12,7 +12,7 @@ export const Layout = ({ children, title }: Prop) => {
   return (
     <div>
       <Helmet>
-        <title>{title || "LMS"}</title>
+        <title>{`${title} - LMS`}</title>
       </Helmet>
       <div className="flex h-screen overflow-hidden">
         <SideBar />

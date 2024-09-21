@@ -10,6 +10,11 @@ import { config } from "../../utils/config";
 import { headerOptions } from "../../utils/requestOption";
 const initialState: CategorySlice = {
   items: [],
+  data: {
+    id: undefined,
+    name: "",
+    assetUrl: "",
+  },
   isLoading: false,
   error: null,
 };
@@ -30,6 +35,25 @@ export const handleGetCategory = createAsyncThunk(
       }
 
       thunkApi.dispatch(setCategory(data.categories));
+    } catch (error: any) {
+      errorHelper(error.message);
+    }
+  }
+);
+export const handleShowCategory = createAsyncThunk(
+  "show/category",
+  async (id: number, thunkApi) => {
+    try {
+      const response = await fetch(`${config.apiUrl}/categories/${id}`, {
+        method: "GET",
+        headers: headerOptions,
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      thunkApi.dispatch(setData(data.category));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -106,8 +130,11 @@ export const categorySlice = createSlice({
     setCategory: (state, action) => {
       state.items = action.payload;
     },
+    setData: (state, action) => {
+      state.data = action.payload;
+    },
   },
 });
 
-export const { setCategory } = categorySlice.actions;
+export const { setCategory, setData } = categorySlice.actions;
 export default categorySlice.reducer;

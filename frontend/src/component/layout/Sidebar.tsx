@@ -40,7 +40,7 @@ export const sidebrItems = [
   {
     name: "Category",
     icon: <CategoryIcon />,
-    path: "category",
+    path: "categories",
   },
   {
     name: "Lectures",

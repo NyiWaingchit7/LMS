@@ -8,6 +8,7 @@ export interface Category {
 
 export interface CategorySlice {
   items: Category[];
+  data: Category;
   isLoading: boolean;
   error: Error | null;
 }

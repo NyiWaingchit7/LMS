@@ -4,6 +4,7 @@ import { prisma } from "../../utils/db";
 export const index = async (req: Request, res: Response) => {
   const categories = await prisma.category.findMany({
     where: { deleted: false },
+    orderBy: { id: "desc" },
     include: { LectureonCategory: { include: { lecture: true } } },
   });
   return res.status(200).json({ categories });
