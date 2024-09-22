@@ -1,4 +1,5 @@
 import { BaseOption } from "./auth";
+import { Category } from "./category";
 
 export interface Lecture {
   id?: number;
@@ -8,7 +9,7 @@ export interface Lecture {
   isPremium?: boolean;
   discount_price?: number;
   assetUrl?: string;
-  categories: number[];
+  categories: Category[];
 }
 
 export interface LectureSlice {

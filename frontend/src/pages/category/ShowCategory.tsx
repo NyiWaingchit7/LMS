@@ -19,10 +19,10 @@ export const ShowCategory = () => {
   }, [id]);
 
   return (
-    <Layout title="Show Category">
-      <HeadLine header="Show Category" />
+    <Layout title="Category Details">
+      <HeadLine header="Category Details" />
       <Paper className="px-5 py-5">
-        <h3 className="font-bold my-3">Show Category</h3>
+        <h3 className="font-bold my-3">Category Details</h3>
         <table className="w-full text-left capitalize">
           <tbody>
             <tr>
@@ -45,7 +45,7 @@ export const ShowCategory = () => {
             </tr>
           </tbody>
         </table>
-        <div>
+        <div className="mt-5">
           <Button
             variant="contained"
             color="secondary"

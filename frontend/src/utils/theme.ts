@@ -10,8 +10,5 @@ export const theme = createTheme({
     info: {
       main: "#FFFFFF",
     },
-    success: {
-      main: "#1B9C85",
-    },
   },
 });

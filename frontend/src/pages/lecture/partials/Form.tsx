@@ -46,6 +46,7 @@ const options = [
 ];
 export const Form = ({ lecture, categories }: Props) => {
   const [sumbitForm, setForm] = useState<Lecture>(defaultForm);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -56,7 +57,9 @@ export const Form = ({ lecture, categories }: Props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(handleCreateLecture({ ...sumbitForm, onSuccess }));
+    dispatch(
+      handleCreateLecture({ ...sumbitForm, categories: selectedIds, onSuccess })
+    );
   };
 
   const handleUpdate = () => {
@@ -64,6 +67,7 @@ export const Form = ({ lecture, categories }: Props) => {
       handleUpdateLecture({
         id: lecture?.id as number,
         ...sumbitForm,
+        categories: selectedIds,
         onSuccess: () => {
           alert("update success");
         },
@@ -73,6 +77,10 @@ export const Form = ({ lecture, categories }: Props) => {
   useEffect(() => {
     if (lecture) {
       setForm(lecture);
+      setSelectedIds(
+        (lecture.categories as Category[]).map((d) => d.id) as number[]
+      );
+      console.log(sumbitForm), lecture;
     }
   }, [lecture]);
   return (
@@ -86,7 +94,7 @@ export const Form = ({ lecture, categories }: Props) => {
           fullWidth
           required
           autoComplete="off"
-          defaultValue={sumbitForm.title}
+          value={sumbitForm.title}
           onChange={(e) => setForm({ ...sumbitForm, title: e.target.value })}
         />
       </div>
@@ -96,12 +104,9 @@ export const Form = ({ lecture, categories }: Props) => {
           <Select
             size="small"
             multiple
-            value={sumbitForm.categories}
+            value={selectedIds || []}
             onChange={(e) => {
-              setForm({
-                ...sumbitForm,
-                categories: e.target.value as number[],
-              });
+              setSelectedIds(e.target.value as number[]);
             }}
             renderValue={(ids) => {
               return ids
@@ -119,11 +124,9 @@ export const Form = ({ lecture, categories }: Props) => {
               },
             }}
           >
-            {categories.map((item) => (
+            {categories.map((item: Category) => (
               <MenuItem value={item.id} key={item.id}>
-                <Checkbox
-                  checked={sumbitForm?.categories.includes(item.id as number)}
-                />
+                <Checkbox checked={selectedIds.includes(item.id as number)} />
                 <ListItemText primary={item.name} />
               </MenuItem>
             ))}
@@ -139,7 +142,7 @@ export const Form = ({ lecture, categories }: Props) => {
           fullWidth
           required
           autoComplete="off"
-          defaultValue={sumbitForm.description}
+          value={sumbitForm.description}
           onChange={(e) =>
             setForm({ ...sumbitForm, description: e.target.value })
           }
@@ -154,10 +157,13 @@ export const Form = ({ lecture, categories }: Props) => {
           fullWidth
           required
           autoComplete="off"
-          defaultValue={sumbitForm.price ?? ""}
-          onChange={(e) =>
-            setForm({ ...sumbitForm, price: Number(e.target.defaultValue) })
-          }
+          value={sumbitForm.price ?? ""}
+          onChange={(e) => {
+            setForm({
+              ...sumbitForm,
+              price: e.target.value === "" ? undefined : Number(e.target.value),
+            });
+          }}
         />
       </div>
       <div className="mt-5">
@@ -169,9 +175,13 @@ export const Form = ({ lecture, categories }: Props) => {
           fullWidth
           required
           autoComplete="off"
-          defaultValue={sumbitForm.discount_price ?? ""}
+          value={sumbitForm.discount_price ?? ""}
           onChange={(e) =>
-            setForm({ ...sumbitForm, discount_price: Number(e.target.value) })
+            setForm({
+              ...sumbitForm,
+              discount_price:
+                e.target.value === "" ? undefined : Number(e.target.value),
+            })
           }
         />
       </div>

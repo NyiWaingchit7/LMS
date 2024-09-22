@@ -2,28 +2,38 @@ import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 
 export const index = async (req: Request, res: Response) => {
-  const lectures = await prisma.lecture.findMany({
+  const data = await prisma.lecture.findMany({
     where: { deleted: false },
+    orderBy: { id: "desc" },
     include: {
       LectureonCategory: { include: { category: true } },
       Lesson: { where: { deleted: false } },
     },
   });
-  return res.status(200).json({ lectures });
+  const lectures = data.map((lecture) => ({
+    ...lecture,
+    categories: lecture.LectureonCategory.map((lc) => lc.category),
+  }));
+  return res.status(200).json({ lectures: lectures });
 };
 
 export const show = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   try {
-    const lecture = await prisma.lecture.findFirst({
+    const data = await prisma.lecture.findFirst({
       where: { id, deleted: false },
+
       include: {
         LectureonCategory: { include: { category: true } },
         Lesson: { where: { deleted: false } },
       },
     });
-    if (!lecture)
+    if (!data)
       return res.status(400).json({ message: "The lecture can not be found!" });
+    const lecture = {
+      ...data,
+      categories: data.LectureonCategory.map((lc) => lc.category),
+    };
     return res.status(200).json({ lecture });
   } catch (error) {
     res.status(500).json({ error });
@@ -73,10 +83,12 @@ export const update = async (req: Request, res: Response) => {
 
     const lecture = await prisma.lecture.update({
       where: { id },
-      data: { title, description, isPremium, price, discount_price },
-      include: {
-        LectureonCategory: { include: { category: true } },
-        Lesson: { where: { deleted: false } },
+      data: {
+        title,
+        description,
+        isPremium,
+        price,
+        discount_price: discount_price ?? 0,
       },
     });
 

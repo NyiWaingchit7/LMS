@@ -142,7 +142,7 @@ export const handleUpdateLecture = createAsyncThunk(
   }
 );
 
-export const handleDeletCategory = createAsyncThunk(
+export const handleDeleteLecture = createAsyncThunk(
   "delete/lecture",
   async (option: DeleteLecture, thunkApi) => {
     const { id, onSuccess } = option;
