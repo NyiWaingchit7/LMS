@@ -10,6 +10,6 @@ createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <Router />
-    </ThemeProvider>{" "}
+    </ThemeProvider>
   </Provider>
 );

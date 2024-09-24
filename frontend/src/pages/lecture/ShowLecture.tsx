@@ -91,7 +91,7 @@ export const ShowLecture = () => {
               <td className="px-2 py-3 " scope="col">
                 <div className="flex items-center gap-2">
                   {lecture.categories.map((d) => (
-                    <Chip label={d.name} color="warning" />
+                    <Chip label={d.name} key={d.id} color="warning" />
                   ))}
                 </div>
               </td>

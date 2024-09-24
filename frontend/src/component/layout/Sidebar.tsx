@@ -6,15 +6,24 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import HomeIcon from "@mui/icons-material/Home";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 export const SideBar = () => {
+  const location = useLocation();
   return (
     <aside className="h-screen bg-white z-50 felx flex-col w-64 shadow-md">
       <img src="/logo.png" className="w-1/2 mt-10 mx-auto" alt="" />
-      <div className="flex flex-col max-h-screen no-scrollbar overflow-y-auto gap-4 px-2 py-2">
+      <div className="flex flex-col max-h-[85%] no-scrollbar overflow-y-auto gap-4 px-2 py-2">
         {sidebrItems.map((d, index) => (
-          <Link to={`/${d.path}`} key={index}>
-            <div className="text-[15px] flex items-center gap-2 px-5 rounded-lg hover:bg-primary hover:text-whiten transition-all ease-in-out duration-300 py-2">
+          <Link to={`/${d.path}`} key={d.name}>
+            <div
+              className={`text-[15px] flex items-center gap-2 px-5 rounded-lg 
+            hover:bg-primary hover:text-whiten transition-all ease-in-out duration-300 py-2
+            ${
+              location.pathname.includes(`/${d.path}`)
+                ? "bg-primary text-whiten"
+                : ""
+            }`}
+            >
               {d.icon}
 
               {d.name}
@@ -30,12 +39,12 @@ export const sidebrItems = [
   {
     name: "Home",
     icon: <HomeIcon />,
-    path: "",
+    path: "#",
   },
   {
     name: "Purchase",
     icon: <ShoppingBasketIcon />,
-    path: "",
+    path: "#",
   },
   {
     name: "Category",
@@ -50,21 +59,21 @@ export const sidebrItems = [
   {
     name: "Lessons",
     icon: <PlayLessonIcon />,
-    path: "",
+    path: "#",
   },
   {
     name: "Students",
     icon: <SupervisedUserCircleIcon />,
-    path: "",
+    path: "#",
   },
   {
     name: "Payment Banks",
     icon: <AccountBalanceWalletIcon />,
-    path: "",
+    path: "#",
   },
   {
     name: "Payment Account",
     icon: <MonetizationOnIcon />,
-    path: "",
+    path: "#",
   },
 ];
