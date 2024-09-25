@@ -4,8 +4,11 @@ import { Layout } from "../../component/layout/Layout";
 import { Form } from "./partials/Form";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
-import { handleShowLecture } from "../../store/slice/lectureSlice";
-import { Lecture } from "../../types/lecture";
+import {
+  handleShowLecture,
+  setLectureData,
+} from "../../store/slice/lectureSlice";
+import { Lecture, lectureData } from "../../types/lecture";
 import { handleGetCategory } from "../../store/slice/categorySlice";
 
 export const EditLecture = () => {
@@ -17,6 +20,9 @@ export const EditLecture = () => {
   useEffect(() => {
     dispatch(handleShowLecture(id));
     dispatch(handleGetCategory());
+    return () => {
+      dispatch(setLectureData(lectureData));
+    };
   }, [id]);
   if (!lecture) return null;
   return (

@@ -27,3 +27,9 @@ export interface UpdateCategory extends BaseOption {
 export interface DeleteCategory extends BaseOption {
   id: number;
 }
+
+export const categoryData = {
+  id: undefined,
+  name: "",
+  assetUrl: "",
+};

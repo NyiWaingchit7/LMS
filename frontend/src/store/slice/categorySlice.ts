@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  categoryData,
   CategorySlice,
   CreateCategory,
   DeleteCategory,
@@ -10,16 +11,10 @@ import { config } from "../../utils/config";
 import { headerOptions } from "../../utils/requestOption";
 const initialState: CategorySlice = {
   items: [],
-  data: {
-    id: undefined,
-    name: "",
-    assetUrl: "",
-  },
+  data: categoryData,
   isLoading: false,
   error: null,
 };
-
-const accessToken = localStorage.getItem("accessToken");
 
 export const handleGetCategory = createAsyncThunk(
   "get/category",
@@ -53,7 +48,7 @@ export const handleShowCategory = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setData(data.category));
+      thunkApi.dispatch(setCategoryData(data.category));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -130,11 +125,11 @@ export const categorySlice = createSlice({
     setCategory: (state, action) => {
       state.items = action.payload;
     },
-    setData: (state, action) => {
+    setCategoryData: (state, action) => {
       state.data = action.payload;
     },
   },
 });
 
-export const { setCategory, setData } = categorySlice.actions;
+export const { setCategory, setCategoryData } = categorySlice.actions;
 export default categorySlice.reducer;

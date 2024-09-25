@@ -4,9 +4,12 @@ import { Layout } from "../../component/layout/Layout";
 import { HeadLine } from "../../component/HeadLine";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleShowCategory } from "../../store/slice/categorySlice";
+import {
+  handleShowCategory,
+  setCategoryData,
+} from "../../store/slice/categorySlice";
 import { Image } from "../../component/Image";
-import { Category } from "../../types/category";
+import { Category, categoryData } from "../../types/category";
 
 export const ShowCategory = () => {
   const id = Number(useParams().id);
@@ -16,6 +19,9 @@ export const ShowCategory = () => {
 
   useEffect(() => {
     dispatch(handleShowCategory(id));
+    return () => {
+      dispatch(setCategoryData(categoryData));
+    };
   }, [id]);
 
   return (
@@ -40,7 +46,7 @@ export const ShowCategory = () => {
               <th className="px-2 py-3 ">Image</th>
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
-                <Image src={category?.assetUrl || "../logo.png"} />
+                <Image src={category?.assetUrl || "./../test.jpg"} />
               </td>
             </tr>
           </tbody>

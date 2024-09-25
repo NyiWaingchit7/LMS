@@ -4,24 +4,25 @@ import { errorHelper } from "../../utils/errorHelper";
 import { config } from "../../utils/config";
 import { headerOptions } from "../../utils/requestOption";
 import {
-  CreateLecture,
-  DeleteLecture,
-  lectureData,
-  LectureSlice,
-  UpdateLecture,
-} from "../../types/lecture";
-const initialState: LectureSlice = {
+  CreateLesson,
+  DeleteLesson,
+  lessonData,
+  LessonSlice,
+  UpdateLesson,
+} from "../../types/lesson";
+
+const initialState: LessonSlice = {
   items: [],
-  data: lectureData,
+  data: lessonData,
   isLoading: false,
   error: null,
 };
 
-export const handleGetLecture = createAsyncThunk(
-  "get/lecture",
+export const handleGetLesson = createAsyncThunk(
+  "get/lesson",
   async (option, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/lectures`, {
+      const response = await fetch(`${config.apiUrl}/lessons`, {
         method: "GET",
         headers: headerOptions,
       });
@@ -30,17 +31,17 @@ export const handleGetLecture = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLecture(data.lectures));
+      thunkApi.dispatch(setLesson(data.lessons));
     } catch (error: any) {
       errorHelper(error.message);
     }
   }
 );
-export const handleShowLecture = createAsyncThunk(
-  "show/lecture",
+export const handleShowLesson = createAsyncThunk(
+  "show/lesson",
   async (id: number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
+      const response = await fetch(`${config.apiUrl}/lessons/${id}`, {
         method: "GET",
         headers: headerOptions,
       });
@@ -49,37 +50,35 @@ export const handleShowLecture = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLectureData(data.lecture));
+      thunkApi.dispatch(setLessonData(data.lesson));
     } catch (error: any) {
       errorHelper(error.message);
     }
   }
 );
-export const handleCreateLecture = createAsyncThunk(
-  "creat/lecture",
-  async (option: CreateLecture, thunkApi) => {
+export const handleCreateLesson = createAsyncThunk(
+  "creat/lesson",
+  async (option: CreateLesson, thunkApi) => {
     const {
       title,
       description,
-      price,
-      discount_price,
-      isPremium,
-      assetUrl,
-      categories,
+      content,
+      assetImage,
+      assetVideo,
+      lectureId,
       onSuccess,
     } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lectures`, {
+      const response = await fetch(`${config.apiUrl}/lessons`, {
         method: "POST",
         headers: headerOptions,
         body: JSON.stringify({
           title,
           description,
-          price,
-          discount_price,
-          isPremium,
-          assetUrl,
-          categories,
+          content,
+          assetImage,
+          assetVideo,
+          lectureId,
         }),
       });
       const data = await response.json();
@@ -94,32 +93,30 @@ export const handleCreateLecture = createAsyncThunk(
   }
 );
 
-export const handleUpdateLecture = createAsyncThunk(
-  "update/lecture",
-  async (option: UpdateLecture, thunkApi) => {
+export const handleUpdateLesson = createAsyncThunk(
+  "update/lesson",
+  async (option: UpdateLesson, thunkApi) => {
     const {
       id,
       title,
       description,
-      price,
-      discount_price,
-      isPremium,
-      assetUrl,
-      categories,
+      content,
+      assetImage,
+      assetVideo,
+      lectureId,
       onSuccess,
     } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
+      const response = await fetch(`${config.apiUrl}/lessons/${id}`, {
         method: "PUT",
         headers: headerOptions,
         body: JSON.stringify({
           title,
           description,
-          price,
-          discount_price,
-          isPremium,
-          assetUrl,
-          categories,
+          content,
+          assetImage,
+          assetVideo,
+          lectureId,
         }),
       });
       const data = await response.json();
@@ -134,12 +131,12 @@ export const handleUpdateLecture = createAsyncThunk(
   }
 );
 
-export const handleDeleteLecture = createAsyncThunk(
-  "delete/lecture",
-  async (option: DeleteLecture, thunkApi) => {
+export const handleDeleteLesson = createAsyncThunk(
+  "delete/lesson",
+  async (option: DeleteLesson, thunkApi) => {
     const { id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
+      const response = await fetch(`${config.apiUrl}/lessons/${id}`, {
         method: "DELETE",
         headers: headerOptions,
       });
@@ -154,18 +151,18 @@ export const handleDeleteLecture = createAsyncThunk(
   }
 );
 
-export const lectureSlice = createSlice({
-  name: "lectureSlice",
+export const lessonSlice = createSlice({
+  name: "lessonSlice",
   initialState,
   reducers: {
-    setLecture: (state, action) => {
+    setLesson: (state, action) => {
       state.items = action.payload;
     },
-    setLectureData: (state, action) => {
+    setLessonData: (state, action) => {
       state.data = action.payload;
     },
   },
 });
 
-export const { setLecture, setLectureData } = lectureSlice.actions;
-export default lectureSlice.reducer;
+export const { setLesson, setLessonData } = lessonSlice.actions;
+export default lessonSlice.reducer;

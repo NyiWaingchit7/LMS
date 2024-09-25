@@ -1,32 +1,33 @@
-import { Button, Chip, Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "../../component/layout/Layout";
 import { HeadLine } from "../../component/HeadLine";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Lecture, lectureData } from "../../types/lecture";
-import {
-  handleShowLecture,
-  setLectureData,
-} from "../../store/slice/lectureSlice";
+import { handleShowLesson, setLessonData } from "../../store/slice/lessonSlice";
+import { Lesson, lessonData } from "../../types/lesson";
+import { handleGetLecture } from "../../store/slice/lectureSlice";
+import { Image } from "../../component/Image";
 
-export const ShowLecture = () => {
+export const ShowLesson = () => {
   const id = Number(useParams().id);
   const dispatch = useAppDispatch();
-  const lecture = useAppSelector((store) => store.lecture.data) as Lecture;
+  const lesson = useAppSelector((store) => store.lesson.data) as Lesson;
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(handleShowLecture(id));
+    dispatch(handleShowLesson(id));
+    dispatch(handleGetLecture());
     return () => {
-      dispatch(setLectureData(lectureData));
+      dispatch(setLessonData(lessonData));
     };
-  }, [dispatch, id]);
+  }, [id]);
+  if (!lesson) return null;
   return (
-    <Layout title="Lecture Detail">
-      <HeadLine header="Lecture Detail" />
+    <Layout title="Lesson Detail">
+      <HeadLine header="Lesson Detail" />
       <Paper className="px-5 py-5">
-        <h3 className="font-bold my-3">Lecture Detail</h3>
+        <h3 className="font-bold my-3">Lesson Detail</h3>
         <table className="w-full text-left capitalize">
           <tbody>
             <tr>
@@ -37,7 +38,7 @@ export const ShowLecture = () => {
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                {lecture?.title || "-"}
+                {lesson?.title || "-"}
               </td>
             </tr>
             <tr>
@@ -48,56 +49,36 @@ export const ShowLecture = () => {
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                {lecture?.description || "-"}
+                {lesson?.description || "-"}
               </td>
             </tr>
             <tr>
               <th className="px-2 py-3 " scope="col">
-                Price
+                Content
               </th>
               <td className="px-2 py-3 " scope="col">
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                {lecture.discount_price ? (
-                  <div>
-                    <p className="block">{lecture.discount_price}MMK</p>
-                    <p className=" line-through text-xs pl-1">
-                      {lecture.price}MMk
-                    </p>
-                  </div>
-                ) : (
-                  <p>{lecture.price}MMk</p>
-                )}
+                {lesson?.content || "-"}
               </td>
             </tr>
             <tr>
               <th className="px-2 py-3 " scope="col">
-                Is Premium
+                Lecture
               </th>
               <td className="px-2 py-3 " scope="col">
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                <Chip
-                  label={String(lecture.isPremium)}
-                  color={lecture.isPremium ? "success" : "error"}
-                />
+                {lesson?.lecture.title || "-"}
               </td>
             </tr>
             <tr>
-              <th className="px-2 py-3 " scope="col">
-                Categories
-              </th>
-              <td className="px-2 py-3 " scope="col">
-                -
-              </td>
-              <td className="px-2 py-3 " scope="col">
-                <div className="flex items-center gap-2">
-                  {lecture.categories.map((d) => (
-                    <Chip label={d.name} key={d.id} color="warning" />
-                  ))}
-                </div>
+              <th className="px-2 py-3 ">Image</th>
+              <td className="px-2 py-3 ">-</td>
+              <td className="px-2 py-3 ">
+                <Image src={lesson?.assetImage || "../test.jpg"} />
               </td>
             </tr>
           </tbody>
@@ -108,7 +89,7 @@ export const ShowLecture = () => {
             color="secondary"
             size="small"
             onClick={() => {
-              navigate("/lectures");
+              navigate("/lessons");
             }}
           >
             Back

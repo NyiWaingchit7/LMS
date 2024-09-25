@@ -4,8 +4,11 @@ import { Layout } from "../../component/layout/Layout";
 import { Form } from "./partials/Form";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
-import { handleShowCategory } from "../../store/slice/categorySlice";
-import { Category } from "../../types/category";
+import {
+  handleShowCategory,
+  setCategoryData,
+} from "../../store/slice/categorySlice";
+import { Category, categoryData } from "../../types/category";
 
 export const EditCategory = () => {
   const id = Number(useParams().id);
@@ -14,6 +17,9 @@ export const EditCategory = () => {
 
   useEffect(() => {
     dispatch(handleShowCategory(id));
+    return () => {
+      dispatch(setCategoryData(categoryData));
+    };
   }, [id]);
 
   return (

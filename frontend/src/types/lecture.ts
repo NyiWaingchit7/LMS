@@ -43,3 +43,14 @@ export interface UpdateLecture extends BaseOption {
 export interface DeleteLecture extends BaseOption {
   id: number;
 }
+
+export const lectureData = {
+  id: undefined,
+  title: "",
+  description: "",
+  price: 0,
+  discount_price: 0,
+  isPremium: false,
+  assetUrl: "",
+  categories: [],
+};

@@ -10,6 +10,10 @@ import { Lecture } from "../pages/lecture/Lecture";
 import { CreateLecture } from "../pages/lecture/CreateLecture";
 import { EditLecture } from "../pages/lecture/EditLecture";
 import { ShowLecture } from "../pages/lecture/ShowLecture";
+import { Lesson } from "../pages/lesson/Lesson";
+import { ShowLesson } from "../pages/lesson/ShowLesson";
+import { CreateLesson } from "../pages/lesson/CreateLesson";
+import { EditLesson } from "../pages/lesson/EditLesson";
 
 export const Router = () => {
   return (
@@ -25,6 +29,10 @@ export const Router = () => {
           <Route path="/lectures/:id" Component={ShowLecture} />
           <Route path="/lectures/create" Component={CreateLecture} />
           <Route path="/lectures/:id/edit" Component={EditLecture} />
+          <Route path="/lessons" Component={Lesson} />
+          <Route path="/lessons/:id" Component={ShowLesson} />
+          <Route path="/lessons/create" Component={CreateLesson} />
+          <Route path="/lessons/:id/edit" Component={EditLesson} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>
