@@ -18,6 +18,10 @@ import { Student } from "../pages/student/Student";
 import { ShowStudent } from "../pages/student/ShowStudent";
 import { CreateStudent } from "../pages/student/CreateStudent";
 import { EditStudent } from "../pages/student/EditStudent";
+import { PaymentBank } from "../pages/paymentBank/PaymentBank";
+import { ShowPaymentBank } from "../pages/paymentBank/ShowPaymentBank";
+import { CreatePaymentBank } from "../pages/paymentBank/CreatePaymentBank";
+import { EditPaymentBank } from "../pages/paymentBank/EditPaymentBank";
 
 export const Router = () => {
   return (
@@ -41,6 +45,10 @@ export const Router = () => {
           <Route path="/students/:id" Component={ShowStudent} />
           <Route path="/students/create" Component={CreateStudent} />
           <Route path="/students/:id/edit" Component={EditStudent} />
+          <Route path="/payment-banks" Component={PaymentBank} />
+          <Route path="/payment-banks/:id" Component={ShowPaymentBank} />
+          <Route path="/payment-banks/create" Component={CreatePaymentBank} />
+          <Route path="/payment-banks/:id/edit" Component={EditPaymentBank} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>

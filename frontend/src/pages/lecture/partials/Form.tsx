@@ -188,6 +188,7 @@ export const Form = ({ lecture, categories }: Props) => {
           <InputLabel label="is premium" />
           <Select
             id="is premium"
+            size="small"
             value={String(sumbitForm.isPremium) || ""}
             onChange={(e) => {
               setForm({ ...sumbitForm, isPremium: e.target.value === "true" });

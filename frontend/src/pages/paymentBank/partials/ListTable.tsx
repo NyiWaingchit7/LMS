@@ -11,23 +11,23 @@ import { TableAction } from "../../../component/TableAction";
 import { useAppDispatch } from "../../../store/hooks";
 
 import { Image } from "../../../component/Image";
-import { Lesson } from "../../../types/lesson";
+import { PaymentBank } from "../../../types/payment_bank";
 import {
-  handleDeleteLesson,
-  handleGetLesson,
-} from "../../../store/slice/lessonSlice";
+  handleDeletPaymentBank,
+  handleGetPaymentBank,
+} from "../../../store/slice/payment_bankSlice";
 
 interface Props {
-  data: Lesson[];
+  data: PaymentBank[];
 }
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
   const handleDelete = (id: number) => {
     dispatch(
-      handleDeleteLesson({
+      handleDeletPaymentBank({
         id,
         onSuccess: () => {
-          dispatch(handleGetLesson());
+          dispatch(handleGetPaymentBank());
         },
       })
     );
@@ -38,8 +38,7 @@ export const ListTable = ({ data }: Props) => {
         <TableHead>
           <TableRow>
             <TableCell>Image</TableCell>
-            <TableCell>Title</TableCell>
-            <TableCell>Lecture</TableCell>
+            <TableCell>Name</TableCell>
             <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
@@ -51,15 +50,13 @@ export const ListTable = ({ data }: Props) => {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
-                  <Image src={row.assetImage || "./test.jpg"} />
+                  <Image src={row.assetUrl || "./test.jpg"} />
                 </TableCell>
-                <TableCell>{row.title}</TableCell>
-                <TableCell>{row.lecture.title}</TableCell>
-
+                <TableCell>{row.name}</TableCell>
                 <TableCell>
                   <TableAction
                     id={row.id as number}
-                    path="lessons"
+                    path="payment-banks"
                     handleDelete={() => {
                       handleDelete(row.id as number);
                     }}

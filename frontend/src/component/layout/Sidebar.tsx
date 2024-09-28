@@ -80,7 +80,7 @@ export const sidebrItems = [
   {
     name: "Payment Banks",
     icon: <AccountBalanceWalletIcon />,
-    path: "#",
+    path: "payment-banks",
   },
   {
     name: "Payment Account",
