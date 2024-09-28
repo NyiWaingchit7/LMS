@@ -14,6 +14,10 @@ import { Lesson } from "../pages/lesson/Lesson";
 import { ShowLesson } from "../pages/lesson/ShowLesson";
 import { CreateLesson } from "../pages/lesson/CreateLesson";
 import { EditLesson } from "../pages/lesson/EditLesson";
+import { Student } from "../pages/student/Student";
+import { ShowStudent } from "../pages/student/ShowStudent";
+import { CreateStudent } from "../pages/student/CreateStudent";
+import { EditStudent } from "../pages/student/EditStudent";
 
 export const Router = () => {
   return (
@@ -33,6 +37,10 @@ export const Router = () => {
           <Route path="/lessons/:id" Component={ShowLesson} />
           <Route path="/lessons/create" Component={CreateLesson} />
           <Route path="/lessons/:id/edit" Component={EditLesson} />
+          <Route path="/students" Component={Student} />
+          <Route path="/students/:id" Component={ShowStudent} />
+          <Route path="/students/create" Component={CreateStudent} />
+          <Route path="/students/:id/edit" Component={EditStudent} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>

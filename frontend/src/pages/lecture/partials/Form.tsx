@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   handleCreateLecture,
-  handleGetLecture,
   handleUpdateLecture,
 } from "../../../store/slice/lectureSlice";
 import { Lecture } from "../../../types/lecture";
@@ -52,7 +51,6 @@ export const Form = ({ lecture, categories }: Props) => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    dispatch(handleGetLecture());
     navigate("/lectures");
   };
 

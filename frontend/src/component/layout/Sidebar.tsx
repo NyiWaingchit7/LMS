@@ -75,7 +75,7 @@ export const sidebrItems = [
   {
     name: "Students",
     icon: <SupervisedUserCircleIcon />,
-    path: "#",
+    path: "students",
   },
   {
     name: "Payment Banks",

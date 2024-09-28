@@ -42,7 +42,6 @@ export const Form = ({ lectures, lesson }: Props) => {
 
   const onSuccess = () => {
     dispatch(handleGetLesson());
-    navigate("/lessons");
   };
 
   const handleSubmit = () => {

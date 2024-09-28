@@ -5,7 +5,6 @@ import { Category } from "../../../types/category";
 import { useAppDispatch } from "../../../store/hooks";
 import {
   handleCreateCategory,
-  handleGetCategory,
   handleUpdateCategory,
 } from "../../../store/slice/categorySlice";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +24,6 @@ export const Form = ({ category }: Props) => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    dispatch(handleGetCategory());
     navigate("/categories");
   };
 
