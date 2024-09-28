@@ -14,6 +14,14 @@ export const show = async (req: Request, res: Response) => {
   try {
     const student = await prisma.student.findFirst({
       where: { id, deleted: false },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        assetUrl: true,
+        password: false,
+      },
     });
     if (!student)
       return res.status(400).json({ message: "The student can not be found!" });
@@ -50,7 +58,7 @@ export const update = async (req: Request, res: Response) => {
     if (!exist)
       return res.status(400).json({ message: "The student can not be found!" });
 
-    const isvalid = name && email && password;
+    const isvalid = name && email;
     if (!isvalid)
       return res.status(400).json({ message: "All fields are required!" });
 
