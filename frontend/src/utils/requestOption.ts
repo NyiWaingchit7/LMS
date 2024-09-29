@@ -1,5 +1,7 @@
-const accessToken = localStorage.getItem("accessToken");
-export const headerOptions = {
-  Authorization: `Bearer ${accessToken}`,
-  "content-type": "application/json",
+export const headerOptions = () => {
+  const accessToken = localStorage.getItem("accessToken");
+  return {
+    Authorization: `Bearer ${accessToken}`,
+    "content-type": "application/json",
+  };
 };

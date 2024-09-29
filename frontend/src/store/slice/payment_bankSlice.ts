@@ -23,7 +23,7 @@ export const handleGetPaymentBank = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/payment-banks`, {
         method: "GET",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -42,7 +42,7 @@ export const handleShowPaymentBank = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/payment-banks/${id}`, {
         method: "GET",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -62,7 +62,7 @@ export const handleCreatePaymentBank = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/payment-banks`, {
         method: "POST",
-        headers: headerOptions,
+        headers: headerOptions(),
         body: JSON.stringify({ name, assetUrl }),
       });
       const data = await response.json();
@@ -84,7 +84,7 @@ export const handleUpdatePaymentBank = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/payment-banks/${id}`, {
         method: "PUT",
-        headers: headerOptions,
+        headers: headerOptions(),
         body: JSON.stringify({ name, assetUrl }),
       });
       const data = await response.json();
@@ -106,7 +106,7 @@ export const handleDeletPaymentBank = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/payment-banks/${id}`, {
         method: "DELETE",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {

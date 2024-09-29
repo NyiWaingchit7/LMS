@@ -10,6 +10,7 @@ export interface User {
 
 export interface LoginSlice {
   items: User[];
+  accessToken: "";
   isLoading: boolean;
   error: Error | null;
 }

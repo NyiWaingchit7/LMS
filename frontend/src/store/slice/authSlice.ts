@@ -5,6 +5,7 @@ import { errorHelper } from "../../utils/errorHelper";
 
 const initialState: LoginSlice = {
   items: [],
+  accessToken: "",
   isLoading: false,
   error: null,
 };
@@ -25,6 +26,7 @@ export const handleLogin = createAsyncThunk(
         throw new Error(data.message);
       }
       thunkApi.dispatch(setUser(data.user));
+      thunkApi.dispatch(setToken(data.token));
       localStorage.setItem("accessToken", data.token);
       onSuccess && onSuccess();
     } catch (error: any) {
@@ -40,8 +42,11 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.items = action.payload;
     },
+    setToken: (state, action) => {
+      state.items = action.payload;
+    },
   },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, setToken } = authSlice.actions;
 export default authSlice.reducer;

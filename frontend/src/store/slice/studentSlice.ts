@@ -22,7 +22,7 @@ export const handleGetStudent = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/students`, {
         method: "GET",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -41,7 +41,7 @@ export const handleShowStudent = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/students/${id}`, {
         method: "GET",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -61,7 +61,7 @@ export const handleCreateStudent = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/students`, {
         method: "POST",
-        headers: headerOptions,
+        headers: headerOptions(),
         body: JSON.stringify({ name, email, password, phone, assetUrl }),
       });
       const data = await response.json();
@@ -83,7 +83,7 @@ export const handleUpdateStudent = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/students/${id}`, {
         method: "PUT",
-        headers: headerOptions,
+        headers: headerOptions(),
         body: JSON.stringify({ name, email, password, phone, assetUrl }),
       });
       const data = await response.json();
@@ -105,7 +105,7 @@ export const handleDeletStudent = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/students/${id}`, {
         method: "DELETE",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {

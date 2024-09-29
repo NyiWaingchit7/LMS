@@ -4,63 +4,59 @@ import { Layout } from "../../component/layout/Layout";
 import { HeadLine } from "../../component/HeadLine";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleShowLesson, setLessonData } from "../../store/slice/lessonSlice";
-import { Lesson, lessonData } from "../../types/lesson";
-import { Image } from "../../component/Image";
+import {
+  payment_accountData,
+  PaymentAccount,
+} from "../../types/payment_account";
+import {
+  handleShowPaymentAccount,
+  setPaymentAccountData,
+} from "../../store/slice/payment_accountSlice";
 
-export const ShowLesson = () => {
+export const ShowPaymentAccount = () => {
   const id = Number(useParams().id);
   const dispatch = useAppDispatch();
-  const lesson = useAppSelector((store) => store.lesson.data) as Lesson;
+  const paymentAccount = useAppSelector(
+    (store) => store.paymentAccount.data
+  ) as PaymentAccount;
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(handleShowLesson(id));
+    dispatch(handleShowPaymentAccount(id));
     return () => {
-      dispatch(setLessonData(lessonData));
+      dispatch(setPaymentAccountData(payment_accountData));
     };
   }, [id]);
-  if (!lesson) return null;
   return (
-    <Layout title="Lesson Detail">
-      <HeadLine header="Lesson Detail" />
+    <Layout title="Payment Account Detail">
+      <HeadLine header="Payment Account Detail" />
       <Paper className="px-5 py-5">
-        <h3 className="font-bold my-3">Lesson Detail</h3>
+        <h3 className="font-bold my-3">Payment Account Detail</h3>
         <table className="w-full text-left capitalize">
           <tbody>
             <tr>
               <th className="px-2 py-3 " scope="col">
-                Title
+                Name
               </th>
               <td className="px-2 py-3 " scope="col">
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                {lesson?.title || "-"}
+                {paymentAccount?.name || "-"}
               </td>
             </tr>
             <tr>
               <th className="px-2 py-3 " scope="col">
-                Description
+                Phone Number
               </th>
               <td className="px-2 py-3 " scope="col">
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                {lesson?.description || "-"}
+                {paymentAccount?.phone_number || "-"}
               </td>
             </tr>
-            <tr>
-              <th className="px-2 py-3 " scope="col">
-                Content
-              </th>
-              <td className="px-2 py-3 " scope="col">
-                -
-              </td>
-              <td className="px-2 py-3 " scope="col">
-                {lesson?.content || "-"}
-              </td>
-            </tr>
+
             <tr>
               <th className="px-2 py-3 " scope="col">
                 Lecture
@@ -69,14 +65,7 @@ export const ShowLesson = () => {
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                {lesson?.lecture.title || "-"}
-              </td>
-            </tr>
-            <tr>
-              <th className="px-2 py-3 ">Image</th>
-              <td className="px-2 py-3 ">-</td>
-              <td className="px-2 py-3 ">
-                <Image src={lesson?.assetImage || "../test.jpg"} />
+                {paymentAccount?.payment_bank.name || "-"}
               </td>
             </tr>
           </tbody>

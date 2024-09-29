@@ -22,6 +22,10 @@ import { PaymentBank } from "../pages/paymentBank/PaymentBank";
 import { ShowPaymentBank } from "../pages/paymentBank/ShowPaymentBank";
 import { CreatePaymentBank } from "../pages/paymentBank/CreatePaymentBank";
 import { EditPaymentBank } from "../pages/paymentBank/EditPaymentBank";
+import { PaymentAccount } from "../pages/paymentAccount/PaymentAccount";
+import { ShowPaymentAccount } from "../pages/paymentAccount/ShowPaymentAccount";
+import { CreatePaymentAccount } from "../pages/paymentAccount/CreatePaymentAccount";
+import { EditPaymentAccount } from "../pages/paymentAccount/EditPaymentAccount";
 
 export const Router = () => {
   return (
@@ -49,6 +53,16 @@ export const Router = () => {
           <Route path="/payment-banks/:id" Component={ShowPaymentBank} />
           <Route path="/payment-banks/create" Component={CreatePaymentBank} />
           <Route path="/payment-banks/:id/edit" Component={EditPaymentBank} />
+          <Route path="/payment-accounts" Component={PaymentAccount} />
+          <Route path="/payment-accounts/:id" Component={ShowPaymentAccount} />
+          <Route
+            path="/payment-accounts/create"
+            Component={CreatePaymentAccount}
+          />
+          <Route
+            path="/payment-accounts/:id/edit"
+            Component={EditPaymentAccount}
+          />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>

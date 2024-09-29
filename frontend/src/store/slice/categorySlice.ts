@@ -22,7 +22,7 @@ export const handleGetCategory = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/categories`, {
         method: "GET",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -41,7 +41,7 @@ export const handleShowCategory = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/categories/${id}`, {
         method: "GET",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -61,7 +61,7 @@ export const handleCreateCategory = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/categories`, {
         method: "POST",
-        headers: headerOptions,
+        headers: headerOptions(),
         body: JSON.stringify({ name, assetUrl }),
       });
       const data = await response.json();
@@ -83,7 +83,7 @@ export const handleUpdateCategory = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/categories/${id}`, {
         method: "PUT",
-        headers: headerOptions,
+        headers: headerOptions(),
         body: JSON.stringify({ name, assetUrl }),
       });
       const data = await response.json();
@@ -105,7 +105,7 @@ export const handleDeletCategory = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/categories/${id}`, {
         method: "DELETE",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {

@@ -4,25 +4,25 @@ import { errorHelper } from "../../utils/errorHelper";
 import { config } from "../../utils/config";
 import { headerOptions } from "../../utils/requestOption";
 import {
-  CreateLesson,
-  DeleteLesson,
-  lessonData,
-  LessonSlice,
-  UpdateLesson,
-} from "../../types/lesson";
+  CreatePaymentAccount,
+  DeletePaymentAccount,
+  payment_accountData,
+  PaymentAccountSlice,
+  UpdatePaymentAccount,
+} from "../../types/payment_account";
 
-const initialState: LessonSlice = {
+const initialState: PaymentAccountSlice = {
   items: [],
-  data: lessonData,
+  data: payment_accountData,
   isLoading: false,
   error: null,
 };
 
-export const handleGetLesson = createAsyncThunk(
-  "get/lesson",
+export const handleGetPaymentAccount = createAsyncThunk(
+  "get/payment-account",
   async (option, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/lessons`, {
+      const response = await fetch(`${config.apiUrl}/payment-accounts`, {
         method: "GET",
         headers: headerOptions(),
       });
@@ -31,17 +31,17 @@ export const handleGetLesson = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLesson(data.lessons));
+      thunkApi.dispatch(setPaymentAccount(data.paymentAccounts));
     } catch (error: any) {
       errorHelper(error.message);
     }
   }
 );
-export const handleShowLesson = createAsyncThunk(
-  "show/lesson",
+export const handleShowPaymentAccount = createAsyncThunk(
+  "show/payment-account",
   async (id: number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/lessons/${id}`, {
+      const response = await fetch(`${config.apiUrl}/payment-accounts/${id}`, {
         method: "GET",
         headers: headerOptions(),
       });
@@ -50,35 +50,24 @@ export const handleShowLesson = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLessonData(data.lesson));
+      thunkApi.dispatch(setPaymentAccountData(data.paymentAccount));
     } catch (error: any) {
       errorHelper(error.message);
     }
   }
 );
-export const handleCreateLesson = createAsyncThunk(
-  "creat/lesson",
-  async (option: CreateLesson, thunkApi) => {
-    const {
-      title,
-      description,
-      content,
-      assetImage,
-      assetVideo,
-      lectureId,
-      onSuccess,
-    } = option;
+export const handleCreatePaymentAccount = createAsyncThunk(
+  "creat/payment-account",
+  async (option: CreatePaymentAccount, thunkApi) => {
+    const { name, phone_number, payment_bank_id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lessons`, {
+      const response = await fetch(`${config.apiUrl}/payment-accounts`, {
         method: "POST",
         headers: headerOptions(),
         body: JSON.stringify({
-          title,
-          description,
-          content,
-          assetImage,
-          assetVideo,
-          lectureId,
+          name,
+          phone_number,
+          payment_bank_id,
         }),
       });
       const data = await response.json();
@@ -93,30 +82,18 @@ export const handleCreateLesson = createAsyncThunk(
   }
 );
 
-export const handleUpdateLesson = createAsyncThunk(
-  "update/lesson",
-  async (option: UpdateLesson, thunkApi) => {
-    const {
-      id,
-      title,
-      description,
-      content,
-      assetImage,
-      assetVideo,
-      lectureId,
-      onSuccess,
-    } = option;
+export const handleUpdatePaymentAccount = createAsyncThunk(
+  "update/payment-account",
+  async (option: UpdatePaymentAccount, thunkApi) => {
+    const { id, name, phone_number, payment_bank_id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lessons/${id}`, {
+      const response = await fetch(`${config.apiUrl}/payment-accounts/${id}`, {
         method: "PUT",
         headers: headerOptions(),
         body: JSON.stringify({
-          title,
-          description,
-          content,
-          assetImage,
-          assetVideo,
-          lectureId,
+          name,
+          phone_number,
+          payment_bank_id,
         }),
       });
       const data = await response.json();
@@ -131,12 +108,12 @@ export const handleUpdateLesson = createAsyncThunk(
   }
 );
 
-export const handleDeleteLesson = createAsyncThunk(
-  "delete/lesson",
-  async (option: DeleteLesson, thunkApi) => {
+export const handleDeletePaymentAccount = createAsyncThunk(
+  "delete/payment-account",
+  async (option: DeletePaymentAccount, thunkApi) => {
     const { id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lessons/${id}`, {
+      const response = await fetch(`${config.apiUrl}/payment-accounts/${id}`, {
         method: "DELETE",
         headers: headerOptions(),
       });
@@ -151,18 +128,19 @@ export const handleDeleteLesson = createAsyncThunk(
   }
 );
 
-export const lessonSlice = createSlice({
-  name: "lessonSlice",
+export const paymentAccountSlice = createSlice({
+  name: "paymentAccountSlice",
   initialState,
   reducers: {
-    setLesson: (state, action) => {
+    setPaymentAccount: (state, action) => {
       state.items = action.payload;
     },
-    setLessonData: (state, action) => {
+    setPaymentAccountData: (state, action) => {
       state.data = action.payload;
     },
   },
 });
 
-export const { setLesson, setLessonData } = lessonSlice.actions;
-export default lessonSlice.reducer;
+export const { setPaymentAccount, setPaymentAccountData } =
+  paymentAccountSlice.actions;
+export default paymentAccountSlice.reducer;

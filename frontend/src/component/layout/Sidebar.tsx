@@ -85,6 +85,6 @@ export const sidebrItems = [
   {
     name: "Payment Account",
     icon: <MonetizationOnIcon />,
-    path: "#",
+    path: "payment-accounts",
   },
 ];

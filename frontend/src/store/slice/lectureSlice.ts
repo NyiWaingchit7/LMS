@@ -23,7 +23,7 @@ export const handleGetLecture = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/lectures`, {
         method: "GET",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -42,7 +42,7 @@ export const handleShowLecture = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
         method: "GET",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -71,7 +71,7 @@ export const handleCreateLecture = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/lectures`, {
         method: "POST",
-        headers: headerOptions,
+        headers: headerOptions(),
         body: JSON.stringify({
           title,
           description,
@@ -111,7 +111,7 @@ export const handleUpdateLecture = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
         method: "PUT",
-        headers: headerOptions,
+        headers: headerOptions(),
         body: JSON.stringify({
           title,
           description,
@@ -141,7 +141,7 @@ export const handleDeleteLecture = createAsyncThunk(
     try {
       const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
         method: "DELETE",
-        headers: headerOptions,
+        headers: headerOptions(),
       });
       const data = await response.json();
       if (!response.ok) {

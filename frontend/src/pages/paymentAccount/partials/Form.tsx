@@ -11,43 +11,42 @@ import {
   TextField,
 } from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
-import { Lesson } from "../../../types/lesson";
+import { PaymentAccount } from "../../../types/payment_account";
+import { PaymentBank, paymentBankData } from "../../../types/payment_bank";
 import {
-  handleCreateLesson,
-  handleUpdateLesson,
-} from "../../../store/slice/lessonSlice";
+  handleCreatePaymentAccount,
+  handleUpdatePaymentAccount,
+} from "../../../store/slice/payment_accountSlice";
 
 interface Props {
-  lesson?: Lesson;
-  lectures: Lecture[];
+  paymentAccount?: PaymentAccount;
+  paymentBanks: PaymentBank[];
 }
 
 const defaultForm = {
   id: undefined,
-  title: "",
-  description: "",
-  content: "",
-  assetImage: "",
-  assetVideo: "",
-  lecture: lectureData,
+  name: "",
+  phone_number: "",
+  payment_bank_id: undefined,
+  payment_bank: paymentBankData,
 };
 
-export const Form = ({ lectures, lesson }: Props) => {
-  const [sumbitForm, setForm] = useState<Lesson>(defaultForm);
+export const Form = ({ paymentAccount, paymentBanks }: Props) => {
+  const [sumbitForm, setForm] = useState<PaymentAccount>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number>();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    navigate("/lessons");
+    navigate("/payment-accounts");
   };
 
   const handleSubmit = () => {
     dispatch(
-      handleCreateLesson({
+      handleCreatePaymentAccount({
         ...sumbitForm,
-        lectureId: selectedIds as number,
+        payment_bank_id: selectedIds as number,
         onSuccess,
       })
     );
@@ -55,10 +54,10 @@ export const Form = ({ lectures, lesson }: Props) => {
 
   const handleUpdate = () => {
     dispatch(
-      handleUpdateLesson({
-        id: lesson?.id as number,
+      handleUpdatePaymentAccount({
+        id: paymentAccount?.id as number,
         ...sumbitForm,
-        lectureId: selectedIds as number,
+        payment_bank_id: selectedIds as number,
         onSuccess: () => {
           alert("update success");
         },
@@ -66,75 +65,57 @@ export const Form = ({ lectures, lesson }: Props) => {
     );
   };
   useEffect(() => {
-    if (lesson) {
-      setForm(lesson);
-      setSelectedIds(lesson.lectureId as number);
+    if (paymentAccount) {
+      setForm(paymentAccount);
+      setSelectedIds(paymentAccount.payment_bank_id as number);
     }
-  }, [lesson]);
+  }, [paymentAccount]);
   return (
     <Paper className="px-5 py-3 mt-5">
       <div>
-        <InputLabel label="title" />
+        <InputLabel label="name" />
         <TextField
-          id="title"
+          id="name"
           type="text"
           size="small"
           fullWidth
           required
           autoComplete="off"
-          value={sumbitForm.title}
-          onChange={(e) => setForm({ ...sumbitForm, title: e.target.value })}
+          value={sumbitForm.name}
+          onChange={(e) => setForm({ ...sumbitForm, name: e.target.value })}
         />
       </div>
 
       <div className="mt-5">
-        <InputLabel label="description" />
+        <InputLabel label="phone number" />
         <TextField
-          id="description"
+          id="phone number"
           type="text"
           size="small"
           fullWidth
           required
           autoComplete="off"
-          value={sumbitForm.description}
+          value={sumbitForm.phone_number}
           onChange={(e) =>
-            setForm({ ...sumbitForm, description: e.target.value })
+            setForm({ ...sumbitForm, phone_number: e.target.value })
           }
-        />
-      </div>
-      <div className="mt-5">
-        <InputLabel label="content" />
-        <TextField
-          id="content"
-          type="text"
-          size="small"
-          fullWidth
-          required
-          autoComplete="off"
-          value={sumbitForm.content}
-          onChange={(e) => {
-            setForm({
-              ...sumbitForm,
-              content: e.target.value,
-            });
-          }}
         />
       </div>
 
       <div className="mt-5">
         <FormControl fullWidth>
-          <InputLabel label="lectures" />
+          <InputLabel label="payment banks" />
           <Select
-            id="lectures"
+            id="payment banks"
             size="small"
             value={selectedIds || ""}
             onChange={(e) => {
               setSelectedIds(e.target.value as number);
             }}
           >
-            {lectures.map((d: Lecture) => (
+            {paymentBanks.map((d: PaymentBank) => (
               <MenuItem key={d.id} value={d.id}>
-                {d.title}
+                {d.name}
               </MenuItem>
             ))}
           </Select>
@@ -146,7 +127,7 @@ export const Form = ({ lectures, lesson }: Props) => {
           variant="outlined"
           color="secondary"
           onClick={() => {
-            navigate("/lessons");
+            navigate("/payment-accounts");
           }}
         >
           Back
@@ -155,10 +136,10 @@ export const Form = ({ lectures, lesson }: Props) => {
           size="small"
           variant="contained"
           onClick={() => {
-            lesson ? handleUpdate() : handleSubmit();
+            paymentAccount ? handleUpdate() : handleSubmit();
           }}
         >
-          {lesson ? "Update" : "Submit"}
+          {paymentAccount ? "Update" : "Submit"}
         </Button>
       </div>
     </Paper>
