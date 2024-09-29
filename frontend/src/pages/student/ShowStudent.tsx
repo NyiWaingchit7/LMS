@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Image } from "../../component/Image";
 import { Student, studentData } from "../../types/student";
 import { handleShowStudent, setStudent } from "../../store/slice/studentSlice";
+import { DetailButton } from "../../component/DetailButton";
 
 export const ShowStudent = () => {
   const id = Number(useParams().id);
@@ -25,6 +26,7 @@ export const ShowStudent = () => {
   return (
     <Layout title="Student Details">
       <HeadLine header="Student Details" />
+      <DetailButton path="students" id={id} />
       <Paper className="px-5 py-5">
         <h3 className="font-bold my-3">Student Details</h3>
         <table className="w-full text-left capitalize">

@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { handleShowLesson, setLessonData } from "../../store/slice/lessonSlice";
 import { Lesson, lessonData } from "../../types/lesson";
 import { Image } from "../../component/Image";
+import { DetailButton } from "../../component/DetailButton";
 
 export const ShowLesson = () => {
   const id = Number(useParams().id);
@@ -24,6 +25,7 @@ export const ShowLesson = () => {
   return (
     <Layout title="Lesson Detail">
       <HeadLine header="Lesson Detail" />
+      <DetailButton path="lessons" id={id} />
       <Paper className="px-5 py-5">
         <h3 className="font-bold my-3">Lesson Detail</h3>
         <table className="w-full text-left capitalize">

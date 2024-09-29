@@ -9,6 +9,7 @@ import {
   handleShowLecture,
   setLectureData,
 } from "../../store/slice/lectureSlice";
+import { DetailButton } from "../../component/DetailButton";
 
 export const ShowLecture = () => {
   const id = Number(useParams().id);
@@ -25,6 +26,7 @@ export const ShowLecture = () => {
   return (
     <Layout title="Lecture Detail">
       <HeadLine header="Lecture Detail" />
+      <DetailButton path="lectures" id={id} />
       <Paper className="px-5 py-5">
         <h3 className="font-bold my-3">Lecture Detail</h3>
         <table className="w-full text-left capitalize">

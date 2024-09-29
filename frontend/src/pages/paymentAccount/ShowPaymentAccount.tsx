@@ -12,6 +12,7 @@ import {
   handleShowPaymentAccount,
   setPaymentAccountData,
 } from "../../store/slice/payment_accountSlice";
+import { DetailButton } from "../../component/DetailButton";
 
 export const ShowPaymentAccount = () => {
   const id = Number(useParams().id);
@@ -30,6 +31,7 @@ export const ShowPaymentAccount = () => {
   return (
     <Layout title="Payment Account Detail">
       <HeadLine header="Payment Account Detail" />
+      <DetailButton path="payment-accounts" id={id} />
       <Paper className="px-5 py-5">
         <h3 className="font-bold my-3">Payment Account Detail</h3>
         <table className="w-full text-left capitalize">
@@ -76,7 +78,7 @@ export const ShowPaymentAccount = () => {
             color="secondary"
             size="small"
             onClick={() => {
-              navigate("/lessons");
+              navigate("/payment-accounts");
             }}
           >
             Back

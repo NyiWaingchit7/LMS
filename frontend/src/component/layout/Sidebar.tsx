@@ -55,7 +55,7 @@ export const sidebrItems = [
   {
     name: "Purchase",
     icon: <ShoppingBasketIcon />,
-    path: "#",
+    path: "purchases",
   },
   {
     name: "Category",

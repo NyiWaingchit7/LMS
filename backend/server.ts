@@ -10,6 +10,7 @@ import { lessonRouter } from "./src/routes/lesson.route";
 import { studentRouter } from "./src/routes/student.route";
 import { paymentBankRouter } from "./src/routes/payment_bank.route";
 import { paymentAccountRouter } from "./src/routes/payment_account.route";
+import { pruchaseRouter } from "./src/routes/purchase.route";
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use("/api/v1/admin/lessons", lessonRouter);
 app.use("/api/v1/admin/students", studentRouter);
 app.use("/api/v1/admin/payment-banks", paymentBankRouter);
 app.use("/api/v1/admin/payment-accounts", paymentAccountRouter);
+app.use("/api/v1/admin/purchases", pruchaseRouter);
 
 app.listen(port, () => console.log(`server is runnig at ${port}`));

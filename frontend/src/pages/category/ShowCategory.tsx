@@ -10,6 +10,7 @@ import {
 } from "../../store/slice/categorySlice";
 import { Image } from "../../component/Image";
 import { Category, categoryData } from "../../types/category";
+import { DetailButton } from "../../component/DetailButton";
 
 export const ShowCategory = () => {
   const id = Number(useParams().id);
@@ -27,6 +28,7 @@ export const ShowCategory = () => {
   return (
     <Layout title="Category Details">
       <HeadLine header="Category Details" />
+      <DetailButton path="categories" id={id} />
       <Paper className="px-5 py-5">
         <h3 className="font-bold my-3">Category Details</h3>
         <table className="w-full text-left capitalize">

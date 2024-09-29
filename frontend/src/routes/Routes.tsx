@@ -14,7 +14,6 @@ import { Lesson } from "../pages/lesson/Lesson";
 import { ShowLesson } from "../pages/lesson/ShowLesson";
 import { CreateLesson } from "../pages/lesson/CreateLesson";
 import { EditLesson } from "../pages/lesson/EditLesson";
-import { Student } from "../pages/student/Student";
 import { ShowStudent } from "../pages/student/ShowStudent";
 import { CreateStudent } from "../pages/student/CreateStudent";
 import { EditStudent } from "../pages/student/EditStudent";
@@ -26,6 +25,10 @@ import { PaymentAccount } from "../pages/paymentAccount/PaymentAccount";
 import { ShowPaymentAccount } from "../pages/paymentAccount/ShowPaymentAccount";
 import { CreatePaymentAccount } from "../pages/paymentAccount/CreatePaymentAccount";
 import { EditPaymentAccount } from "../pages/paymentAccount/EditPaymentAccount";
+import { Purchase } from "../pages/purchase/Purchase";
+import { ShowPurchase } from "../pages/purchase/ShowPurchase";
+import { CreatePurchase } from "../pages/purchase/CreatePurchase";
+import { Students } from "../pages/student/Student";
 
 export const Router = () => {
   return (
@@ -45,7 +48,7 @@ export const Router = () => {
           <Route path="/lessons/:id" Component={ShowLesson} />
           <Route path="/lessons/create" Component={CreateLesson} />
           <Route path="/lessons/:id/edit" Component={EditLesson} />
-          <Route path="/students" Component={Student} />
+          <Route path="/students" Component={Students} />
           <Route path="/students/:id" Component={ShowStudent} />
           <Route path="/students/create" Component={CreateStudent} />
           <Route path="/students/:id/edit" Component={EditStudent} />
@@ -63,6 +66,9 @@ export const Router = () => {
             path="/payment-accounts/:id/edit"
             Component={EditPaymentAccount}
           />
+          <Route path="/purchases" Component={Purchase} />
+          <Route path="/purchases/:id" Component={ShowPurchase} />
+          <Route path="/purchases/create" Component={CreatePurchase} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>

@@ -11,6 +11,7 @@ import {
   handleShowPaymentBank,
   setPaymentBankData,
 } from "../../store/slice/payment_bankSlice";
+import { DetailButton } from "../../component/DetailButton";
 
 export const ShowPaymentBank = () => {
   const id = Number(useParams().id);
@@ -30,6 +31,7 @@ export const ShowPaymentBank = () => {
   return (
     <Layout title="Payment Bank Details">
       <HeadLine header="Payment Bank Details" />
+      <DetailButton path="payment-banks" id={id} />
       <Paper className="px-5 py-5">
         <h3 className="font-bold my-3">Payment Bank Details</h3>
         <table className="w-full text-left capitalize">

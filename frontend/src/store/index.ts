@@ -6,6 +6,7 @@ import lessonReducer from "./slice/lessonSlice";
 import studentReducer from "./slice/studentSlice";
 import paymentBankReducer from "./slice/payment_bankSlice";
 import paymentAccountReducer from "./slice/payment_accountSlice";
+import purchaseReducer from "./slice/purchaseSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     student: studentReducer,
     paymentBank: paymentBankReducer,
     paymentAccount: paymentAccountReducer,
+    purchase: purchaseReducer,
   },
 });
 
