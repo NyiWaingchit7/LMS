@@ -1,4 +1,11 @@
-import { Button, Paper, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  FormControl,
+  Paper,
+  TextField,
+} from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
 import { useEffect, useState } from "react";
 import { Category } from "../../../types/category";
@@ -8,6 +15,8 @@ import {
   handleUpdateCategory,
 } from "../../../store/slice/categorySlice";
 import { useNavigate } from "react-router-dom";
+import { UploadFile } from "../../../component/UploadFile";
+import { fileUpload } from "../../../utils/fileUpload";
 
 interface Props {
   category?: Category;
@@ -20,14 +29,23 @@ const defaultForm = {
 
 export const Form = ({ category }: Props) => {
   const [sumbitForm, setForm] = useState<Category>(defaultForm);
+  const [image, setImage] = useState<File>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  let assetUrl;
+  const onFileSelected = async (file: File[]) => {
+    setImage(file[0]);
+    console.log(file[0]);
+
+    assetUrl = await fileUpload(file[0]);
+  };
 
   const onSuccess = () => {
     navigate("/categories");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    return;
     dispatch(handleCreateCategory({ ...sumbitForm, onSuccess }));
   };
 
@@ -50,6 +68,20 @@ export const Form = ({ category }: Props) => {
   return (
     <Paper className="px-5 py-3 mt-5">
       <div>
+        <FormControl fullWidth>
+          <Box sx={{ mt: 2 }}>
+            <UploadFile onFileSelected={onFileSelected} />
+            {image && (
+              <Chip
+                sx={{ mt: 2 }}
+                label={image.name}
+                onDelete={() => setImage(undefined)}
+              />
+            )}
+          </Box>
+        </FormControl>
+      </div>
+      <div className="mt-5">
         <InputLabel label="name" />
         <TextField
           id="name"
