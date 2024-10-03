@@ -11,11 +11,18 @@ import { studentRouter } from "./src/routes/student.route";
 import { paymentBankRouter } from "./src/routes/payment_bank.route";
 import { paymentAccountRouter } from "./src/routes/payment_account.route";
 import { pruchaseRouter } from "./src/routes/purchase.route";
+import { checkauth } from "./utils/auth";
+import { fileUpload } from "./utils/fileUpload";
+import multer from "multer";
+import { storage } from "./utils/firebaseConfig";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const port = 4000;
 
@@ -28,5 +35,11 @@ app.use("/api/v1/admin/students", studentRouter);
 app.use("/api/v1/admin/payment-banks", paymentBankRouter);
 app.use("/api/v1/admin/payment-accounts", paymentAccountRouter);
 app.use("/api/v1/admin/purchases", pruchaseRouter);
+app.post(
+  "/api/v1/admin/file-upload",
+  checkauth,
+  upload.single("file"),
+  fileUpload
+);
 
 app.listen(port, () => console.log(`server is runnig at ${port}`));
