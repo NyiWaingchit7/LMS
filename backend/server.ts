@@ -38,7 +38,7 @@ app.use("/api/v1/admin/purchases", pruchaseRouter);
 app.post(
   "/api/v1/admin/file-upload",
   checkauth,
-  upload.single("file"),
+  upload.array("files"),
   fileUpload
 );
 

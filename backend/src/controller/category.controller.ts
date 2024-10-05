@@ -12,6 +12,7 @@ export const index = async (req: Request, res: Response) => {
 
 export const store = async (req: Request, res: Response) => {
   const { name, assetUrl } = req.body;
+
   try {
     if (!name)
       return res.status(400).json({ message: "All fields are required" });
