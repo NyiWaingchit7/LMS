@@ -12,8 +12,7 @@ export const fileUpload = async (image: any) => {
     },
     body: formData,
   });
-  const data = await response.json();
-  console.log(data);
+  const { imgUrl } = await response.json();
 
-  return data;
+  return imgUrl;
 };

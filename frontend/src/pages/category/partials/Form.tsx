@@ -17,6 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { UploadFile } from "../../../component/UploadFile";
 import { fileUpload } from "../../../utils/fileUpload";
+import { FileUpload } from "../../../component/FileUpload";
 
 interface Props {
   category?: Category;
@@ -30,14 +31,13 @@ const defaultForm = {
 export const Form = ({ category }: Props) => {
   const [sumbitForm, setForm] = useState<Category>(defaultForm);
   const [image, setImage] = useState<File>();
+  const [imgUrl, setImgUrl] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  let assetUrl;
   const onFileSelected = async (file: File[]) => {
     setImage(file[0]);
-    console.log(file[0]);
-
-    assetUrl = await fileUpload(file[0]);
+    const data = await fileUpload(file[0]);
+    setImgUrl(data);
   };
 
   const onSuccess = () => {
@@ -45,8 +45,13 @@ export const Form = ({ category }: Props) => {
   };
 
   const handleSubmit = async () => {
-    return;
-    dispatch(handleCreateCategory({ ...sumbitForm, onSuccess }));
+    dispatch(
+      handleCreateCategory({
+        ...sumbitForm,
+        assetUrl: imgUrl,
+        onSuccess,
+      })
+    );
   };
 
   const handleUpdate = () => {
@@ -54,6 +59,7 @@ export const Form = ({ category }: Props) => {
       handleUpdateCategory({
         id: category?.id as number,
         ...sumbitForm,
+        assetUrl: imgUrl,
         onSuccess: () => {
           alert("update success");
         },
@@ -63,24 +69,42 @@ export const Form = ({ category }: Props) => {
   useEffect(() => {
     if (category) {
       setForm(category);
+      setImgUrl(category.assetUrl as string);
     }
   }, [category]);
   return (
     <Paper className="px-5 py-3 mt-5">
-      <div>
+      {/* <div>
         <FormControl fullWidth>
-          <Box sx={{ mt: 2 }}>
+          <Box
+            sx={{
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
             <UploadFile onFileSelected={onFileSelected} />
-            {image && (
+
+            <div className="mt-2">
+              <img src={imgUrl} alt="" className="w-28 mx-auto" />
+            </div>
+            {image || imgUrl ? (
               <Chip
                 sx={{ mt: 2 }}
-                label={image.name}
-                onDelete={() => setImage(undefined)}
+                label={image?.name || "Image"}
+                onDelete={() => {
+                  setImage(undefined);
+                  setImgUrl("");
+                }}
               />
+            ) : (
+              ""
             )}
           </Box>
         </FormControl>
-      </div>
+      </div> */}
+      <FileUpload />
       <div className="mt-5">
         <InputLabel label="name" />
         <TextField
