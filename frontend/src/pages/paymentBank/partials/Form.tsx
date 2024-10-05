@@ -9,6 +9,7 @@ import {
   handleCreatePaymentBank,
   handleUpdatePaymentBank,
 } from "../../../store/slice/payment_bankSlice";
+import { FileUpload } from "../../../component/FileUpload";
 
 interface Props {
   paymentBank?: PaymentBank;
@@ -21,6 +22,7 @@ const defaultForm = {
 
 export const Form = ({ paymentBank }: Props) => {
   const [sumbitForm, setForm] = useState<Category>(defaultForm);
+  const [imgUrl, setImgUrl] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -29,7 +31,9 @@ export const Form = ({ paymentBank }: Props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(handleCreatePaymentBank({ ...sumbitForm, onSuccess }));
+    dispatch(
+      handleCreatePaymentBank({ ...sumbitForm, assetUrl: imgUrl, onSuccess })
+    );
   };
 
   const handleUpdate = () => {
@@ -37,6 +41,7 @@ export const Form = ({ paymentBank }: Props) => {
       handleUpdatePaymentBank({
         id: paymentBank?.id as number,
         ...sumbitForm,
+        assetUrl: imgUrl,
         onSuccess: () => {
           alert("update success");
         },
@@ -62,6 +67,9 @@ export const Form = ({ paymentBank }: Props) => {
           value={sumbitForm.name}
           onChange={(e) => setForm({ ...sumbitForm, name: e.target.value })}
         />
+      </div>
+      <div className="mt-5">
+        <FileUpload setImgUrl={setImgUrl} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button

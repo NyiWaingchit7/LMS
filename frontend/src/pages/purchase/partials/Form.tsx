@@ -8,6 +8,7 @@ import { Student } from "../../../types/student";
 import { Purchase } from "../../../types/purchase";
 import { handleCreatePurchase } from "../../../store/slice/purchaseSlice";
 import { InputLabel } from "../../../component/InputLabel";
+import { FileUpload } from "../../../component/FileUpload";
 
 interface Props {
   students: Student[];
@@ -26,6 +27,7 @@ export const Form = ({ students, lectures }: Props) => {
   const navigate = useNavigate();
   const [studentId, setStudentId] = useState<number | undefined>(undefined);
   const [lectureId, setLectureId] = useState<number | undefined>(undefined);
+  const [imgUrl, setImgUrl] = useState("");
 
   const onSuccess = () => {
     navigate("/purchases");
@@ -37,6 +39,7 @@ export const Form = ({ students, lectures }: Props) => {
         ...sumbitForm,
         studentId: studentId as number,
         lectureId: lectureId as number,
+        payment_assetUrl: imgUrl,
         onSuccess,
       })
     );
@@ -83,6 +86,9 @@ export const Form = ({ students, lectures }: Props) => {
             </Select>
           </FormControl>
         </div>
+      </div>
+      <div className="mt-5">
+        <FileUpload setImgUrl={setImgUrl} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button

@@ -16,6 +16,7 @@ import {
   handleCreateLesson,
   handleUpdateLesson,
 } from "../../../store/slice/lessonSlice";
+import { FileUpload } from "../../../component/FileUpload";
 
 interface Props {
   lesson?: Lesson;
@@ -35,6 +36,7 @@ const defaultForm = {
 export const Form = ({ lectures, lesson }: Props) => {
   const [sumbitForm, setForm] = useState<Lesson>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number>();
+  const [imgUrl, setImgUrl] = useState("");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -48,6 +50,7 @@ export const Form = ({ lectures, lesson }: Props) => {
       handleCreateLesson({
         ...sumbitForm,
         lectureId: selectedIds as number,
+        assetImage: imgUrl,
         onSuccess,
       })
     );
@@ -58,6 +61,7 @@ export const Form = ({ lectures, lesson }: Props) => {
       handleUpdateLesson({
         id: lesson?.id as number,
         ...sumbitForm,
+        assetImage: imgUrl,
         lectureId: selectedIds as number,
         onSuccess: () => {
           alert("update success");
@@ -139,6 +143,9 @@ export const Form = ({ lectures, lesson }: Props) => {
             ))}
           </Select>
         </FormControl>
+      </div>
+      <div className="mt-5">
+        <FileUpload setImgUrl={setImgUrl} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button

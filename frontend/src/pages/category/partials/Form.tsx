@@ -30,15 +30,9 @@ const defaultForm = {
 
 export const Form = ({ category }: Props) => {
   const [sumbitForm, setForm] = useState<Category>(defaultForm);
-  const [image, setImage] = useState<File>();
   const [imgUrl, setImgUrl] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const onFileSelected = async (file: File[]) => {
-    setImage(file[0]);
-    const data = await fileUpload(file[0]);
-    setImgUrl(data);
-  };
 
   const onSuccess = () => {
     navigate("/categories");
@@ -74,37 +68,7 @@ export const Form = ({ category }: Props) => {
   }, [category]);
   return (
     <Paper className="px-5 py-3 mt-5">
-      {/* <div>
-        <FormControl fullWidth>
-          <Box
-            sx={{
-              mt: 2,
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <UploadFile onFileSelected={onFileSelected} />
-
-            <div className="mt-2">
-              <img src={imgUrl} alt="" className="w-28 mx-auto" />
-            </div>
-            {image || imgUrl ? (
-              <Chip
-                sx={{ mt: 2 }}
-                label={image?.name || "Image"}
-                onDelete={() => {
-                  setImage(undefined);
-                  setImgUrl("");
-                }}
-              />
-            ) : (
-              ""
-            )}
-          </Box>
-        </FormControl>
-      </div> */}
-      <FileUpload />
+      <FileUpload setImgUrl={setImgUrl} />
       <div className="mt-5">
         <InputLabel label="name" />
         <TextField

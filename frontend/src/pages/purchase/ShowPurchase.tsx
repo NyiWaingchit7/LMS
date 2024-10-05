@@ -142,7 +142,7 @@ export const ShowPurchase = () => {
               <th className="px-2 py-3 ">Payment Screenshot</th>
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
-                <Image src={"./../test.jpg"} />
+                <Image src={purchase.payment_assetUrl || "./../test.jpg"} />
               </td>
             </tr>
           </tbody>
