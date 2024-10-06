@@ -5,6 +5,7 @@ export const index = async (req: Request, res: Response) => {
   const lessons = await prisma.lesson.findMany({
     where: { deleted: false },
     include: { lecture: true },
+    orderBy: { id: "desc" },
   });
   return res.status(200).json({ lessons });
 };

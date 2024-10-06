@@ -5,7 +5,10 @@ import jwt from "jsonwebtoken";
 import { config } from "../../utils/config";
 
 export const index = async (req: Request, res: Response) => {
-  const students = await prisma.student.findMany({ where: { deleted: false } });
+  const students = await prisma.student.findMany({
+    where: { deleted: false },
+    orderBy: { id: "desc" },
+  });
   return res.status(200).json({ students });
 };
 
@@ -21,6 +24,7 @@ export const show = async (req: Request, res: Response) => {
         phone: true,
         assetUrl: true,
         password: false,
+        Purchase: true,
       },
     });
     if (!student)

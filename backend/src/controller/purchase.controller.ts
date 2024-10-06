@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
+import { Status } from "@prisma/client";
 
 export const index = async (req: Request, res: Response) => {
   const purchases = await prisma.purchase.findMany({
+    orderBy: { id: "desc" },
     where: { deleted: false },
     include: { student: true, lecture: true },
   });
@@ -54,6 +56,22 @@ export const update = async (req: Request, res: Response) => {
       data: { lectureId, studentId, payment_assetUrl, payment_status },
       where: { id },
     });
+
+    if (purchase.payment_status === "CONFIRMED") {
+      await prisma.premiumStudent.create({
+        data: { lectureId: purchase.lectureId, studentId: purchase.studentId },
+      });
+    } else if (purchase.payment_status === "CANCELLED") {
+      const exist = await prisma.premiumStudent.findFirst({
+        where: { lectureId: purchase.lectureId, studentId: purchase.studentId },
+      });
+      if (exist) {
+        await prisma.premiumStudent.delete({
+          where: { id: exist.id },
+        });
+      }
+    }
+
     return res.status(200).json({ purchase });
   } catch (error) {
     return res.status(500).json({ error });
