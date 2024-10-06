@@ -60,7 +60,7 @@ export const ShowLesson = () => {
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                {lesson?.content || "-"}
+                <div dangerouslySetInnerHTML={{ __html: lesson.content }}></div>
               </td>
             </tr>
             <tr>

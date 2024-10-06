@@ -68,7 +68,11 @@ export const Form = ({ category }: Props) => {
   }, [category]);
   return (
     <Paper className="px-5 py-3 mt-5">
-      <FileUpload setImgUrl={setImgUrl} />
+      <div className="mt-5">
+        <InputLabel label="image" />
+
+        <FileUpload setImgUrl={setImgUrl} editImg={sumbitForm.assetUrl} />
+      </div>
       <div className="mt-5">
         <InputLabel label="name" />
         <TextField

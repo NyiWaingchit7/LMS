@@ -88,6 +88,7 @@ export const Form = ({ students, lectures }: Props) => {
         </div>
       </div>
       <div className="mt-5">
+        <InputLabel label="image" />
         <FileUpload setImgUrl={setImgUrl} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">

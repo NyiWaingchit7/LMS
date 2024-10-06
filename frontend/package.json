@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^9.3.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.2",
     "@reduxjs/toolkit": "^2.2.7",
+    "ckeditor5": "^43.2.0",
     "dotenv": "^16.4.5",
     "filepond": "^4.31.4",
     "filepond-plugin-image-preview": "^4.6.12",

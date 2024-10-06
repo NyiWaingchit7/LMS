@@ -55,7 +55,7 @@ export const ListTable = ({ data }: Props) => {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
-                  <Image src={row.payment_assetUrl || "./../test.jpg"} />
+                  {row.payment_assetUrl && <Image src={row.payment_assetUrl} />}
                 </TableCell>
                 <TableCell>{row.student?.name || "-"}</TableCell>
                 <TableCell>{row.lecture?.title || "-"}</TableCell>

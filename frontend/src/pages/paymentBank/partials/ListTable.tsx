@@ -50,7 +50,7 @@ export const ListTable = ({ data }: Props) => {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>
-                  <Image src={row.assetUrl || "./test.jpg"} />
+                  {row.assetUrl && <Image src={row.assetUrl} />}
                 </TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>

@@ -36,7 +36,6 @@ export const ShowPurchase = () => {
         payment_status,
         onSuccess: () => {
           console.log("success");
-          dispatch(handleShowPurchase(id));
           setOpen(false);
         },
       })

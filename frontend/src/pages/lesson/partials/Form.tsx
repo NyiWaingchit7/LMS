@@ -17,6 +17,7 @@ import {
   handleUpdateLesson,
 } from "../../../store/slice/lessonSlice";
 import { FileUpload } from "../../../component/FileUpload";
+import { Editor } from "../../../component/Editor";
 
 interface Props {
   lesson?: Lesson;
@@ -37,6 +38,7 @@ export const Form = ({ lectures, lesson }: Props) => {
   const [sumbitForm, setForm] = useState<Lesson>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number>();
   const [imgUrl, setImgUrl] = useState("");
+  const [content, setContent] = useState("");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -50,6 +52,7 @@ export const Form = ({ lectures, lesson }: Props) => {
       handleCreateLesson({
         ...sumbitForm,
         lectureId: selectedIds as number,
+        content,
         assetImage: imgUrl,
         onSuccess,
       })
@@ -61,6 +64,7 @@ export const Form = ({ lectures, lesson }: Props) => {
       handleUpdateLesson({
         id: lesson?.id as number,
         ...sumbitForm,
+        content,
         assetImage: imgUrl,
         lectureId: selectedIds as number,
         onSuccess: () => {
@@ -73,6 +77,7 @@ export const Form = ({ lectures, lesson }: Props) => {
     if (lesson) {
       setForm(lesson);
       setSelectedIds(lesson.lectureId as number);
+      setContent(lesson.content);
     }
   }, [lesson]);
   return (
@@ -108,7 +113,11 @@ export const Form = ({ lectures, lesson }: Props) => {
       </div>
       <div className="mt-5">
         <InputLabel label="content" />
-        <TextField
+        <Editor
+          setContent={setContent}
+          content={content || sumbitForm.content}
+        />
+        {/* <TextField
           id="content"
           type="text"
           size="small"
@@ -122,7 +131,7 @@ export const Form = ({ lectures, lesson }: Props) => {
               content: e.target.value,
             });
           }}
-        />
+        /> */}
       </div>
 
       <div className="mt-5">
@@ -145,7 +154,8 @@ export const Form = ({ lectures, lesson }: Props) => {
         </FormControl>
       </div>
       <div className="mt-5">
-        <FileUpload setImgUrl={setImgUrl} />
+        <InputLabel label="image" />
+        <FileUpload setImgUrl={setImgUrl} editImg={sumbitForm.assetImage} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button

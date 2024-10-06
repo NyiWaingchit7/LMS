@@ -69,7 +69,8 @@ export const Form = ({ paymentBank }: Props) => {
         />
       </div>
       <div className="mt-5">
-        <FileUpload setImgUrl={setImgUrl} />
+        <InputLabel label="image" />
+        <FileUpload setImgUrl={setImgUrl} editImg={sumbitForm.assetUrl} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button
