@@ -14,9 +14,6 @@ export const store = async (req: Request, res: Response) => {
   const { name, assetUrl } = req.body;
 
   try {
-    if (!name)
-      return res.status(400).json({ message: "All fields are required" });
-
     const category = await prisma.category.create({
       data: { name, assetUrl },
       include: { LectureonCategory: { include: { lecture: true } } },
@@ -50,8 +47,6 @@ export const update = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const { name, assetUrl, userId } = req.body;
   try {
-    if (!name)
-      return res.status(500).json({ message: "All fields are required" });
     const exist = await prisma.category.findFirst({ where: { id } });
     if (!exist)
       return res
