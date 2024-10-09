@@ -29,10 +29,12 @@ import { Purchase } from "../pages/purchase/Purchase";
 import { ShowPurchase } from "../pages/purchase/ShowPurchase";
 import { CreatePurchase } from "../pages/purchase/CreatePurchase";
 import { Students } from "../pages/student/Student";
+import { Toaster } from "react-hot-toast";
 
 export const Router = () => {
   return (
     <BrowserRouter>
+      <Toaster position={"top-right"} toastOptions={{ duration: 3000 }} />
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/" Component={App} />

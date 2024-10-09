@@ -14,6 +14,7 @@ export const Layout = ({ children, title }: Prop) => {
       <Helmet>
         <title>{`${title} - LMS`}</title>
       </Helmet>
+
       <div className="flex h-screen overflow-hidden">
         <SideBar />
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">

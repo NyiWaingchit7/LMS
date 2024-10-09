@@ -15,6 +15,7 @@ import {
   handleGetCategory,
 } from "../../../store/slice/categorySlice";
 import { Image } from "../../../component/Image";
+import toast from "react-hot-toast";
 
 interface Props {
   data: Category[];
@@ -26,6 +27,7 @@ export const ListTable = ({ data }: Props) => {
       handleDeletCategory({
         id,
         onSuccess: () => {
+          toast.success("Category is deleted successfully");
           dispatch(handleGetCategory());
         },
       })

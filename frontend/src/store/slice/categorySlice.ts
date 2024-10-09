@@ -66,12 +66,13 @@ export const handleCreateCategory = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setCategoryError(data.errors));
+        throw Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -88,12 +89,14 @@ export const handleUpdateCategory = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setCategoryError(data.errors));
+
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -128,8 +131,12 @@ export const categorySlice = createSlice({
     setCategoryData: (state, action) => {
       state.data = action.payload;
     },
+    setCategoryError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setCategory, setCategoryData } = categorySlice.actions;
+export const { setCategory, setCategoryData, setCategoryError } =
+  categorySlice.actions;
 export default categorySlice.reducer;

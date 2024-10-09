@@ -1,23 +1,17 @@
-import {
-  Box,
-  Button,
-  Chip,
-  FormControl,
-  Paper,
-  TextField,
-} from "@mui/material";
+import { Button, Paper, TextField } from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
 import { useEffect, useState } from "react";
 import { Category } from "../../../types/category";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   handleCreateCategory,
   handleUpdateCategory,
+  setCategoryError,
 } from "../../../store/slice/categorySlice";
 import { useNavigate } from "react-router-dom";
-import { UploadFile } from "../../../component/UploadFile";
-import { fileUpload } from "../../../utils/fileUpload";
 import { FileUpload } from "../../../component/FileUpload";
+import { Error } from "../../../component/Error";
+import toast from "react-hot-toast";
 
 interface Props {
   category?: Category;
@@ -33,8 +27,10 @@ export const Form = ({ category }: Props) => {
   const [imgUrl, setImgUrl] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const errors = useAppSelector((store) => store.category.error);
 
   const onSuccess = () => {
+    toast.success("Category id created successfully");
     navigate("/categories");
   };
 
@@ -55,7 +51,7 @@ export const Form = ({ category }: Props) => {
         ...sumbitForm,
         assetUrl: imgUrl,
         onSuccess: () => {
-          alert("update success");
+          toast.success("Category is updated successfully");
         },
       })
     );
@@ -65,6 +61,9 @@ export const Form = ({ category }: Props) => {
       setForm(category);
       setImgUrl(category.assetUrl as string);
     }
+    return () => {
+      dispatch(setCategoryError(null));
+    };
   }, [category]);
   return (
     <Paper className="px-5 py-3 mt-5">
@@ -85,6 +84,7 @@ export const Form = ({ category }: Props) => {
           value={sumbitForm.name}
           onChange={(e) => setForm({ ...sumbitForm, name: e.target.value })}
         />
+        <Error message={errors?.name || ""} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button
