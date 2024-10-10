@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import {
   handleCreateLecture,
   handleUpdateLecture,
+  setLectureError,
 } from "../../../store/slice/lectureSlice";
 import { Lecture } from "../../../types/lecture";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -18,6 +19,8 @@ import {
 } from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
 import { Category } from "../../../types/category";
+import { Error } from "../../../component/Error";
+import toast from "react-hot-toast";
 
 interface Props {
   lecture?: Lecture;
@@ -49,8 +52,11 @@ export const Form = ({ lecture, categories }: Props) => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const errors = useAppSelector((store) => store.lecture.error);
 
   const onSuccess = () => {
+    toast.success("Lecture is created successfully.");
+
     navigate("/lectures");
   };
 
@@ -67,7 +73,7 @@ export const Form = ({ lecture, categories }: Props) => {
         ...sumbitForm,
         categories: selectedIds,
         onSuccess: () => {
-          alert("update success");
+          toast.success("Lecture is updated successfully.");
         },
       })
     );
@@ -78,8 +84,10 @@ export const Form = ({ lecture, categories }: Props) => {
       setSelectedIds(
         (lecture.categories as Category[]).map((d) => d.id) as number[]
       );
-      console.log(sumbitForm), lecture;
     }
+    return () => {
+      dispatch(setLectureError(null));
+    };
   }, [lecture]);
   return (
     <Paper className="px-5 py-3 mt-5">
@@ -95,6 +103,7 @@ export const Form = ({ lecture, categories }: Props) => {
           value={sumbitForm.title}
           onChange={(e) => setForm({ ...sumbitForm, title: e.target.value })}
         />
+        <Error message={errors?.title || ""} />
       </div>
       <div className="mt-5">
         <FormControl fullWidth>
@@ -130,6 +139,7 @@ export const Form = ({ lecture, categories }: Props) => {
             ))}
           </Select>
         </FormControl>
+        <Error message={errors?.categories || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="description" />
@@ -145,6 +155,7 @@ export const Form = ({ lecture, categories }: Props) => {
             setForm({ ...sumbitForm, description: e.target.value })
           }
         />
+        <Error message={errors?.description || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="price" />

@@ -66,11 +66,12 @@ export const handleCreatePurchase = createAsyncThunk(
         body: JSON.stringify({
           studentId,
           lectureId,
-          payment_assetUrl: payment_assetUrl || "aaa",
+          payment_assetUrl: payment_assetUrl,
         }),
       });
       const data = await response.json();
       if (!response.ok) {
+        thunkApi.dispatch(setPurchaseError(data.errors));
         throw new Error(data.message);
       }
 
@@ -133,8 +134,12 @@ export const purchaseSlice = createSlice({
     setPurchaseData: (state, action) => {
       state.data = action.payload;
     },
+    setPurchaseError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setPurchase, setPurchaseData } = purchaseSlice.actions;
+export const { setPurchase, setPurchaseData, setPurchaseError } =
+  purchaseSlice.actions;
 export default purchaseSlice.reducer;

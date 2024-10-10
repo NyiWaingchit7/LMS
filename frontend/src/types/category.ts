@@ -10,7 +10,7 @@ export interface CategorySlice {
   items: Category[];
   data: Category;
   isLoading: boolean;
-  error: Error | null;
+  error: null | { [key: string]: string };
 }
 
 export interface CreateCategory extends BaseOption {

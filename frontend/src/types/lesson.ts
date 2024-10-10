@@ -16,7 +16,7 @@ export interface LessonSlice {
   items: Lesson[];
   data: Lesson;
   isLoading: boolean;
-  error: Error | null;
+  error: null | { [key: string]: string };
 }
 
 export interface CreateLesson extends BaseOption {

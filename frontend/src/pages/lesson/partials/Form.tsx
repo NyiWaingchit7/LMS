@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Lecture, lectureData } from "../../../types/lecture";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -15,9 +15,12 @@ import { Lesson } from "../../../types/lesson";
 import {
   handleCreateLesson,
   handleUpdateLesson,
+  setLessonError,
 } from "../../../store/slice/lessonSlice";
 import { FileUpload } from "../../../component/FileUpload";
 import { Editor } from "../../../component/Editor";
+import { Error } from "../../../component/Error";
+import toast from "react-hot-toast";
 
 interface Props {
   lesson?: Lesson;
@@ -39,11 +42,13 @@ export const Form = ({ lectures, lesson }: Props) => {
   const [selectedIds, setSelectedIds] = useState<number>();
   const [imgUrl, setImgUrl] = useState("");
   const [content, setContent] = useState("");
+  const errors = useAppSelector((store) => store.lesson.error);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSuccess = () => {
+    toast.success("Lesson is created successfully.");
     navigate("/lessons");
   };
 
@@ -68,7 +73,7 @@ export const Form = ({ lectures, lesson }: Props) => {
         assetImage: imgUrl,
         lectureId: selectedIds as number,
         onSuccess: () => {
-          alert("update success");
+          toast.success("Lesson is updated successfully.");
         },
       })
     );
@@ -79,6 +84,9 @@ export const Form = ({ lectures, lesson }: Props) => {
       setSelectedIds(lesson.lectureId as number);
       setContent(lesson.content);
     }
+    return () => {
+      dispatch(setLessonError(null));
+    };
   }, [lesson]);
   return (
     <Paper className="px-5 py-3 mt-5">
@@ -94,6 +102,7 @@ export const Form = ({ lectures, lesson }: Props) => {
           value={sumbitForm.title}
           onChange={(e) => setForm({ ...sumbitForm, title: e.target.value })}
         />
+        <Error message={errors?.title || ""} />
       </div>
 
       <div className="mt-5">
@@ -110,6 +119,7 @@ export const Form = ({ lectures, lesson }: Props) => {
             setForm({ ...sumbitForm, description: e.target.value })
           }
         />
+        <Error message={errors?.description || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="content" />
@@ -152,6 +162,7 @@ export const Form = ({ lectures, lesson }: Props) => {
             ))}
           </Select>
         </FormControl>
+        <Error message={errors?.lectureId || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="image" />

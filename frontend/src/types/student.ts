@@ -13,7 +13,7 @@ export interface StudentSlice {
   items: Student[];
   data: Student;
   isLoading: boolean;
-  error: Error | null;
+  error: null | { [key: string]: string };
 }
 
 export interface CreateStudent extends BaseOption {

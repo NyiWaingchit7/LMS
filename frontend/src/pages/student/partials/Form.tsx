@@ -1,14 +1,17 @@
 import { Button, Paper, TextField } from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 
 import { useNavigate } from "react-router-dom";
 import { CreateStudent, Student } from "../../../types/student";
 import {
   handleCreateStudent,
   handleUpdateStudent,
+  setStudentError,
 } from "../../../store/slice/studentSlice";
+import { Error } from "../../../component/Error";
+import toast from "react-hot-toast";
 
 interface Props {
   student?: Student;
@@ -26,8 +29,10 @@ export const Form = ({ student }: Props) => {
   const [sumbitForm, setForm] = useState<Student>(defaultForm);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const errors = useAppSelector((store) => store.student.error);
 
   const onSuccess = () => {
+    toast.success("Student is created successfully");
     navigate("/students");
   };
 
@@ -43,7 +48,7 @@ export const Form = ({ student }: Props) => {
         id: student?.id as number,
         ...sumbitForm,
         onSuccess: () => {
-          alert("update success");
+          toast.success("Student is updated successfully");
         },
       })
     );
@@ -55,6 +60,9 @@ export const Form = ({ student }: Props) => {
       setForm({ ...student, password: "" });
       console.log(sumbitForm);
     }
+    return () => {
+      dispatch(setStudentError(null));
+    };
   }, [student]);
   return (
     <Paper className="px-5 py-3 mt-5">
@@ -70,6 +78,7 @@ export const Form = ({ student }: Props) => {
           value={sumbitForm.name}
           onChange={(e) => setForm({ ...sumbitForm, name: e.target.value })}
         />
+        <Error message={errors?.name || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="email" />
@@ -83,6 +92,7 @@ export const Form = ({ student }: Props) => {
           value={sumbitForm.email}
           onChange={(e) => setForm({ ...sumbitForm, email: e.target.value })}
         />
+        <Error message={errors?.email || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="password" />
@@ -95,6 +105,7 @@ export const Form = ({ student }: Props) => {
           autoComplete="off"
           onChange={(e) => setForm({ ...sumbitForm, password: e.target.value })}
         />
+        <Error message={errors?.password || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="phone" />

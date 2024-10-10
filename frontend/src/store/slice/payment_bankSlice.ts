@@ -67,12 +67,13 @@ export const handleCreatePaymentBank = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setPaymentBankError(data.errors));
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -89,12 +90,14 @@ export const handleUpdatePaymentBank = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setPaymentBankError(data.errors));
+
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -129,8 +132,12 @@ export const paymentBankSlice = createSlice({
     setPaymentBankData: (state, action) => {
       state.data = action.payload;
     },
+    setPaymentBankError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setPaymentBank, setPaymentBankData } = paymentBankSlice.actions;
+export const { setPaymentBank, setPaymentBankData, setPaymentBankError } =
+  paymentBankSlice.actions;
 export default paymentBankSlice.reducer;

@@ -10,7 +10,7 @@ export interface PaymentBankSlice {
   items: PaymentBank[];
   data: PaymentBank;
   isLoading: boolean;
-  error: Error | null;
+  error: null | { [key: string]: string };
 }
 
 export interface CreatePaymentBank extends BaseOption {

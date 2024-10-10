@@ -66,12 +66,13 @@ export const handleCreateStudent = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setStudentError(data.errors));
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -88,12 +89,13 @@ export const handleUpdateStudent = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setStudentError(data.errors));
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -128,8 +130,12 @@ export const studentSlice = createSlice({
     setStudentData: (state, action) => {
       state.data = action.payload;
     },
+    setStudentError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setStudent, setStudentData } = studentSlice.actions;
+export const { setStudent, setStudentData, setStudentError } =
+  studentSlice.actions;
 export default studentSlice.reducer;

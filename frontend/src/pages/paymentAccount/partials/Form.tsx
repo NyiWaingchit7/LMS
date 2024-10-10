@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Lecture, lectureData } from "../../../types/lecture";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -16,7 +16,10 @@ import { PaymentBank, paymentBankData } from "../../../types/payment_bank";
 import {
   handleCreatePaymentAccount,
   handleUpdatePaymentAccount,
+  setPaymentAccountError,
 } from "../../../store/slice/payment_accountSlice";
+import { Error } from "../../../component/Error";
+import toast from "react-hot-toast";
 
 interface Props {
   paymentAccount?: PaymentAccount;
@@ -34,11 +37,13 @@ const defaultForm = {
 export const Form = ({ paymentAccount, paymentBanks }: Props) => {
   const [sumbitForm, setForm] = useState<PaymentAccount>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number>();
+  const errors = useAppSelector((store) => store.paymentAccount.error);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSuccess = () => {
+    toast.success("Payment account is created successfully.");
     navigate("/payment-accounts");
   };
 
@@ -59,7 +64,7 @@ export const Form = ({ paymentAccount, paymentBanks }: Props) => {
         ...sumbitForm,
         payment_bank_id: selectedIds as number,
         onSuccess: () => {
-          alert("update success");
+          toast.success("Payment account is updated successfully.");
         },
       })
     );
@@ -69,6 +74,9 @@ export const Form = ({ paymentAccount, paymentBanks }: Props) => {
       setForm(paymentAccount);
       setSelectedIds(paymentAccount.payment_bank_id as number);
     }
+    return () => {
+      dispatch(setPaymentAccountError(null));
+    };
   }, [paymentAccount]);
   return (
     <Paper className="px-5 py-3 mt-5">
@@ -84,6 +92,7 @@ export const Form = ({ paymentAccount, paymentBanks }: Props) => {
           value={sumbitForm.name}
           onChange={(e) => setForm({ ...sumbitForm, name: e.target.value })}
         />
+        <Error message={errors?.name || ""} />
       </div>
 
       <div className="mt-5">
@@ -100,6 +109,7 @@ export const Form = ({ paymentAccount, paymentBanks }: Props) => {
             setForm({ ...sumbitForm, phone_number: e.target.value })
           }
         />
+        <Error message={errors?.phone_number || ""} />
       </div>
 
       <div className="mt-5">
@@ -120,6 +130,7 @@ export const Form = ({ paymentAccount, paymentBanks }: Props) => {
             ))}
           </Select>
         </FormControl>
+        <Error message={errors?.payment_bank_id || ""} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button

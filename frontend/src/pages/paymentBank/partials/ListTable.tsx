@@ -16,6 +16,7 @@ import {
   handleDeletPaymentBank,
   handleGetPaymentBank,
 } from "../../../store/slice/payment_bankSlice";
+import toast from "react-hot-toast";
 
 interface Props {
   data: PaymentBank[];
@@ -27,6 +28,8 @@ export const ListTable = ({ data }: Props) => {
       handleDeletPaymentBank({
         id,
         onSuccess: () => {
+          toast.success("Payment Bank is deleted successfully.");
+
           dispatch(handleGetPaymentBank());
         },
       })

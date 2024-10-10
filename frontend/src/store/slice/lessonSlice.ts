@@ -83,12 +83,14 @@ export const handleCreateLesson = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setLessonError(data.errors));
+
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -121,12 +123,14 @@ export const handleUpdateLesson = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setLessonError(data.errors));
+
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -161,8 +165,11 @@ export const lessonSlice = createSlice({
     setLessonData: (state, action) => {
       state.data = action.payload;
     },
+    setLessonError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setLesson, setLessonData } = lessonSlice.actions;
+export const { setLesson, setLessonData, setLessonError } = lessonSlice.actions;
 export default lessonSlice.reducer;

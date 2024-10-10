@@ -13,7 +13,7 @@ export interface PaymentAccountSlice {
   items: PaymentAccount[];
   data: PaymentAccount;
   isLoading: boolean;
-  error: Error | null;
+  error: null | { [key: string]: string };
 }
 
 export interface CreatePaymentAccount extends BaseOption {

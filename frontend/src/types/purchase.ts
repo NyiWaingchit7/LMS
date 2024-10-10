@@ -17,7 +17,7 @@ export interface PurchaseSlice {
   items: Purchase[];
   data: Purchase;
   isLoading: boolean;
-  error: Error | null;
+  error: null | { [key: string]: string };
 }
 
 export interface CreatePurchase extends BaseOption {

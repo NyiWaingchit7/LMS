@@ -14,6 +14,7 @@ import {
   setPurchaseData,
 } from "../../store/slice/purchaseSlice";
 import { getChipColor } from "../../utils/statusColor";
+import toast from "react-hot-toast";
 
 const statusOptions = [
   { key: "Pending", value: "PENDING" },
@@ -35,7 +36,8 @@ export const ShowPurchase = () => {
         id,
         payment_status,
         onSuccess: () => {
-          console.log("success");
+          toast.success("Payment status is changed successfully.");
+          dispatch(handleShowPurchase(id));
           setOpen(false);
         },
       })

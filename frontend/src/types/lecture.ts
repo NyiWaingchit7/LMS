@@ -16,7 +16,7 @@ export interface LectureSlice {
   items: Lecture[];
   data: Lecture;
   isLoading: boolean;
-  error: Error | null;
+  error: null | { [key: string]: string };
 }
 
 export interface CreateLecture extends BaseOption {

@@ -16,6 +16,7 @@ import {
   handleDeletePaymentAccount,
   handleGetPaymentAccount,
 } from "../../../store/slice/payment_accountSlice";
+import toast from "react-hot-toast";
 
 interface Props {
   data: PaymentAccount[];
@@ -27,6 +28,7 @@ export const ListTable = ({ data }: Props) => {
       handleDeletePaymentAccount({
         id,
         onSuccess: () => {
+          toast.success("Payment account is deleted successfully.");
           dispatch(handleGetPaymentAccount());
         },
       })

@@ -2,14 +2,17 @@ import { Button, Paper, TextField } from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
 import { useEffect, useState } from "react";
 import { Category } from "../../../types/category";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { PaymentBank } from "../../../types/payment_bank";
 import {
   handleCreatePaymentBank,
   handleUpdatePaymentBank,
+  setPaymentBankError,
 } from "../../../store/slice/payment_bankSlice";
 import { FileUpload } from "../../../component/FileUpload";
+import { Error } from "../../../component/Error";
+import toast from "react-hot-toast";
 
 interface Props {
   paymentBank?: PaymentBank;
@@ -25,8 +28,10 @@ export const Form = ({ paymentBank }: Props) => {
   const [imgUrl, setImgUrl] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const errors = useAppSelector((store) => store.paymentBank.error);
 
   const onSuccess = () => {
+    toast.success("Payment Bank is created successfully.");
     navigate("/payment-banks");
   };
 
@@ -43,7 +48,7 @@ export const Form = ({ paymentBank }: Props) => {
         ...sumbitForm,
         assetUrl: imgUrl,
         onSuccess: () => {
-          alert("update success");
+          toast.success("Payment Bank is updated successfully.");
         },
       })
     );
@@ -52,6 +57,9 @@ export const Form = ({ paymentBank }: Props) => {
     if (paymentBank) {
       setForm(paymentBank);
     }
+    return () => {
+      dispatch(setPaymentBankError(null));
+    };
   }, [paymentBank]);
   return (
     <Paper className="px-5 py-3 mt-5">
@@ -67,6 +75,7 @@ export const Form = ({ paymentBank }: Props) => {
           value={sumbitForm.name}
           onChange={(e) => setForm({ ...sumbitForm, name: e.target.value })}
         />
+        <Error message={errors?.name || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="image" />

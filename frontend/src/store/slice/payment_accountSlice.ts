@@ -72,6 +72,7 @@ export const handleCreatePaymentAccount = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
+        thunkApi.dispatch(setPaymentAccountError(data.errors));
         throw new Error(data.message);
       }
 
@@ -98,6 +99,7 @@ export const handleUpdatePaymentAccount = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
+        thunkApi.dispatch(setPaymentAccountError(data.errors));
         throw new Error(data.message);
       }
 
@@ -138,9 +140,15 @@ export const paymentAccountSlice = createSlice({
     setPaymentAccountData: (state, action) => {
       state.data = action.payload;
     },
+    setPaymentAccountError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setPaymentAccount, setPaymentAccountData } =
-  paymentAccountSlice.actions;
+export const {
+  setPaymentAccount,
+  setPaymentAccountData,
+  setPaymentAccountError,
+} = paymentAccountSlice.actions;
 export default paymentAccountSlice.reducer;

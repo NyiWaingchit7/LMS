@@ -12,12 +12,14 @@ import { TableAction } from "../../../component/TableAction";
 import { useAppDispatch } from "../../../store/hooks";
 
 import { Image } from "../../../component/Image";
-import {
-  handleDeletPaymentBank,
-  handleGetPaymentBank,
-} from "../../../store/slice/payment_bankSlice";
-import { PaymentStatus, Purchase } from "../../../types/purchase";
+
+import { Purchase } from "../../../types/purchase";
 import { getChipColor } from "../../../utils/statusColor";
+import toast from "react-hot-toast";
+import {
+  handleDeletPurchase,
+  handleGetPurchase,
+} from "../../../store/slice/purchaseSlice";
 
 interface Props {
   data: Purchase[];
@@ -26,10 +28,11 @@ export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
   const handleDelete = (id: number) => {
     dispatch(
-      handleDeletPaymentBank({
+      handleDeletPurchase({
         id,
         onSuccess: () => {
-          dispatch(handleGetPaymentBank());
+          toast.success("Purchase is deleted successfully.");
+          dispatch(handleGetPurchase());
         },
       })
     );
@@ -70,6 +73,7 @@ export const ListTable = ({ data }: Props) => {
                   <TableAction
                     id={row.id as number}
                     path="purchases"
+                    edit={false}
                     handleDelete={() => {
                       handleDelete(row.id as number);
                     }}

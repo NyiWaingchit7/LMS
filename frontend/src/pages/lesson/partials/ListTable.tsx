@@ -16,6 +16,7 @@ import {
   handleDeleteLesson,
   handleGetLesson,
 } from "../../../store/slice/lessonSlice";
+import toast from "react-hot-toast";
 
 interface Props {
   data: Lesson[];
@@ -27,6 +28,7 @@ export const ListTable = ({ data }: Props) => {
       handleDeleteLesson({
         id,
         onSuccess: () => {
+          toast.success("Lesson is deleted successfully");
           dispatch(handleGetLesson());
         },
       })

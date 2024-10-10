@@ -84,12 +84,14 @@ export const handleCreateLecture = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setLectureError(data.errors));
+
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -124,12 +126,13 @@ export const handleUpdateLecture = createAsyncThunk(
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        thunkApi.dispatch(setLectureError(data.errors));
+        throw new Error(data);
       }
 
       onSuccess && onSuccess();
     } catch (error: any) {
-      errorHelper(error.message);
+      errorHelper(error);
     }
   }
 );
@@ -164,8 +167,12 @@ export const lectureSlice = createSlice({
     setLectureData: (state, action) => {
       state.data = action.payload;
     },
+    setLectureError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setLecture, setLectureData } = lectureSlice.actions;
+export const { setLecture, setLectureData, setLectureError } =
+  lectureSlice.actions;
 export default lectureSlice.reducer;

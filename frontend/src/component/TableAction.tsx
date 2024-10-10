@@ -17,26 +17,42 @@ interface Props {
   id: number;
   path: string;
   handleDelete: (data: any) => void;
+  edit?: boolean;
+  show?: boolean;
+  deleted?: boolean;
 }
 
-export const TableAction = ({ id, path, handleDelete }: Props) => {
+export const TableAction = ({
+  id,
+  path,
+  handleDelete,
+  edit = true,
+  show = true,
+  deleted = true,
+}: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
     <div>
-      <Link to={`/${path}/${id}`}>
-        <IconButton size="small">
-          <VisibilityIcon />
+      {show && (
+        <Link to={`/${path}/${id}`}>
+          <IconButton size="small">
+            <VisibilityIcon />
+          </IconButton>
+        </Link>
+      )}
+      {edit && (
+        <Link to={`/${path}/${id}/edit`}>
+          <IconButton size="small">
+            <EditIcon />
+          </IconButton>
+        </Link>
+      )}
+      {deleted && (
+        <IconButton size="small" onClick={() => setOpen(true)}>
+          <DeleteIcon />
         </IconButton>
-      </Link>
-      <Link to={`/${path}/${id}/edit`}>
-        <IconButton size="small">
-          <EditIcon />
-        </IconButton>
-      </Link>
-      <IconButton size="small" onClick={() => setOpen(true)}>
-        <DeleteIcon />
-      </IconButton>
+      )}
 
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Confirmation</DialogTitle>

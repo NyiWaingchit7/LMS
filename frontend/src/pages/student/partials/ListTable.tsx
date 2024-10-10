@@ -9,12 +9,14 @@ import {
 } from "@mui/material";
 import { TableAction } from "../../../component/TableAction";
 import { useAppDispatch } from "../../../store/hooks";
-import {
-  handleDeletCategory,
-  handleGetCategory,
-} from "../../../store/slice/categorySlice";
+
 import { Image } from "../../../component/Image";
 import { Student } from "../../../types/student";
+import toast from "react-hot-toast";
+import {
+  handleDeletStudent,
+  handleGetStudent,
+} from "../../../store/slice/studentSlice";
 
 interface Props {
   data: Student[];
@@ -23,10 +25,11 @@ export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
   const handleDelete = (id: number) => {
     dispatch(
-      handleDeletCategory({
+      handleDeletStudent({
         id,
         onSuccess: () => {
-          dispatch(handleGetCategory());
+          toast.success("Student is deleted successfully");
+          dispatch(handleGetStudent());
         },
       })
     );
