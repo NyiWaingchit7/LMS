@@ -8,6 +8,7 @@ import {
   store,
   update,
 } from "../controller/purchase.controller";
+import { purchaseValidation } from "../validator/purchase.validator";
 
 export const pruchaseRouter = express.Router();
 
@@ -15,7 +16,7 @@ pruchaseRouter.get("/", checkauth, index);
 
 pruchaseRouter.get("/:id", checkauth, show);
 
-pruchaseRouter.post("/", checkauth, store);
+pruchaseRouter.post("/", checkauth, purchaseValidation, store);
 
 pruchaseRouter.put("/:id", checkauth, update);
 

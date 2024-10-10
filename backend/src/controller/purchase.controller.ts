@@ -31,8 +31,6 @@ export const store = async (req: Request, res: Response) => {
   const { lectureId, studentId, payment_assetUrl } = req.body;
 
   try {
-    const isValid = lectureId && studentId && payment_assetUrl;
-    if (!isValid) return res.status(403).json({ message: "Bad Request" });
     const purchase = await prisma.purchase.create({
       data: { lectureId, studentId, payment_assetUrl },
     });

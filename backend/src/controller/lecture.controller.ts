@@ -44,10 +44,6 @@ export const store = async (req: Request, res: Response) => {
   const { title, description, isPremium, categories, price, discount_price } =
     req.body;
   try {
-    const isvalid = title && description && categories.length >= 1;
-    if (!isvalid)
-      return res.status(400).json({ message: "All fields are required!" });
-
     const lecture = await prisma.lecture.create({
       data: { title, description, isPremium, price, discount_price },
     });
@@ -76,10 +72,6 @@ export const update = async (req: Request, res: Response) => {
     });
     if (!exist)
       return res.status(400).json({ message: "The lecture can not be found!" });
-
-    const isvalid = title && description && categories.length >= 1;
-    if (!isvalid)
-      return res.status(400).json({ message: "All fields are required!" });
 
     const lecture = await prisma.lecture.update({
       where: { id },

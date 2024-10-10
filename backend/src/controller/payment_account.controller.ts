@@ -31,9 +31,6 @@ export const show = async (req: Request, res: Response) => {
 export const store = async (req: Request, res: Response) => {
   const { name, phone_number, payment_bank_id } = req.body;
   try {
-    const isvalid = name && phone_number && payment_bank_id;
-    if (!isvalid)
-      return res.status(400).json({ message: "All fields are required!" });
     const paymentAccount = await prisma.paymentAccount.create({
       data: { name, phone_number, payment_bank_id },
       include: { payment_bank: true },
@@ -56,10 +53,6 @@ export const update = async (req: Request, res: Response) => {
       return res
         .status(400)
         .json({ message: "The paymentAccount can not be found!" });
-
-    const isvalid = name && phone_number && payment_bank_id;
-    if (!isvalid)
-      return res.status(400).json({ message: "All fields are required!" });
 
     const paymentAccount = await prisma.paymentAccount.update({
       where: { id },

@@ -38,9 +38,6 @@ export const show = async (req: Request, res: Response) => {
 export const store = async (req: Request, res: Response) => {
   const { name, email, password, phone, assetUrl } = req.body;
   try {
-    const isvalid = name && email && password;
-    if (!isvalid)
-      return res.status(400).json({ message: "All fields are required!" });
     const hasPassword = await bcrypt.hash(password, 10);
     const student = await prisma.student.create({
       data: { name, email, password: hasPassword, phone, assetUrl },
@@ -61,10 +58,6 @@ export const update = async (req: Request, res: Response) => {
     });
     if (!exist)
       return res.status(400).json({ message: "The student can not be found!" });
-
-    const isvalid = name && email;
-    if (!isvalid)
-      return res.status(400).json({ message: "All fields are required!" });
 
     const hasPassword = await bcrypt.hash(password, 10);
 

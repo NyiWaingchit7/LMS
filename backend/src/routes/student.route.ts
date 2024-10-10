@@ -10,6 +10,7 @@ import {
   store,
   update,
 } from "../controller/student.controller";
+import { studentValidation } from "../validator/student.validator";
 
 export const studentRouter = express.Router();
 
@@ -21,8 +22,8 @@ studentRouter.post("/register", register);
 
 studentRouter.post("/login", login);
 
-studentRouter.post("/", checkauth, store);
+studentRouter.post("/", checkauth, studentValidation, store);
 
-studentRouter.put("/:id", checkauth, update);
+studentRouter.put("/:id", checkauth, studentValidation, update);
 
 studentRouter.delete("/:id", checkauth, destroy);
