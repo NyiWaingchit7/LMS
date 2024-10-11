@@ -11,6 +11,7 @@ export interface PaymentAccount {
 
 export interface PaymentAccountSlice {
   items: PaymentAccount[];
+  links: any[];
   data: PaymentAccount;
   isLoading: boolean;
   error: null | { [key: string]: string };

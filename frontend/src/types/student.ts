@@ -11,6 +11,7 @@ export interface Student {
 
 export interface StudentSlice {
   items: Student[];
+  links: any[];
   data: Student;
   isLoading: boolean;
   error: null | { [key: string]: string };

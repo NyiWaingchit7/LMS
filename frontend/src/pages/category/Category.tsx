@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Layout } from "../../component/layout/Layout";
 import { Button } from "@mui/material";
 import { HeadLine } from "../../component/HeadLine";
@@ -10,9 +10,12 @@ import { handleGetCategory } from "../../store/slice/categorySlice";
 export const Category = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((store) => store.category.items);
+  const [searchParam, setSearchParam] = useSearchParams();
+  const page = (searchParam.get("page") as string) || 1;
+
   useEffect(() => {
-    dispatch(handleGetCategory());
-  }, []);
+    dispatch(handleGetCategory(page));
+  }, [page]);
   return (
     <Layout title="Categories">
       <HeadLine header="Categories" />

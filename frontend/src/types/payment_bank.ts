@@ -8,6 +8,7 @@ export interface PaymentBank {
 
 export interface PaymentBankSlice {
   items: PaymentBank[];
+  links: any[];
   data: PaymentBank;
   isLoading: boolean;
   error: null | { [key: string]: string };

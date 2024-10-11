@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { HeadLine } from "../../component/HeadLine";
 import { Layout } from "../../component/layout/Layout";
 import { Button } from "@mui/material";
@@ -10,9 +10,11 @@ import { handleGetPaymentAccount } from "../../store/slice/payment_accountSlice"
 export const PaymentAccount = () => {
   const dispatch = useAppDispatch();
   const paymentAccounts = useAppSelector((store) => store.paymentAccount.items);
+  const [searchParam, setSearchParam] = useSearchParams();
+  const page = (searchParam.get("page") as string) || 1;
   useEffect(() => {
-    dispatch(handleGetPaymentAccount());
-  }, []);
+    dispatch(handleGetPaymentAccount(page));
+  }, [page]);
   return (
     <Layout title="Payment Accounts">
       <HeadLine header="Payment Accounts" />

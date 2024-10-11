@@ -11,6 +11,7 @@ import {
 } from "../../types/student";
 const initialState: StudentSlice = {
   items: [],
+  links: [],
   data: studentData,
   isLoading: false,
   error: null,
@@ -18,18 +19,19 @@ const initialState: StudentSlice = {
 
 export const handleGetStudent = createAsyncThunk(
   "get/student",
-  async (option, thunkApi) => {
+  async (page: string | number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/students`, {
+      const response = await fetch(`${config.apiUrl}/students?page=${page}`, {
         method: "GET",
         headers: headerOptions(),
       });
-      const data = await response.json();
+      const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setStudent(data.students));
+      thunkApi.dispatch(setStudent(data.data));
+      thunkApi.dispatch(setStudentLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -133,9 +135,12 @@ export const studentSlice = createSlice({
     setStudentError: (state, action) => {
       state.error = action.payload;
     },
+    setStudentLink: (state, action) => {
+      state.links = action.payload;
+    },
   },
 });
 
-export const { setStudent, setStudentData, setStudentError } =
+export const { setStudent, setStudentData, setStudentError, setStudentLink } =
   studentSlice.actions;
 export default studentSlice.reducer;

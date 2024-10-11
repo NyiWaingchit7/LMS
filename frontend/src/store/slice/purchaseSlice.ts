@@ -12,6 +12,7 @@ import {
 } from "../../types/purchase";
 const initialState: PurchaseSlice = {
   items: [],
+  links: [],
   data: purchaseData,
   isLoading: false,
   error: null,
@@ -19,18 +20,19 @@ const initialState: PurchaseSlice = {
 
 export const handleGetPurchase = createAsyncThunk(
   "get/purchase",
-  async (option, thunkApi) => {
+  async (page: string | number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/purchases`, {
+      const response = await fetch(`${config.apiUrl}/purchases?page=${page}`, {
         method: "GET",
         headers: headerOptions(),
       });
-      const data = await response.json();
+      const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPurchase(data.purchases));
+      thunkApi.dispatch(setPurchase(data.data));
+      thunkApi.dispatch(setPurchaseLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -137,9 +139,16 @@ export const purchaseSlice = createSlice({
     setPurchaseError: (state, action) => {
       state.error = action.payload;
     },
+    setPurchaseLink: (state, action) => {
+      state.links = action.payload;
+    },
   },
 });
 
-export const { setPurchase, setPurchaseData, setPurchaseError } =
-  purchaseSlice.actions;
+export const {
+  setPurchase,
+  setPurchaseData,
+  setPurchaseError,
+  setPurchaseLink,
+} = purchaseSlice.actions;
 export default purchaseSlice.reducer;

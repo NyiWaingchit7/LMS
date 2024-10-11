@@ -15,6 +15,7 @@ export interface Purchase {
 
 export interface PurchaseSlice {
   items: Purchase[];
+  links: any[];
   data: Purchase;
   isLoading: boolean;
   error: null | { [key: string]: string };

@@ -12,6 +12,7 @@ import {
 } from "../../types/payment_bank";
 const initialState: PaymentBankSlice = {
   items: [],
+  links: [],
   data: paymentBankData,
   isLoading: false,
   error: null,
@@ -19,18 +20,22 @@ const initialState: PaymentBankSlice = {
 
 export const handleGetPaymentBank = createAsyncThunk(
   "get/payment-bank",
-  async (option, thunkApi) => {
+  async (page: string | number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/payment-banks`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
+      const response = await fetch(
+        `${config.apiUrl}/payment-banks?page=${page}`,
+        {
+          method: "GET",
+          headers: headerOptions(),
+        }
+      );
+      const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPaymentBank(data.paymentBanks));
+      thunkApi.dispatch(setPaymentBank(data.data));
+      thunkApi.dispatch(setPaymentBankLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -135,9 +140,16 @@ export const paymentBankSlice = createSlice({
     setPaymentBankError: (state, action) => {
       state.error = action.payload;
     },
+    setPaymentBankLink: (state, action) => {
+      state.links = action.payload;
+    },
   },
 });
 
-export const { setPaymentBank, setPaymentBankData, setPaymentBankError } =
-  paymentBankSlice.actions;
+export const {
+  setPaymentBank,
+  setPaymentBankData,
+  setPaymentBankError,
+  setPaymentBankLink,
+} = paymentBankSlice.actions;
 export default paymentBankSlice.reducer;

@@ -9,6 +9,7 @@ export interface Category {
 export interface CategorySlice {
   items: Category[];
   data: Category;
+  links: any[];
   isLoading: boolean;
   error: null | { [key: string]: string };
 }

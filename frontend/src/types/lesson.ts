@@ -14,6 +14,7 @@ export interface Lesson {
 
 export interface LessonSlice {
   items: Lesson[];
+  links: any[];
   data: Lesson;
   isLoading: boolean;
   error: null | { [key: string]: string };

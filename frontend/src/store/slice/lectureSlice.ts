@@ -12,6 +12,7 @@ import {
 } from "../../types/lecture";
 const initialState: LectureSlice = {
   items: [],
+  links: [],
   data: lectureData,
   isLoading: false,
   error: null,
@@ -19,18 +20,19 @@ const initialState: LectureSlice = {
 
 export const handleGetLecture = createAsyncThunk(
   "get/lecture",
-  async (option, thunkApi) => {
+  async (page: string | number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/lectures`, {
+      const response = await fetch(`${config.apiUrl}/lectures?page=${page}`, {
         method: "GET",
         headers: headerOptions(),
       });
-      const data = await response.json();
+      const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLecture(data.lectures));
+      thunkApi.dispatch(setLecture(data.data));
+      thunkApi.dispatch(setLectureLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -170,9 +172,12 @@ export const lectureSlice = createSlice({
     setLectureError: (state, action) => {
       state.error = action.payload;
     },
+    setLectureLink: (state, action) => {
+      state.links = action.payload;
+    },
   },
 });
 
-export const { setLecture, setLectureData, setLectureError } =
+export const { setLecture, setLectureData, setLectureError, setLectureLink } =
   lectureSlice.actions;
 export default lectureSlice.reducer;

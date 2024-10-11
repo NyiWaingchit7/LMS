@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Layout } from "../../component/layout/Layout";
 import { Button } from "@mui/material";
 import { HeadLine } from "../../component/HeadLine";
@@ -10,9 +10,11 @@ import { handleGetPurchase } from "../../store/slice/purchaseSlice";
 export const Purchase = () => {
   const dispatch = useAppDispatch();
   const purchases = useAppSelector((store) => store.purchase.items);
+  const [searchParams, setSerachParams] = useSearchParams();
+  const page = (searchParams.get("page") as string) || 1;
   useEffect(() => {
-    dispatch(handleGetPurchase());
-  }, []);
+    dispatch(handleGetPurchase(page));
+  }, [page]);
   return (
     <Layout title="Purchases">
       <HeadLine header="Purchases" />

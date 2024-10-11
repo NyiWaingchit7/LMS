@@ -12,7 +12,7 @@ export const Image = ({ src }: Props) => {
     <div>
       <img
         src={src}
-        className="cursor-pointer max-w-14 max-h-36 overflow-hidden"
+        className="cursor-pointer max-w-14 h-12 overflow-hidden"
         onClick={() => setOpen(true)}
       />
 

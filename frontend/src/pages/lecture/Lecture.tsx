@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { HeadLine } from "../../component/HeadLine";
 import { Layout } from "../../component/layout/Layout";
 import { Button } from "@mui/material";
@@ -10,9 +10,12 @@ import { handleGetLecture } from "../../store/slice/lectureSlice";
 export const Lecture = () => {
   const dispatch = useAppDispatch();
   const lectures = useAppSelector((store) => store.lecture.items);
+  const [searchParam, setSearchParams] = useSearchParams();
+  const page = searchParam.get("page") || 1;
+
   useEffect(() => {
-    dispatch(handleGetLecture());
-  }, []);
+    dispatch(handleGetLecture(page));
+  }, [page]);
   return (
     <Layout title="Lectures">
       <HeadLine header="Lectures" />

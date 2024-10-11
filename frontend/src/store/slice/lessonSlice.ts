@@ -13,6 +13,7 @@ import {
 
 const initialState: LessonSlice = {
   items: [],
+  links: [],
   data: lessonData,
   isLoading: false,
   error: null,
@@ -20,18 +21,19 @@ const initialState: LessonSlice = {
 
 export const handleGetLesson = createAsyncThunk(
   "get/lesson",
-  async (option, thunkApi) => {
+  async (page: string | number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/lessons`, {
+      const response = await fetch(`${config.apiUrl}/lessons?page=${page}`, {
         method: "GET",
         headers: headerOptions(),
       });
-      const data = await response.json();
+      const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLesson(data.lessons));
+      thunkApi.dispatch(setLesson(data.data));
+      thunkApi.dispatch(setLessonLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -168,8 +170,12 @@ export const lessonSlice = createSlice({
     setLessonError: (state, action) => {
       state.error = action.payload;
     },
+    setLessonLink: (state, action) => {
+      state.links = action.payload;
+    },
   },
 });
 
-export const { setLesson, setLessonData, setLessonError } = lessonSlice.actions;
+export const { setLesson, setLessonData, setLessonError, setLessonLink } =
+  lessonSlice.actions;
 export default lessonSlice.reducer;
