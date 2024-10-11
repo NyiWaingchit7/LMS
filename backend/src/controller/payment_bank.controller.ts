@@ -1,14 +1,17 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
-import bcrypt from "bcrypt";
+import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
+  const page = Number(req.query.page) || 1;
   const paymentBanks = await prisma.paymentBank.findMany({
     where: { deleted: false },
     orderBy: { id: "desc" },
     include: { PaymentAccount: { where: { deleted: false } } },
   });
-  return res.status(200).json({ paymentBanks });
+  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
+  const data = usePagination(page, 10, paymentBanks, baseUrl);
+  return res.status(200).json({ data });
 };
 
 export const show = async (req: Request, res: Response) => {

@@ -3,13 +3,17 @@ import { prisma } from "../../utils/db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "../../utils/config";
+import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
+  const page = Number(req.query.page) || 1;
   const students = await prisma.student.findMany({
     where: { deleted: false },
     orderBy: { id: "desc" },
   });
-  return res.status(200).json({ students });
+  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
+  const data = usePagination(page, 10, students, baseUrl);
+  return res.status(200).json({ data });
 };
 
 export const show = async (req: Request, res: Response) => {

@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
+import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
-  const data = await prisma.lecture.findMany({
+  const page = Number(req.query.page) || 1;
+  const lectureData = await prisma.lecture.findMany({
     where: { deleted: false },
     orderBy: { id: "desc" },
     include: {
@@ -10,11 +12,13 @@ export const index = async (req: Request, res: Response) => {
       Lesson: { where: { deleted: false } },
     },
   });
-  const lectures = data.map((lecture) => ({
+  const lectures = lectureData.map((lecture) => ({
     ...lecture,
     categories: lecture.LectureonCategory.map((lc) => lc.category),
   }));
-  return res.status(200).json({ lectures: lectures });
+  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
+  const data = usePagination(page, 10, lectures, baseUrl);
+  return res.status(200).json({ data });
 };
 
 export const show = async (req: Request, res: Response) => {

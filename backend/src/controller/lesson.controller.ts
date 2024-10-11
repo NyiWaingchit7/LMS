@@ -1,13 +1,17 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
+import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
+  const page = Number(req.query.page) || 1;
   const lessons = await prisma.lesson.findMany({
     where: { deleted: false },
     include: { lecture: true },
     orderBy: { id: "desc" },
   });
-  return res.status(200).json({ lessons });
+  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
+  const data = usePagination(page, 10, lessons, baseUrl);
+  return res.status(200).json({ data });
 };
 
 export const show = async (req: Request, res: Response) => {

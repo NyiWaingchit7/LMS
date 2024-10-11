@@ -1,14 +1,18 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 import { Status } from "@prisma/client";
+import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
+  const page = Number(req.query.page) || 1;
   const purchases = await prisma.purchase.findMany({
     orderBy: { id: "desc" },
     where: { deleted: false },
     include: { student: true, lecture: true },
   });
-  return res.status(200).json({ purchases });
+  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
+  const data = usePagination(page, 10, purchases, baseUrl);
+  return res.status(200).json({ data });
 };
 
 export const show = async (req: Request, res: Response) => {
