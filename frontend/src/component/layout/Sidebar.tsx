@@ -13,7 +13,7 @@ export const SideBar = () => {
     <aside className="z-30 flex h-screen w-60 flex-col overflow-y-hidden bg-white duration-300 ease-linear ">
       <div className="flex items-center justify-between gap-2 px-6 pt-2 pb-0">
         <a href="/">
-          <img src="../../public/logo.png" className="w-1/2 m-auto" alt="" />
+          <img src="../../logo.png" className="w-1/2 m-auto" alt="" />
         </a>
       </div>
 
