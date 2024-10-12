@@ -18,17 +18,18 @@ import {
   setLessonLink,
 } from "../../../store/slice/lessonSlice";
 import toast from "react-hot-toast";
-import { useSearchParams } from "react-router-dom";
+
 import { Pagination } from "../../../component/Pagination";
 import { useEffect } from "react";
+import { usePage } from "../../../utils/getPage";
 
 interface Props {
   data: Lesson[];
 }
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  const [searchParam, setSearchParams] = useSearchParams();
-  const page = searchParam.get("page") || 1;
+  const { page } = usePage();
+
   const links = useAppSelector((store) => store.lesson.links);
   const handleDelete = (id: number) => {
     dispatch(
@@ -50,7 +51,12 @@ export const ListTable = ({ data }: Props) => {
     <div>
       {" "}
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Image</TableCell>

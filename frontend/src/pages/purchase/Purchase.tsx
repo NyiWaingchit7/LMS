@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Layout } from "../../component/layout/Layout";
 import { Button } from "@mui/material";
 import { HeadLine } from "../../component/HeadLine";
@@ -6,12 +6,13 @@ import { ListTable } from "./partials/ListTable";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { handleGetPurchase } from "../../store/slice/purchaseSlice";
+import { usePage } from "../../utils/getPage";
 
 export const Purchase = () => {
   const dispatch = useAppDispatch();
   const purchases = useAppSelector((store) => store.purchase.items);
-  const [searchParams, setSerachParams] = useSearchParams();
-  const page = (searchParams.get("page") as string) || 1;
+  const { page } = usePage();
+
   useEffect(() => {
     dispatch(handleGetPurchase(page));
   }, [page]);

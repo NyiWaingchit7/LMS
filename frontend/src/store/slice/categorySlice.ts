@@ -9,6 +9,7 @@ import {
 import { errorHelper } from "../../utils/errorHelper";
 import { config } from "../../utils/config";
 import { headerOptions } from "../../utils/requestOption";
+import toast from "react-hot-toast";
 const initialState: CategorySlice = {
   items: [],
   links: [],
@@ -53,6 +54,9 @@ export const handleShowCategory = createAsyncThunk(
 
       thunkApi.dispatch(setCategoryData(data.category));
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }
@@ -119,6 +123,9 @@ export const handleDeletCategory = createAsyncThunk(
       }
       onSuccess && onSuccess();
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }

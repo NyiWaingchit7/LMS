@@ -9,6 +9,7 @@ import {
   StudentSlice,
   UpdateStudent,
 } from "../../types/student";
+import toast from "react-hot-toast";
 const initialState: StudentSlice = {
   items: [],
   links: [],
@@ -52,6 +53,9 @@ export const handleShowStudent = createAsyncThunk(
 
       thunkApi.dispatch(setStudentData(data.student));
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }
@@ -97,6 +101,9 @@ export const handleUpdateStudent = createAsyncThunk(
 
       onSuccess && onSuccess();
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error);
     }
   }

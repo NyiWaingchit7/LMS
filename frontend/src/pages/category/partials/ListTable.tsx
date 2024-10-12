@@ -19,7 +19,7 @@ import { Image } from "../../../component/Image";
 import toast from "react-hot-toast";
 import { Pagination } from "../../../component/Pagination";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { usePage } from "../../../utils/getPage";
 
 interface Props {
   data: Category[];
@@ -27,8 +27,7 @@ interface Props {
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
   const links = useAppSelector((store) => store.category.links);
-  const [searchParam, setSearchParam] = useSearchParams();
-  const page = (searchParam.get("page") as string) || 1;
+  const { page } = usePage();
   const handleDelete = (id: number) => {
     dispatch(
       handleDeletCategory({
@@ -49,7 +48,12 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Image</TableCell>

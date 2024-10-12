@@ -10,6 +10,7 @@ import {
   PaymentBankSlice,
   UpdatePaymentBank,
 } from "../../types/payment_bank";
+import toast from "react-hot-toast";
 const initialState: PaymentBankSlice = {
   items: [],
   links: [],
@@ -56,6 +57,9 @@ export const handleShowPaymentBank = createAsyncThunk(
 
       thunkApi.dispatch(setPaymentBankData(data.paymentBank));
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }
@@ -122,6 +126,9 @@ export const handleDeletPaymentBank = createAsyncThunk(
       }
       onSuccess && onSuccess();
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }

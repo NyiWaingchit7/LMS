@@ -10,7 +10,6 @@ import {
 import { TableAction } from "../../../component/TableAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 
-import { Image } from "../../../component/Image";
 import { PaymentAccount } from "../../../types/payment_account";
 import {
   handleDeletePaymentAccount,
@@ -18,17 +17,17 @@ import {
   setPaymentAccountLinks,
 } from "../../../store/slice/payment_accountSlice";
 import toast from "react-hot-toast";
-import { useSearchParams } from "react-router-dom";
 import { Pagination } from "../../../component/Pagination";
 import { useEffect } from "react";
+import { usePage } from "../../../utils/getPage";
 
 interface Props {
   data: PaymentAccount[];
 }
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  const [searchParam, setSearchParam] = useSearchParams();
-  const page = (searchParam.get("page") as string) || 1;
+  const { page } = usePage();
+
   const links = useAppSelector((store) => store.paymentAccount.links);
   const handleDelete = (id: number) => {
     dispatch(
@@ -49,7 +48,12 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>

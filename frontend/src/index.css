@@ -31,3 +31,10 @@ header {
   padding-left: 2px !important;
   padding-right: 2px !important;
 }
+.MuiChip-label {
+  font-size: 12px !important;
+}
+.MuiTableRow-root:hover {
+  background-color: #f7f7f7e0;
+  transition: all ease-in-out 0.1s;
+}

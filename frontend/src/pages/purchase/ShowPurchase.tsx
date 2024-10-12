@@ -35,8 +35,10 @@ export const ShowPurchase = () => {
       handleUpdatePurchase({
         id,
         payment_status,
-        onSuccess: () => {
-          toast.success("Payment status is changed successfully.");
+        onSuccess: (data) => {
+          console.log(data);
+
+          toast.success(`Payment status is changed to ${data.payment_status}.`);
           dispatch(handleShowPurchase(id));
           setOpen(false);
         },

@@ -10,6 +10,7 @@ import {
   LectureSlice,
   UpdateLecture,
 } from "../../types/lecture";
+import toast from "react-hot-toast";
 const initialState: LectureSlice = {
   items: [],
   links: [],
@@ -53,6 +54,9 @@ export const handleShowLecture = createAsyncThunk(
 
       thunkApi.dispatch(setLectureData(data.lecture));
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }
@@ -154,6 +158,9 @@ export const handleDeleteLecture = createAsyncThunk(
       }
       onSuccess && onSuccess();
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }

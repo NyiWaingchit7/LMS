@@ -18,17 +18,17 @@ import {
   handleGetStudent,
   setStudentLink,
 } from "../../../store/slice/studentSlice";
-import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Pagination } from "../../../component/Pagination";
+import { usePage } from "../../../utils/getPage";
 
 interface Props {
   data: Student[];
 }
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  const [searchParams, setSerachParams] = useSearchParams();
-  const page = (searchParams.get("page") as string) || 1;
+  const { page } = usePage();
+
   const links = useAppSelector((store) => store.student.links);
   const handleDelete = (id: number) => {
     dispatch(
@@ -49,7 +49,12 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Image</TableCell>

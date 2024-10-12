@@ -17,6 +17,7 @@ export const DetailButton = ({ path, id }: Props) => {
             size="small"
             color="secondary"
             endIcon={<ListIcon />}
+            sx={{ textTransform: "capitalize" }}
           >
             List
           </Button>
@@ -27,6 +28,7 @@ export const DetailButton = ({ path, id }: Props) => {
             size="small"
             color="secondary"
             endIcon={<BorderColorIcon />}
+            sx={{ textTransform: "capitalize" }}
           >
             Edit
           </Button>

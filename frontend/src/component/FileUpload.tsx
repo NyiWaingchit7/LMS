@@ -7,6 +7,8 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { useEffect, useState } from "react";
 import { config } from "../utils/config";
 import { Button } from "@mui/material";
+import { headerOptions } from "../utils/requestOption";
+import toast from "react-hot-toast";
 
 registerPlugin(FilePondPluginImagePreview);
 
@@ -18,6 +20,7 @@ interface Props {
 export const FileUpload = ({ setImgUrl, editImg }: Props) => {
   const [files, setFiles] = useState<File[]>([]);
   const [edit, setEdit] = useState(false);
+  const [fileRev, setFileRev] = useState("");
   const accessToken = localStorage.getItem("accessToken");
 
   const server = {
@@ -31,13 +34,32 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
       },
       onload: (data: any) => {
         const res = JSON.parse(data);
+
         setImgUrl(res.imgUrl);
+        setFileRev(res.imgUrl);
       },
       revert: () => {
         console.log("delete");
       },
       onerror: (data: any) => console.log(data),
     },
+  };
+
+  const removeFile = async () => {
+    try {
+      const response = await fetch(`${config.apiUrl}/file-delete`, {
+        method: "DELETE",
+        headers: headerOptions(),
+        body: JSON.stringify({ image: fileRev }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      toast.success(data.message);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -54,9 +76,7 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
         <FilePond
           files={files}
           onupdatefiles={setFiles}
-          onremovefile={() => {
-            return console.log("remove");
-          }}
+          onremovefile={removeFile}
           server={server}
           name="files"
           labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'

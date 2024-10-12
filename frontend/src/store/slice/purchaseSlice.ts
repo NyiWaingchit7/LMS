@@ -10,6 +10,7 @@ import {
   PurchaseSlice,
   UpdatePurchase,
 } from "../../types/purchase";
+import toast from "react-hot-toast";
 const initialState: PurchaseSlice = {
   items: [],
   links: [],
@@ -53,6 +54,9 @@ export const handleShowPurchase = createAsyncThunk(
 
       thunkApi.dispatch(setPurchaseData(data.purchase));
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }
@@ -99,8 +103,11 @@ export const handleUpdatePurchase = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      onSuccess && onSuccess();
+      onSuccess && onSuccess(data.purchase);
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }

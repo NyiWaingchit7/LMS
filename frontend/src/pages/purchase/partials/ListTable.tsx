@@ -21,18 +21,20 @@ import {
   handleGetPurchase,
   setPurchaseLink,
 } from "../../../store/slice/purchaseSlice";
-import { useSearchParams } from "react-router-dom";
+
 import { useEffect } from "react";
 import { Pagination } from "../../../component/Pagination";
+import { usePage } from "../../../utils/getPage";
+import { Link } from "react-router-dom";
 
 interface Props {
   data: Purchase[];
 }
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  const [searchParams, setSerachParams] = useSearchParams();
+  const { page } = usePage();
+
   const links = useAppSelector((store) => store.purchase.links);
-  const page = (searchParams.get("page") as string) || 1;
   const handleDelete = (id: number) => {
     dispatch(
       handleDeletPurchase({
@@ -54,7 +56,12 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Payment Screenshot</TableCell>
@@ -76,7 +83,11 @@ export const ListTable = ({ data }: Props) => {
                       <Image src={row.payment_assetUrl} />
                     )}
                   </TableCell>
-                  <TableCell>{row.student?.name || "-"}</TableCell>
+                  <TableCell sx={{ ":hover": { textDecoration: "underline" } }}>
+                    <Link to={`/students/${row.studentId}`}>
+                      {row.student?.name || "-"}
+                    </Link>
+                  </TableCell>
                   <TableCell>{row.lecture?.title || "-"}</TableCell>
                   <TableCell>
                     <Chip

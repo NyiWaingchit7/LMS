@@ -10,6 +10,7 @@ import {
   PaymentAccountSlice,
   UpdatePaymentAccount,
 } from "../../types/payment_account";
+import toast from "react-hot-toast";
 
 const initialState: PaymentAccountSlice = {
   items: [],
@@ -57,6 +58,9 @@ export const handleShowPaymentAccount = createAsyncThunk(
 
       thunkApi.dispatch(setPaymentAccountData(data.paymentAccount));
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }
@@ -130,6 +134,9 @@ export const handleDeletePaymentAccount = createAsyncThunk(
       }
       onSuccess && onSuccess();
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }

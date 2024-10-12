@@ -84,6 +84,7 @@ export const ShowLecture = () => {
                 <Chip
                   label={String(lecture.isPremium)}
                   color={lecture.isPremium ? "success" : "error"}
+                  size="small"
                 />
               </td>
             </tr>
@@ -97,7 +98,12 @@ export const ShowLecture = () => {
               <td className="px-2 py-3 " scope="col">
                 <div className="flex items-center gap-2">
                   {lecture.categories.map((d) => (
-                    <Chip label={d.name} key={d.id} color="warning" />
+                    <Chip
+                      label={d.name}
+                      key={d.id}
+                      color="warning"
+                      size="small"
+                    />
                   ))}
                 </div>
               </td>

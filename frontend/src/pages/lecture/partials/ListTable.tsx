@@ -11,7 +11,6 @@ import {
 import { TableAction } from "../../../component/TableAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 
-import { Image } from "../../../component/Image";
 import { Lecture } from "../../../types/lecture";
 import {
   handleDeleteLecture,
@@ -19,17 +18,18 @@ import {
   setLectureLink,
 } from "../../../store/slice/lectureSlice";
 import toast from "react-hot-toast";
-import { useSearchParams } from "react-router-dom";
+
 import { useEffect } from "react";
 import { Pagination } from "../../../component/Pagination";
+import { usePage } from "../../../utils/getPage";
 
 interface Props {
   data: Lecture[];
 }
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  const [searchParam, setSearchParams] = useSearchParams();
-  const page = searchParam.get("page") || 1;
+  const { page } = usePage();
+
   const links = useAppSelector((store) => store.lecture.links);
 
   const handleDelete = (id: number) => {
@@ -50,7 +50,12 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               {/* <TableCell>Image</TableCell> */}
@@ -87,6 +92,7 @@ export const ListTable = ({ data }: Props) => {
                     <Chip
                       label={String(row.isPremium)}
                       color={row.isPremium ? "success" : "error"}
+                      size="small"
                     />
                   </TableCell>
                   <TableCell>

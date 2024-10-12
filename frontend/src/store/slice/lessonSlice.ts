@@ -10,6 +10,7 @@ import {
   LessonSlice,
   UpdateLesson,
 } from "../../types/lesson";
+import toast from "react-hot-toast";
 
 const initialState: LessonSlice = {
   items: [],
@@ -54,6 +55,9 @@ export const handleShowLesson = createAsyncThunk(
 
       thunkApi.dispatch(setLessonData(data.lesson));
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }
@@ -152,6 +156,9 @@ export const handleDeleteLesson = createAsyncThunk(
       }
       onSuccess && onSuccess();
     } catch (error: any) {
+      toast.error(`${error.message}`, {
+        duration: 5000,
+      });
       errorHelper(error.message);
     }
   }

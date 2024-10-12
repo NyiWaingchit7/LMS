@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Layout } from "../../component/layout/Layout";
 import { Button } from "@mui/material";
 import { HeadLine } from "../../component/HeadLine";
@@ -6,12 +6,13 @@ import { ListTable } from "./partials/ListTable";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { handleGetPaymentBank } from "../../store/slice/payment_bankSlice";
+import { usePage } from "../../utils/getPage";
 
 export const PaymentBank = () => {
   const dispatch = useAppDispatch();
   const paymentBanks = useAppSelector((store) => store.paymentBank.items);
-  const [searchParam, setSearchParam] = useSearchParams();
-  const page = (searchParam.get("page") as string) || 1;
+  const { page } = usePage();
+
   useEffect(() => {
     dispatch(handleGetPaymentBank(page));
   }, [page]);
