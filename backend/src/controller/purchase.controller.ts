@@ -10,8 +10,7 @@ export const index = async (req: Request, res: Response) => {
     where: { deleted: false },
     include: { student: true, lecture: true },
   });
-  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
-  const data = usePagination(page, 10, purchases, baseUrl);
+  const data = usePagination(page, 10, purchases, req);
   return res.status(200).json({ data });
 };
 

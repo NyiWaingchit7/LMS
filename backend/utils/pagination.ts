@@ -1,9 +1,12 @@
+import { Request } from "express";
+
 export const usePagination = (
   page: number,
   perPage: number,
   allData: any[],
-  baseUrl: string
+  req: Request
 ) => {
+  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
   const totalPages = Math.ceil(allData.length / perPage);
   const startIndex = (page - 1) * perPage;
   const data = allData.slice(startIndex, startIndex + perPage);

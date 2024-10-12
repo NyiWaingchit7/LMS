@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import { storage } from "./firebaseConfig";
 import { v4 } from "uuid";
 import { Multer } from "multer";
@@ -22,4 +27,23 @@ export const fileUpload = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ message: "error" });
   }
+};
+
+export const fileDelete = async (req: Request, res: Response) => {
+  const { image } = req.body;
+  try {
+    if (!image)
+      return res.status(400).json({ message: "The image is required." });
+    const imgRef = ref(storage, image);
+    await deleteObject(imgRef);
+    return res
+      .status(200)
+      .json({ message: "The image is deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+export const fileRemove = async (image: string) => {
+  const imagRef = ref(storage, image);
+  await deleteObject(imagRef);
 };

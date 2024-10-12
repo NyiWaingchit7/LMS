@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 import { usePagination } from "../../utils/pagination";
+import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
   const page = Number(req.query.page) || 1;
@@ -10,8 +11,7 @@ export const index = async (req: Request, res: Response) => {
     orderBy: { id: "desc" },
     include: { LectureonCategory: { include: { lecture: true } } },
   });
-  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
-  const data = usePagination(page, 10, categories, baseUrl);
+  const data = usePagination(page, 10, categories, req);
 
   return res.status(200).json({ data });
 };
@@ -51,13 +51,16 @@ export const show = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const { name, assetUrl, userId } = req.body;
+  const { name, assetUrl } = req.body;
   try {
     const exist = await prisma.category.findFirst({ where: { id } });
     if (!exist)
       return res
         .status(400)
         .json({ message: "This category can not be found" });
+    if (exist.assetUrl !== null && assetUrl !== exist.assetUrl) {
+      fileRemove(exist.assetUrl);
+    }
     const category = await prisma.category.update({
       where: { id },
       data: { name, assetUrl },

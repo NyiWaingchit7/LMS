@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 import { usePagination } from "../../utils/pagination";
+import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
   const page = Number(req.query.page) || 1;
@@ -9,8 +10,7 @@ export const index = async (req: Request, res: Response) => {
     orderBy: { id: "desc" },
     include: { PaymentAccount: { where: { deleted: false } } },
   });
-  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
-  const data = usePagination(page, 10, paymentBanks, baseUrl);
+  const data = usePagination(page, 10, paymentBanks, req);
   return res.status(200).json({ data });
 };
 
@@ -57,6 +57,10 @@ export const update = async (req: Request, res: Response) => {
       return res
         .status(400)
         .json({ message: "The paymentBank can not be found!" });
+
+    if (exist.assetUrl !== null && assetUrl !== exist.assetUrl) {
+      fileRemove(exist.assetUrl);
+    }
 
     if (!name)
       return res.status(400).json({ message: "All fields are required!" });

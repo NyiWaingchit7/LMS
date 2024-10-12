@@ -12,7 +12,7 @@ import { paymentBankRouter } from "./src/routes/payment_bank.route";
 import { paymentAccountRouter } from "./src/routes/payment_account.route";
 import { pruchaseRouter } from "./src/routes/purchase.route";
 import { checkauth } from "./utils/auth";
-import { fileUpload } from "./utils/fileUpload";
+import { fileDelete, fileUpload } from "./utils/fileUpload";
 import multer from "multer";
 import { storage } from "./utils/firebaseConfig";
 
@@ -41,5 +41,6 @@ app.post(
   upload.array("files"),
   fileUpload
 );
+app.delete("/api/v1/admin/file-delete", checkauth, fileDelete);
 
 app.listen(port, () => console.log(`server is runnig at ${port}`));

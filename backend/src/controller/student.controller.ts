@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "../../utils/config";
 import { usePagination } from "../../utils/pagination";
+import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
   const page = Number(req.query.page) || 1;
@@ -11,8 +12,7 @@ export const index = async (req: Request, res: Response) => {
     where: { deleted: false },
     orderBy: { id: "desc" },
   });
-  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
-  const data = usePagination(page, 10, students, baseUrl);
+  const data = usePagination(page, 10, students, req);
   return res.status(200).json({ data });
 };
 
@@ -62,6 +62,10 @@ export const update = async (req: Request, res: Response) => {
     });
     if (!exist)
       return res.status(400).json({ message: "The student can not be found!" });
+
+    if (exist.assetUrl !== null && assetUrl !== exist.assetUrl) {
+      fileRemove(exist.assetUrl);
+    }
 
     const hasPassword = await bcrypt.hash(password, 10);
 

@@ -10,8 +10,7 @@ export const index = async (req: Request, res: Response) => {
     orderBy: { id: "desc" },
     include: { payment_bank: true },
   });
-  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
-  const data = usePagination(page, 10, paymentAccounts, baseUrl);
+  const data = usePagination(page, 10, paymentAccounts, req);
   return res.status(200).json({ data });
 };
 

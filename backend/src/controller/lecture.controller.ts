@@ -16,8 +16,7 @@ export const index = async (req: Request, res: Response) => {
     ...lecture,
     categories: lecture.LectureonCategory.map((lc) => lc.category),
   }));
-  const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
-  const data = usePagination(page, 10, lectures, baseUrl);
+  const data = usePagination(page, 10, lectures, req);
   return res.status(200).json({ data });
 };
 
