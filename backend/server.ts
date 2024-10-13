@@ -15,6 +15,7 @@ import { checkauth } from "./utils/auth";
 import { fileDelete, fileUpload } from "./utils/fileUpload";
 import multer from "multer";
 import { storage } from "./utils/firebaseConfig";
+import { pageRouter } from "./src/routes/page.route";
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/v1/admin/students", studentRouter);
 app.use("/api/v1/admin/payment-banks", paymentBankRouter);
 app.use("/api/v1/admin/payment-accounts", paymentAccountRouter);
 app.use("/api/v1/admin/purchases", pruchaseRouter);
+app.use("/api/v1/admin/pages", pageRouter);
 app.post(
   "/api/v1/admin/file-upload",
   checkauth,

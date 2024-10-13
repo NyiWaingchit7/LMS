@@ -5,13 +5,12 @@ import { usePagination } from "../../utils/pagination";
 import { send } from "../../utils/mailer";
 
 export const index = async (req: Request, res: Response) => {
-  const page = Number(req.query.page) || 1;
   const purchases = await prisma.purchase.findMany({
     orderBy: { id: "desc" },
     where: { deleted: false },
     include: { student: true, lecture: true },
   });
-  const data = usePagination(page, 10, purchases, req);
+  const data = usePagination(10, purchases, req);
   return res.status(200).json({ data });
 };
 

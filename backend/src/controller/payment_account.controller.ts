@@ -4,13 +4,12 @@ import bcrypt from "bcrypt";
 import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
-  const page = Number(req.query.page) || 1;
   const paymentAccounts = await prisma.paymentAccount.findMany({
     where: { deleted: false },
     orderBy: { id: "desc" },
     include: { payment_bank: true },
   });
-  const data = usePagination(page, 10, paymentAccounts, req);
+  const data = usePagination(10, paymentAccounts, req);
   return res.status(200).json({ data });
 };
 

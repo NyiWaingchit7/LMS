@@ -3,7 +3,6 @@ import { prisma } from "../../utils/db";
 import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
-  const page = Number(req.query.page) || 1;
   const lectureData = await prisma.lecture.findMany({
     where: { deleted: false },
     orderBy: { id: "desc" },
@@ -16,7 +15,7 @@ export const index = async (req: Request, res: Response) => {
     ...lecture,
     categories: lecture.LectureonCategory.map((lc) => lc.category),
   }));
-  const data = usePagination(page, 10, lectures, req);
+  const data = usePagination(10, lectures, req);
   return res.status(200).json({ data });
 };
 
