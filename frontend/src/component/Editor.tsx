@@ -13,10 +13,10 @@ import {
   Paragraph,
   Table,
   Undo,
+  Font,
 } from "ckeditor5";
 
 import "ckeditor5/ckeditor5.css";
-import { useState } from "react";
 
 interface Props {
   setContent: (data?: any) => void;
@@ -50,6 +50,7 @@ export const Editor = ({ setContent, content }: Props) => {
           "numberedList",
           "indent",
           "outdent",
+          "fontSize",
         ],
         plugins: [
           Bold,
@@ -64,6 +65,7 @@ export const Editor = ({ setContent, content }: Props) => {
           Paragraph,
           Table,
           Undo,
+          Font,
         ],
       }}
     />

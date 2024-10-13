@@ -30,6 +30,10 @@ import { ShowPurchase } from "../pages/purchase/ShowPurchase";
 import { CreatePurchase } from "../pages/purchase/CreatePurchase";
 import { Students } from "../pages/student/Student";
 import { Toaster } from "react-hot-toast";
+import { Page } from "../pages/page/Page";
+import { ShowPage } from "../pages/page/ShowPage";
+import { CreatePage } from "../pages/page/CreatePage";
+import { EditPage } from "../pages/page/EditPage";
 
 export const Router = () => {
   return (
@@ -71,6 +75,10 @@ export const Router = () => {
           <Route path="/purchases" Component={Purchase} />
           <Route path="/purchases/:id" Component={ShowPurchase} />
           <Route path="/purchases/create" Component={CreatePurchase} />
+          <Route path="/pages" Component={Page} />
+          <Route path="/pages/:id" Component={ShowPage} />
+          <Route path="/pages/create" Component={CreatePage} />
+          <Route path="/pages/:id/edit" Component={EditPage} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>

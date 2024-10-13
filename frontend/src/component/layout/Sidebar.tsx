@@ -78,6 +78,11 @@ export const sidebrItems = [
     path: "students",
   },
   {
+    name: "Pages",
+    icon: <SupervisedUserCircleIcon />,
+    path: "pages",
+  },
+  {
     name: "Payment Banks",
     icon: <AccountBalanceWalletIcon />,
     path: "payment-banks",

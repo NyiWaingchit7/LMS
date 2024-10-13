@@ -38,3 +38,6 @@ header {
   background-color: #f7f7f7e0;
   transition: all ease-in-out 0.1s;
 }
+.ck-editor__editable {
+  font-size: 9px !important; /* Set your default font size */
+}
