@@ -93,3 +93,14 @@ export const destroy = async (req: Request, res: Response) => {
     res.status(500).json({ error });
   }
 };
+
+export const getPaymentBanks = async (req: Request, res: Response) => {
+  try {
+    const data = await prisma.paymentBank.findMany({
+      where: { deleted: false },
+    });
+    return res.status(200).json({ data });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};

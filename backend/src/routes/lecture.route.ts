@@ -2,6 +2,7 @@ import express from "express";
 import {
   destroy,
   index,
+  searchLecture,
   show,
   store,
   update,
