@@ -18,6 +18,7 @@ import { storage } from "./utils/firebaseConfig";
 import { pageRouter } from "./src/routes/page.route";
 import { searchLecture } from "./src/controller/lecture.controller";
 import { getPaymentBanks } from "./src/controller/payment_bank.controller";
+import { createPurchase } from "./src/controller/purchase.controller";
 
 const app = express();
 
@@ -48,5 +49,6 @@ app.post(
 app.delete("/api/v1/admin/file-delete", checkauth, fileDelete);
 app.get("/api/v1/admin/get-lectures", checkauth, searchLecture);
 app.get("/api/v1/admin/get-paymentbanks", checkauth, getPaymentBanks);
+app.get("/api/v1/admin/create-purchase", checkauth, createPurchase);
 
 app.listen(port, () => console.log(`server is runnig at ${port}`));

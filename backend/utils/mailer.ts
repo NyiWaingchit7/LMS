@@ -2,7 +2,7 @@ import { MailtrapClient } from "mailtrap";
 
 const TOKEN = process.env.MAIL_TOKEN as string;
 
-export const send = () => {
+export const mailSend = () => {
   const client = new MailtrapClient({
     token: TOKEN,
   });

@@ -18,7 +18,7 @@ export const index = async (req: Request, res: Response) => {
 export const show = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   try {
-    const student = await prisma.student.findFirst({
+    const data = await prisma.student.findFirst({
       where: { id, deleted: false },
       select: {
         id: true,
@@ -27,11 +27,16 @@ export const show = async (req: Request, res: Response) => {
         phone: true,
         assetUrl: true,
         password: false,
-        Purchase: true,
       },
     });
-    if (!student)
+    const purchase = await prisma.purchase.findMany({
+      where: { studentId: data?.id, deleted: false },
+      include: { student: true, lecture: true },
+    });
+
+    if (!data)
       return res.status(400).json({ message: "The student can not be found!" });
+    const student = { ...data, Purchase: purchase };
     return res.status(200).json({ student });
   } catch (error) {
     res.status(500).json({ error });

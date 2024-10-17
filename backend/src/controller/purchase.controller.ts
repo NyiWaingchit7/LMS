@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 import { Status } from "@prisma/client";
 import { usePagination } from "../../utils/pagination";
-import { send } from "../../utils/mailer";
+import { mailSend } from "../../utils/mailer";
 
 export const index = async (req: Request, res: Response) => {
   const purchases = await prisma.purchase.findMany({
@@ -21,6 +21,7 @@ export const show = async (req: Request, res: Response) => {
       where: { id, deleted: false },
       include: { student: true, lecture: true },
     });
+
     if (!purchase)
       return res.status(404).json({ message: "This items is not found." });
 
@@ -37,6 +38,7 @@ export const store = async (req: Request, res: Response) => {
     const purchase = await prisma.purchase.create({
       data: { lectureId, studentId, payment_assetUrl },
     });
+    mailSend();
     return res.status(200).json({ purchase });
   } catch (error) {
     return res.status(500).json({ error });
@@ -73,7 +75,7 @@ export const update = async (req: Request, res: Response) => {
       }
     }
 
-    const data = await send();
+    mailSend();
 
     return res.status(200).json({ purchase });
   } catch (error) {
@@ -93,6 +95,20 @@ export const destroy = async (req: Request, res: Response) => {
     await prisma.purchase.update({ data: { deleted: true }, where: { id } });
     return res.status(200).json({ message: "deleted successfully" });
   } catch (error: any) {
+    return res.status(500).json({ error });
+  }
+};
+
+export const createPurchase = async (req: Request, res: Response) => {
+  try {
+    const student = await prisma.student.findMany({
+      where: { deleted: false },
+    });
+    const lecture = await prisma.lecture.findMany({
+      where: { deleted: false },
+    });
+    return res.status(200).json({ student, lecture });
+  } catch (error) {
     return res.status(500).json({ error });
   }
 };
