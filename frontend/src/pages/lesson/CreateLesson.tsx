@@ -1,16 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { HeadLine } from "../../component/HeadLine";
 import { Layout } from "../../component/layout/Layout";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Form } from "./partials/Form";
 import { Lecture } from "../../types/lecture";
-import { handleGetLecture } from "../../store/slice/lectureSlice";
+import { config } from "../../utils/config";
+import { headerOptions } from "../../utils/requestOption";
 
 export const CreateLesson = () => {
-  const lectures = useAppSelector((store) => store.lecture.items) as Lecture[];
-  const dispatch = useAppDispatch();
+  const [lectures, setLectures] = useState<Lecture[]>([]);
   useEffect(() => {
-    dispatch(handleGetLecture());
+    const fetchData = async () => {
+      const response = await fetch(`${config.apiUrl}/get-lectures`, {
+        method: "GET",
+        headers: headerOptions(),
+      });
+      const data = await response.json();
+      setLectures(data.data);
+    };
+    fetchData();
+    return () => {
+      setLectures([]);
+    };
   }, []);
   return (
     <Layout title="Add Lesson">

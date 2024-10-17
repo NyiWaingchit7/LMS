@@ -14,6 +14,7 @@ import {
   Table,
   Undo,
   Font,
+  FontSize,
 } from "ckeditor5";
 
 import "ckeditor5/ckeditor5.css";
@@ -33,6 +34,11 @@ export const Editor = ({ setContent, content }: Props) => {
       editor={ClassicEditor}
       data={content}
       config={{
+        fontSize: {
+          options: [9, 11, 13, "default"],
+          supportAllValues: true,
+        },
+
         toolbar: [
           "undo",
           "redo",
@@ -66,6 +72,7 @@ export const Editor = ({ setContent, content }: Props) => {
           Table,
           Undo,
           Font,
+          FontSize,
         ],
       }}
     />

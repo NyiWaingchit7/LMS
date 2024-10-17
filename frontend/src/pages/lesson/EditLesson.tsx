@@ -3,22 +3,35 @@ import { HeadLine } from "../../component/HeadLine";
 import { Layout } from "../../component/layout/Layout";
 import { Form } from "./partials/Form";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { handleGetLecture } from "../../store/slice/lectureSlice";
 import { Lesson, lessonData } from "../../types/lesson";
 import { handleShowLesson, setLessonData } from "../../store/slice/lessonSlice";
+import { Lecture } from "../../types/lecture";
+import { config } from "../../utils/config";
+import { headerOptions } from "../../utils/requestOption";
 
 export const EditLesson = () => {
   const id = Number(useParams().id);
   const dispatch = useAppDispatch();
   const lesson = useAppSelector((store) => store.lesson.data) as Lesson;
-  const lectures = useAppSelector((store) => store.lecture.items);
+  const [lectures, setLectures] = useState<Lecture[]>([]);
 
   useEffect(() => {
     dispatch(handleShowLesson(id));
-    dispatch(handleGetLecture());
+
+    const fetchData = async () => {
+      const response = await fetch(`${config.apiUrl}/get-lectures`, {
+        method: "GET",
+        headers: headerOptions(),
+      });
+      const data = await response.json();
+      setLectures(data.data);
+    };
+    fetchData();
 
     return () => {
+      setLectures([]);
       dispatch(setLessonData(lessonData));
     };
   }, [id]);
