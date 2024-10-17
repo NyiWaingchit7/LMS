@@ -9,6 +9,8 @@ import { Image } from "../../component/Image";
 import { Student, studentData } from "../../types/student";
 import { handleShowStudent, setStudent } from "../../store/slice/studentSlice";
 import { DetailButton } from "../../component/DetailButton";
+import { PurchaseTable } from "./partials/PurchaseTable";
+import { Purchase } from "../../types/purchase";
 
 export const ShowStudent = () => {
   const id = Number(useParams().id);
@@ -73,19 +75,22 @@ export const ShowStudent = () => {
             </tr>
           </tbody>
         </table>
-        <div className="mt-5">
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            onClick={() => {
-              navigate("/students");
-            }}
-          >
-            Back
-          </Button>
-        </div>
       </Paper>
+      <div className="mt-5">
+        <PurchaseTable data={student.purchase as Purchase[]} />
+      </div>
+      <div className="mt-5">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={() => {
+            navigate("/students");
+          }}
+        >
+          Back
+        </Button>
+      </div>
     </Layout>
   );
 };

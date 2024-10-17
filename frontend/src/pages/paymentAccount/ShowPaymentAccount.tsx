@@ -29,11 +29,11 @@ export const ShowPaymentAccount = () => {
     };
   }, [id]);
   return (
-    <Layout title="Payment Account Detail">
-      <HeadLine header="Payment Account Detail" />
+    <Layout title="Payment Account Details">
+      <HeadLine header="Payment Account Details" />
       <DetailButton path="payment-accounts" id={id} />
       <Paper className="px-5 py-5">
-        <h3 className="font-bold my-3">Payment Account Detail</h3>
+        <h3 className="font-bold my-3">Payment Account Details</h3>
         <table className="w-full text-left capitalize">
           <tbody>
             <tr>
@@ -72,19 +72,19 @@ export const ShowPaymentAccount = () => {
             </tr>
           </tbody>
         </table>
-        <div className="mt-5">
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            onClick={() => {
-              navigate("/payment-accounts");
-            }}
-          >
-            Back
-          </Button>
-        </div>
       </Paper>
+      <div className="mt-5">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={() => {
+            navigate("/payment-accounts");
+          }}
+        >
+          Back
+        </Button>
+      </div>
     </Layout>
   );
 };

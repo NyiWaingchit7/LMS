@@ -137,7 +137,7 @@ export const studentSlice = createSlice({
       state.items = action.payload;
     },
     setStudentData: (state, action) => {
-      state.data = action.payload;
+      state.data = { ...action.payload, purchase: action.payload.Purchase };
     },
     setStudentError: (state, action) => {
       state.error = action.payload;

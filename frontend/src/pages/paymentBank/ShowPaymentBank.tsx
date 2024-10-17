@@ -56,19 +56,19 @@ export const ShowPaymentBank = () => {
             </tr>
           </tbody>
         </table>
-        <div className="mt-5">
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            onClick={() => {
-              navigate("/payment-banks");
-            }}
-          >
-            Back
-          </Button>
-        </div>
       </Paper>
+      <div className="mt-5">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={() => {
+            navigate("/payment-banks");
+          }}
+        >
+          Back
+        </Button>
+      </div>
     </Layout>
   );
 };

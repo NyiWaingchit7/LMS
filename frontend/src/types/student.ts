@@ -1,4 +1,5 @@
 import { BaseOption } from "./auth";
+import { Purchase } from "./purchase";
 
 export interface Student {
   id?: number;
@@ -7,6 +8,7 @@ export interface Student {
   password?: string;
   phone?: string;
   assetUrl: string;
+  purchase?: Purchase[];
 }
 
 export interface StudentSlice {

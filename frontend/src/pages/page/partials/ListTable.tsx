@@ -78,11 +78,9 @@ export const ListTable = ({ data }: Props) => {
                   <Image src={row.assetUrl || "./test.jpg"} />
                 </TableCell> */}
                   <TableCell>{row.title}</TableCell>
-                  <TableCell>
-                    <div
-                      dangerouslySetInnerHTML={{ __html: row.content }}
-                    ></div>
-                  </TableCell>
+                  <TableCell
+                    dangerouslySetInnerHTML={{ __html: row.content }}
+                  ></TableCell>
 
                   <TableCell>
                     <TableAction

@@ -1,62 +1,29 @@
 import {
-  Chip,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
   TableContainer,
+  Paper,
   TableHead,
   TableRow,
+  TableCell,
+  TableBody,
+  Chip,
+  Pagination,
+  Table,
 } from "@mui/material";
 import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-
-import { Image } from "../../../component/Image";
-
-import { Purchase } from "../../../types/purchase";
 import { getChipColor } from "../../../utils/statusColor";
-import toast from "react-hot-toast";
-import {
-  handleDeletPurchase,
-  handleGetPurchase,
-  setPurchaseLink,
-} from "../../../store/slice/purchaseSlice";
-
-import { useEffect } from "react";
-import { Pagination } from "../../../component/Pagination";
-import { usePage } from "../../../utils/getPage";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Purchase } from "../../../types/purchase";
+import { Image } from "../../../component/Image";
+import { useNavigate } from "react-router-dom";
 interface Props {
   data: Purchase[];
 }
-export const ListTable = ({ data }: Props) => {
-  const dispatch = useAppDispatch();
+export const PurchaseTable = ({ data }: Props) => {
   const router = useNavigate();
-  const { page } = usePage();
-
-  const links = useAppSelector((store) => store.purchase.links);
-  const handleDelete = (id: number) => {
-    dispatch(
-      handleDeletPurchase({
-        id,
-        onSuccess: () => {
-          toast.success("Purchase is deleted successfully.");
-          dispatch(handleGetPurchase(page));
-        },
-      })
-    );
-  };
-
-  useEffect(() => {
-    return () => {
-      dispatch(setPurchaseLink([]));
-    };
-  }, []);
+  console.log(data);
 
   return (
     <div>
-      <TableContainer component={Paper} className="mt-5 capitalize">
+      <TableContainer component={Paper} className="capitalize">
         <Table
           sx={{ minWidth: 650 }}
           stickyHeader
@@ -73,7 +40,7 @@ export const ListTable = ({ data }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.length > 0 ? (
+            {data?.length > 0 ? (
               data.map((row) => (
                 <TableRow
                   key={row.id}
@@ -110,9 +77,7 @@ export const ListTable = ({ data }: Props) => {
                       id={row.id as number}
                       path="purchases"
                       edit={false}
-                      handleDelete={() => {
-                        handleDelete(row.id as number);
-                      }}
+                      deleted={false}
                     />
                   </TableCell>
                 </TableRow>
@@ -130,7 +95,6 @@ export const ListTable = ({ data }: Props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination links={links} />
     </div>
   );
 };

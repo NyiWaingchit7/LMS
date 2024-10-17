@@ -23,11 +23,11 @@ export const ShowLesson = () => {
   }, [id]);
   if (!lesson) return null;
   return (
-    <Layout title="Lesson Detail">
-      <HeadLine header="Lesson Detail" />
+    <Layout title="Lesson Details">
+      <HeadLine header="Lesson Details" />
       <DetailButton path="lessons" id={id} />
       <Paper className="px-5 py-5">
-        <h3 className="font-bold my-3">Lesson Detail</h3>
+        <h3 className="font-bold my-3">Lesson Details</h3>
         <table className="w-full text-left capitalize">
           <tbody>
             <tr>
@@ -83,19 +83,19 @@ export const ShowLesson = () => {
             </tr>
           </tbody>
         </table>
-        <div className="mt-5">
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            onClick={() => {
-              navigate("/lessons");
-            }}
-          >
-            Back
-          </Button>
-        </div>
       </Paper>
+      <div className="mt-5">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={() => {
+            navigate("/lessons");
+          }}
+        >
+          Back
+        </Button>
+      </div>
     </Layout>
   );
 };

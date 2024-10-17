@@ -24,11 +24,11 @@ export const ShowLecture = () => {
     };
   }, [dispatch, id]);
   return (
-    <Layout title="Lecture Detail">
-      <HeadLine header="Lecture Detail" />
+    <Layout title="Lecture Details">
+      <HeadLine header="Lecture Details" />
       <DetailButton path="lectures" id={id} />
       <Paper className="px-5 py-5">
-        <h3 className="font-bold my-3">Lecture Detail</h3>
+        <h3 className="font-bold my-3">Lecture Details</h3>
         <table className="w-full text-left capitalize">
           <tbody>
             <tr>
@@ -110,19 +110,19 @@ export const ShowLecture = () => {
             </tr>
           </tbody>
         </table>
-        <div className="mt-5">
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            onClick={() => {
-              navigate("/lectures");
-            }}
-          >
-            Back
-          </Button>
-        </div>
       </Paper>
+      <div className="mt-5">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={() => {
+            navigate("/lectures");
+          }}
+        >
+          Back
+        </Button>
+      </div>
     </Layout>
   );
 };

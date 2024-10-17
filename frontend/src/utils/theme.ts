@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+
 export const theme = createTheme({
   palette: {
     primary: {
@@ -10,5 +11,10 @@ export const theme = createTheme({
     info: {
       main: "#FFFFFF",
     },
+  },
+  typography: {
+    fontFamily: "Open Sans",
+    fontSize: 15,
+    fontWeightRegular: "500",
   },
 });

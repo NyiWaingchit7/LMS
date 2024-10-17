@@ -16,7 +16,7 @@ import { useState } from "react";
 interface Props {
   id: number;
   path: string;
-  handleDelete: (data: any) => void;
+  handleDelete?: (data: any) => void;
   edit?: boolean;
   show?: boolean;
   deleted?: boolean;

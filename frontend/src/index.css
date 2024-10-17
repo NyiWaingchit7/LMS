@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,11 +9,17 @@ html {
   padding: 0;
   box-sizing: border-box;
   font-size: 14px;
+  font-family: "Open Sans", sans-serif;
 }
 
 @layer base {
   body {
     @apply bg-whiten text-black;
+  }
+}
+@layer utilities {
+  .sidebar-button {
+    @apply lg:hidden absolute top-3 left-6 block z-50 p-1 border border-gray-300 rounded-sm shadow-sm;
   }
 }
 .no-scrollbar {
