@@ -30,7 +30,7 @@ export const Form = ({ category }: Props) => {
   const errors = useAppSelector((store) => store.category.error);
 
   const onSuccess = () => {
-    toast.success("Category id created successfully");
+    toast.success("Category created successfully");
     navigate("/categories");
   };
 

@@ -22,9 +22,9 @@ export const Pagination = ({ links }: Props) => {
           fontSize: "14px",
         }}
         size="small"
+        disabled={!prev}
       >
-        Prev
-        <Link to={`?page=${prev}`} />
+        <Link to={`?page=${prev}`}>Prev</Link>
       </Button>
       {links.map((d, i) => (
         <Link
@@ -45,9 +45,9 @@ export const Pagination = ({ links }: Props) => {
           fontSize: "14px",
         }}
         size="small"
+        disabled={!next}
       >
-        Next
-        <Link to={`?page=${next}`} />
+        <Link to={`?page=${next}`}>Next</Link>
       </Button>
     </div>
   );

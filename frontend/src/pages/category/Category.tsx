@@ -1,30 +1,35 @@
-import { Link } from "react-router-dom";
 import { Layout } from "../../component/layout/Layout";
-import { Button } from "@mui/material";
 import { HeadLine } from "../../component/HeadLine";
 import { ListTable } from "./partials/ListTable";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { handleGetCategory } from "../../store/slice/categorySlice";
 import { usePage } from "../../utils/getPage";
+import { SearchButton } from "../../component/SearchButton";
 
 export const Category = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((store) => store.category.items);
   const { page } = usePage();
+  const [searchKey, setSearchKey] = useState<string>("");
 
   useEffect(() => {
-    dispatch(handleGetCategory(page));
+    dispatch(handleGetCategory({ page }));
   }, [page]);
+
+  const handlegetFunction = () => {
+    dispatch(handleGetCategory({ page, searchKey }));
+  };
   return (
     <Layout title="Categories">
       <HeadLine header="Categories" />
       <div>
-        <div className="flex justify-end">
-          <Link to={"/categories/create"}>
-            <Button variant="contained">Create</Button>
-          </Link>
-        </div>
+        <SearchButton
+          searchKey={searchKey}
+          setSearchKey={setSearchKey}
+          path="categories"
+          getFunction={handlegetFunction}
+        />
         <ListTable data={categories} />
       </div>
     </Layout>

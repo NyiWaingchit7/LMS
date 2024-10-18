@@ -19,3 +19,8 @@ export interface LoginOption extends BaseOption {
   email: string;
   password: string;
 }
+
+export interface Payload {
+  page?: string | number;
+  searchKey?: string | null;
+}

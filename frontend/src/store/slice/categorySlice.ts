@@ -10,6 +10,7 @@ import { errorHelper } from "../../utils/errorHelper";
 import { config } from "../../utils/config";
 import { headerOptions } from "../../utils/requestOption";
 import toast from "react-hot-toast";
+import { Payload } from "../../types/auth";
 const initialState: CategorySlice = {
   items: [],
   links: [],
@@ -18,20 +19,24 @@ const initialState: CategorySlice = {
   error: null,
 };
 
-export const handleGetCategory = createAsyncThunk(
+export const handleGetCategory = createAsyncThunk<any, Payload>(
   "get/category",
-  async (page: string | number, thunkApi) => {
+  async ({ page = 1, searchKey = "" }, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/categories?page=${page}`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const { data } = await response.json();
+      const response = await fetch(
+        `${config.apiUrl}/categories?page=${page}&searchKey=${searchKey}`,
+        {
+          method: "GET",
+          headers: headerOptions(),
+        }
+      );
+      const { data, query } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
 
       thunkApi.dispatch(setCategory(data.data));
+      console.log(query);
 
       thunkApi.dispatch(setLinks(data.links));
     } catch (error: any) {
@@ -147,6 +152,9 @@ export const categorySlice = createSlice({
     setLinks: (state, action) => {
       state.links = action.payload;
     },
+    // setCategoryQuery: (state, action) => {
+    //   state.query = action.payload;
+    // },
   },
 });
 

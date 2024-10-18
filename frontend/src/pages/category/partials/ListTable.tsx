@@ -18,7 +18,7 @@ import {
 import { Image } from "../../../component/Image";
 import toast from "react-hot-toast";
 import { Pagination } from "../../../component/Pagination";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePage } from "../../../utils/getPage";
 
 interface Props {
@@ -27,14 +27,14 @@ interface Props {
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
   const links = useAppSelector((store) => store.category.links);
-  const { page } = usePage();
+  const { page, query: searchKey } = usePage();
   const handleDelete = (id: number) => {
     dispatch(
       handleDeletCategory({
         id,
         onSuccess: () => {
           toast.success("Category is deleted successfully");
-          dispatch(handleGetCategory(page));
+          dispatch(handleGetCategory({ page, searchKey }));
         },
       })
     );
