@@ -4,14 +4,17 @@ import { usePagination } from "../../utils/pagination";
 import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
+  const searchKey = (req.query.searchKey as string) || "";
   const categories = await prisma.category.findMany({
-    where: { deleted: false },
+    where: searchKey
+      ? { deleted: false, name: { contains: searchKey, mode: "insensitive" } }
+      : { deleted: false },
     orderBy: { id: "desc" },
     include: { LectureonCategory: { include: { lecture: true } } },
   });
   const data = usePagination(10, categories, req);
 
-  return res.status(200).json({ data });
+  return res.status(200).json({ data, query: req.query });
 };
 
 export const store = async (req: Request, res: Response) => {
