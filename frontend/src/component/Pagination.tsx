@@ -14,7 +14,7 @@ export const Pagination = ({ links }: Props) => {
 
   return (
     <div className="flex gap-2 mt-5">
-      <Button
+      {/* <Button
         sx={{
           color: "black",
           textTransform: "capitalize",
@@ -25,19 +25,19 @@ export const Pagination = ({ links }: Props) => {
         disabled={!prev}
       >
         <Link to={`?page=${prev}`}>Prev</Link>
-      </Button>
+      </Button> */}
       {links.map((d, i) => (
         <Link
-          to={`?page=${d.label}`}
+          to={d.url}
           key={i}
           className={`${
             d.active ? "bg-black text-white" : ""
-          } px-4 py-2 rounded-md transition-all ease-in duration-500`}
+          } px-4 py-2 rounded-md transition-all ease-in duration-500 capitalize`}
         >
           {d.label}
         </Link>
       ))}
-      <Button
+      {/* <Button
         sx={{
           color: "black",
           textTransform: "capitalize",
@@ -48,7 +48,7 @@ export const Pagination = ({ links }: Props) => {
         disabled={!next}
       >
         <Link to={`?page=${next}`}>Next</Link>
-      </Button>
+      </Button> */}
     </div>
   );
 };

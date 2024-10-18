@@ -41,11 +41,15 @@ export const SideBar = () => {
             <div>
               <ul className="mb-4 flex flex-col gap-1.5">
                 {sidebrItems.map((d, index) => (
-                  <Link to={`/${d.path}`} state={d.name} key={d.name}>
+                  <Link to={`/${d.path}`} key={d.name}>
                     <div
                       className={`text-[15px] flex items-center gap-2 px-2 rounded-lg
             hover:bg-primary hover:text-whiten transition-all ease-in-out duration-300 py-2
-            ${location.state === d.name ? "bg-primary text-whiten" : ""}`}
+            ${
+              location.pathname.includes(`/${d.path}`)
+                ? "bg-primary text-whiten"
+                : ""
+            }`}
                     >
                       {d.icon}
 

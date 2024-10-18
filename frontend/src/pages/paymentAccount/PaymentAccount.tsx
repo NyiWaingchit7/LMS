@@ -7,24 +7,22 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
 import { handleGetPaymentAccount } from "../../store/slice/payment_accountSlice";
 import { usePage } from "../../utils/getPage";
+import { SearchButton } from "../../component/SearchButton";
 
 export const PaymentAccount = () => {
   const dispatch = useAppDispatch();
   const paymentAccounts = useAppSelector((store) => store.paymentAccount.items);
-  const { page } = usePage();
+  const { page, searchKey } = usePage();
 
   useEffect(() => {
-    dispatch(handleGetPaymentAccount(page));
-  }, [page]);
+    dispatch(handleGetPaymentAccount({ page, searchKey }));
+  }, [page, searchKey]);
   return (
     <Layout title="Payment Accounts">
       <HeadLine header="Payment Accounts" />
       <div>
-        <div className="flex justify-end">
-          <Link to={"/payment-accounts/create"}>
-            <Button variant="contained">Create</Button>
-          </Link>
-        </div>
+        <SearchButton path="payment-accounts" />
+
         <ListTable data={paymentAccounts} />
       </div>
     </Layout>

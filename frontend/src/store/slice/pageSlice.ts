@@ -11,6 +11,7 @@ import {
   PageSlice,
   UpdatePage,
 } from "../../types/page";
+import { Payload } from "../../types/auth";
 const initialState: PageSlice = {
   items: [],
   links: [],
@@ -19,14 +20,17 @@ const initialState: PageSlice = {
   error: null,
 };
 
-export const handleGetPage = createAsyncThunk(
+export const handleGetPage = createAsyncThunk<any, Payload>(
   "get/page",
-  async (page: string | number, thunkApi) => {
+  async ({ page = 1, searchKey = "" }, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/pages?page=${page}`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
+      const response = await fetch(
+        `${config.apiUrl}/pages?page=${page}&searchKey=${searchKey}`,
+        {
+          method: "GET",
+          headers: headerOptions(),
+        }
+      );
       const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);

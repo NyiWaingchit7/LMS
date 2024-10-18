@@ -7,24 +7,22 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
 import { handleGetLesson } from "../../store/slice/lessonSlice";
 import { usePage } from "../../utils/getPage";
+import { SearchButton } from "../../component/SearchButton";
 
 export const Lesson = () => {
   const dispatch = useAppDispatch();
   const lessons = useAppSelector((store) => store.lesson.items);
-  const { page } = usePage();
+  const { page, searchKey } = usePage();
 
   useEffect(() => {
-    dispatch(handleGetLesson(page));
-  }, [page]);
+    dispatch(handleGetLesson({ page, searchKey }));
+  }, [page, searchKey]);
   return (
     <Layout title="Lessons">
       <HeadLine header="Lessons" />
       <div>
-        <div className="flex justify-end">
-          <Link to={"/lessons/create"}>
-            <Button variant="contained">Create</Button>
-          </Link>
-        </div>
+        <SearchButton path="lessons" />
+
         <ListTable data={lessons} />
       </div>
     </Layout>

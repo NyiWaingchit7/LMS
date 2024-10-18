@@ -10,6 +10,7 @@ import {
   UpdateStudent,
 } from "../../types/student";
 import toast from "react-hot-toast";
+import { Payload } from "../../types/auth";
 const initialState: StudentSlice = {
   items: [],
   links: [],
@@ -18,14 +19,17 @@ const initialState: StudentSlice = {
   error: null,
 };
 
-export const handleGetStudent = createAsyncThunk(
+export const handleGetStudent = createAsyncThunk<any, Payload>(
   "get/student",
-  async (page: string | number, thunkApi) => {
+  async ({ page = 1, searchKey = "" }, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/students?page=${page}`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
+      const response = await fetch(
+        `${config.apiUrl}/students?page=${page}&searchKey=${searchKey}`,
+        {
+          method: "GET",
+          headers: headerOptions(),
+        }
+      );
       const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);

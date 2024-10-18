@@ -11,6 +11,7 @@ import {
   UpdatePurchase,
 } from "../../types/purchase";
 import toast from "react-hot-toast";
+import { Payload } from "../../types/auth";
 const initialState: PurchaseSlice = {
   items: [],
   links: [],
@@ -19,14 +20,17 @@ const initialState: PurchaseSlice = {
   error: null,
 };
 
-export const handleGetPurchase = createAsyncThunk(
+export const handleGetPurchase = createAsyncThunk<any, Payload>(
   "get/purchase",
-  async (page: string | number, thunkApi) => {
+  async ({ page = 1, searchKey = "" }, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/purchases?page=${page}`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
+      const response = await fetch(
+        `${config.apiUrl}/purchases?page=${page}&searchKey=${searchKey}`,
+        {
+          method: "GET",
+          headers: headerOptions(),
+        }
+      );
       const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);

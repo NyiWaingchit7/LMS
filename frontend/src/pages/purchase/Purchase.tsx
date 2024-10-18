@@ -7,24 +7,22 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { handleGetPurchase } from "../../store/slice/purchaseSlice";
 import { usePage } from "../../utils/getPage";
+import { SearchButton } from "../../component/SearchButton";
 
 export const Purchase = () => {
   const dispatch = useAppDispatch();
   const purchases = useAppSelector((store) => store.purchase.items);
-  const { page } = usePage();
+  const { page, searchKey } = usePage();
 
   useEffect(() => {
-    dispatch(handleGetPurchase(page));
-  }, [page]);
+    dispatch(handleGetPurchase({ page, searchKey }));
+  }, [page, searchKey]);
   return (
     <Layout title="Purchases">
       <HeadLine header="Purchases" />
       <div>
-        <div className="flex justify-end">
-          <Link to={"/purchases/create"}>
-            <Button variant="contained">Create</Button>
-          </Link>
-        </div>
+        <SearchButton path="purchases" />
+
         <ListTable data={purchases} />
       </div>
     </Layout>

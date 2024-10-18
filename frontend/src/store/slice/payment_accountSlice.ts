@@ -11,6 +11,7 @@ import {
   UpdatePaymentAccount,
 } from "../../types/payment_account";
 import toast from "react-hot-toast";
+import { Payload } from "../../types/auth";
 
 const initialState: PaymentAccountSlice = {
   items: [],
@@ -20,12 +21,12 @@ const initialState: PaymentAccountSlice = {
   error: null,
 };
 
-export const handleGetPaymentAccount = createAsyncThunk(
+export const handleGetPaymentAccount = createAsyncThunk<any, Payload>(
   "get/payment-account",
-  async (page: string | number, thunkApi) => {
+  async ({ page = 1, searchKey = "" }, thunkApi) => {
     try {
       const response = await fetch(
-        `${config.apiUrl}/payment-accounts?page=${page}`,
+        `${config.apiUrl}/payment-accounts?page=${page}&searchKey=${searchKey}`,
         {
           method: "GET",
           headers: headerOptions(),

@@ -1,28 +1,18 @@
 import { Button, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useDebounce from "../utils/useDebounce";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { usePage } from "../utils/getPage";
 
 interface Props {
-  searchKey: string;
-  setSearchKey: (data?: any) => void;
   path: string;
-  getFunction: (data?: any) => void;
 }
 
-export const SearchButton = ({
-  searchKey,
-  setSearchKey,
-  path,
-  getFunction,
-}: Props) => {
-  const debounceValue = useDebounce(searchKey, 500, getFunction);
-  useEffect(() => {
-    if (!searchKey) {
-      setSearchKey(debounceValue);
-    }
-  }, []);
+export const SearchButton = ({ path }: Props) => {
+  const [searchKey, setSearchKey] = useState<string>("");
+
+  const debounceValue = useDebounce(searchKey, path);
 
   return (
     <div className="flex justify-between items-center mt-5">
@@ -34,9 +24,24 @@ export const SearchButton = ({
             setSearchKey(e.target.value);
           }}
           value={searchKey}
+          placeholder="Search..."
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "info.dark",
+              },
+              "&:hover fieldset": {
+                borderColor: "info.dark",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "info.dark",
+              },
+              bgcolor: "white",
+            },
+          }}
           slotProps={{
             input: {
-              startAdornment: <SearchIcon />,
+              startAdornment: <SearchIcon className="me-2" />,
             },
           }}
         />

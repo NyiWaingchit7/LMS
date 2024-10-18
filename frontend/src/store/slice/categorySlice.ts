@@ -30,13 +30,12 @@ export const handleGetCategory = createAsyncThunk<any, Payload>(
           headers: headerOptions(),
         }
       );
-      const { data, query } = await response.json();
+      const { data } = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
 
       thunkApi.dispatch(setCategory(data.data));
-      console.log(query);
 
       thunkApi.dispatch(setLinks(data.links));
     } catch (error: any) {
