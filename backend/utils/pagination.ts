@@ -11,22 +11,29 @@ export const usePagination = (
   const startIndex = (page - 1) * perPage;
   const data = allData.slice(startIndex, startIndex + perPage);
 
-  const links = [] as any[];
+  const paginationLinks = [] as any[];
   for (let i = 1; i <= totalPages; i++) {
-    links.push({
+    paginationLinks.push({
       label: i,
-      url: `${baseUrl}?page=${i}`,
+      url: `?page=${i}&searchKey=${req.query.searchKey}`,
       active: i === page,
     });
   }
-  //   const links = [
-  //     {
-  //       label: "next",
-  //       url: page < totalPages ? `${baseUrl}?page=${page + 1}` : null,
-  //     },
-  //     ...paginationLinks,
-  //     { label: "prev", url: page > 1 ? `${baseUrl}?page=${page - 1}` : null },
-  //   ];
+  const links = [
+    {
+      label: "prev",
+      url:
+        page > 1 ? `?page=${page - 1}&searchKey=${req.query.searchKey}` : null,
+    },
+    ...paginationLinks,
+    {
+      label: "next",
+      url:
+        page < totalPages
+          ? `?page=${page + 1}&searchKey=${req.query.searchKey}`
+          : null,
+    },
+  ];
 
   return {
     data,

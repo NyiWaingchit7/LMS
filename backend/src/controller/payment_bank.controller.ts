@@ -4,8 +4,12 @@ import { usePagination } from "../../utils/pagination";
 import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
+  const searchKey = (req.query.searchKey as string) || "";
+
   const paymentBanks = await prisma.paymentBank.findMany({
-    where: { deleted: false },
+    where: searchKey
+      ? { name: { contains: searchKey, mode: "insensitive" }, deleted: false }
+      : { deleted: false },
     orderBy: { id: "desc" },
     include: { PaymentAccount: { where: { deleted: false } } },
   });

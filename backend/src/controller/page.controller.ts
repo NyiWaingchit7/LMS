@@ -3,8 +3,12 @@ import { prisma } from "../../utils/db";
 import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
+  const searchKey = (req.query.searchKey as string) || "";
+
   const pages = await prisma.page.findMany({
-    where: { deleted: false },
+    where: searchKey
+      ? { title: { contains: searchKey, mode: "insensitive" }, deleted: false }
+      : { deleted: false },
     orderBy: { id: "desc" },
   });
   const data = usePagination(10, pages, req);

@@ -4,8 +4,12 @@ import { usePagination } from "../../utils/pagination";
 import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
+  const searchKey = (req.query.searchKey as string) || "";
+
   const lessons = await prisma.lesson.findMany({
-    where: { deleted: false },
+    where: searchKey
+      ? { title: { contains: searchKey, mode: "insensitive" }, deleted: false }
+      : { deleted: false },
     include: { lecture: true },
     orderBy: { id: "desc" },
   });

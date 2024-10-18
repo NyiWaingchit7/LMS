@@ -5,9 +5,18 @@ import { usePagination } from "../../utils/pagination";
 import { mailSend } from "../../utils/mailer";
 
 export const index = async (req: Request, res: Response) => {
+  const searchKey = (req.query.searchKey as string) || "";
+
   const purchases = await prisma.purchase.findMany({
     orderBy: { id: "desc" },
-    where: { deleted: false },
+    where: searchKey
+      ? {
+          student: {
+            name: { contains: searchKey, mode: "insensitive" },
+            deleted: false,
+          },
+        }
+      : { deleted: false },
     include: { student: true, lecture: true },
   });
   const data = usePagination(10, purchases, req);

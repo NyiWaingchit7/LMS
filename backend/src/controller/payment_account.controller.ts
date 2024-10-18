@@ -4,8 +4,12 @@ import bcrypt from "bcrypt";
 import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
+  const searchKey = (req.query.searchKey as string) || "";
+
   const paymentAccounts = await prisma.paymentAccount.findMany({
-    where: { deleted: false },
+    where: searchKey
+      ? { name: { contains: searchKey, mode: "insensitive" }, deleted: false }
+      : { deleted: false },
     orderBy: { id: "desc" },
     include: { payment_bank: true },
   });
