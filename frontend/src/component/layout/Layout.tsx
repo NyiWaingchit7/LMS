@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { TopBar } from "./TopBar";
 import { SideBar } from "./Sidebar";
 import { Helmet } from "react-helmet";
+import { Footer } from "./Footer";
 
 interface Prop {
   children: ReactNode;
@@ -12,7 +13,7 @@ export const Layout = ({ children, title }: Prop) => {
   return (
     <div>
       <Helmet>
-        <title>{`${title} - LMS`}</title>
+        <title>{`${title || ""} - LMS`}</title>
       </Helmet>
 
       <div className="flex h-screen overflow-hidden">
@@ -23,6 +24,7 @@ export const Layout = ({ children, title }: Prop) => {
             <div className="min-h-full mx-auto max-w-screen-xl p-4 md:p-6 2xl:p-10">
               <slot className="min-h-full">{children}</slot>
             </div>
+            <Footer />
           </main>
         </div>
       </div>
