@@ -27,7 +27,7 @@ interface Props {
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
   const links = useAppSelector((store) => store.category.links);
-  const { page, query: searchKey } = usePage();
+  const { page, searchKey } = usePage();
   const handleDelete = (id: number) => {
     dispatch(
       handleDeletCategory({
@@ -48,12 +48,7 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table
-          sx={{ minWidth: 650 }}
-          stickyHeader
-          aria-label="sticky table"
-          size="small"
-        >
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell>Image</TableCell>

@@ -19,9 +19,9 @@ const initialState: CategorySlice = {
   error: null,
 };
 
-export const handleGetCategory = createAsyncThunk<any, Payload>(
+export const handleGetCategory = createAsyncThunk(
   "get/category",
-  async ({ page = 1, searchKey = "" }, thunkApi) => {
+  async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
       const response = await fetch(
         `${config.apiUrl}/categories?page=${page}&searchKey=${searchKey}`,

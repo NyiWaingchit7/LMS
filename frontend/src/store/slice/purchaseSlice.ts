@@ -20,9 +20,9 @@ const initialState: PurchaseSlice = {
   error: null,
 };
 
-export const handleGetPurchase = createAsyncThunk<any, Payload>(
+export const handleGetPurchase = createAsyncThunk(
   "get/purchase",
-  async ({ page = 1, searchKey = "" }, thunkApi) => {
+  async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
       const response = await fetch(
         `${config.apiUrl}/purchases?page=${page}&searchKey=${searchKey}`,

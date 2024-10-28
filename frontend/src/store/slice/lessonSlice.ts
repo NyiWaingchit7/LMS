@@ -21,9 +21,9 @@ const initialState: LessonSlice = {
   error: null,
 };
 
-export const handleGetLesson = createAsyncThunk<any, Payload>(
+export const handleGetLesson = createAsyncThunk(
   "get/lesson",
-  async ({ page = 1, searchKey = "" }, thunkApi) => {
+  async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
       const response = await fetch(
         `${config.apiUrl}/lessons?page=${page}&searchKey=${searchKey}`,

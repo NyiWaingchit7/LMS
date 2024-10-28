@@ -20,9 +20,9 @@ const initialState: PaymentBankSlice = {
   error: null,
 };
 
-export const handleGetPaymentBank = createAsyncThunk<any, Payload>(
+export const handleGetPaymentBank = createAsyncThunk(
   "get/payment-bank",
-  async ({ page = 1, searchKey = "" }, thunkApi) => {
+  async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
       const response = await fetch(
         `${config.apiUrl}/payment-banks?page=${page}&searchKey=${searchKey}`,

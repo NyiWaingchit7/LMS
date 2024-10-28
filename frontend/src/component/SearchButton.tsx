@@ -14,6 +14,12 @@ export const SearchButton = ({ path }: Props) => {
 
   const debounceValue = useDebounce(searchKey, path);
 
+  useEffect(() => {
+    return () => {
+      setSearchKey("");
+    };
+  }, []);
+
   return (
     <div className="flex justify-between items-center mt-5">
       <div>

@@ -1,5 +1,3 @@
-import { Button } from "@mui/material";
-import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 interface Props {
@@ -9,8 +7,6 @@ export const Pagination = ({ links }: Props) => {
   const [searchParam, setSearchParam] = useSearchParams();
   const query = (searchParam.get("page") as string) || 1;
   const page = Number(query);
-  const prev = page > 1 ? page - 1 : null;
-  const next = page < links.length ? page + 1 : null;
 
   return (
     <div className="flex gap-2 mt-5">

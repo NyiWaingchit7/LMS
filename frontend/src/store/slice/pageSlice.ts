@@ -20,9 +20,9 @@ const initialState: PageSlice = {
   error: null,
 };
 
-export const handleGetPage = createAsyncThunk<any, Payload>(
+export const handleGetPage = createAsyncThunk(
   "get/page",
-  async ({ page = 1, searchKey = "" }, thunkApi) => {
+  async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
       const response = await fetch(
         `${config.apiUrl}/pages?page=${page}&searchKey=${searchKey}`,

@@ -20,7 +20,7 @@ const useDebounce = (searchKey: string, path: string) => {
     };
   }, [searchKey]);
   useEffect(() => {
-    navigate(`/${path}?$page=${page}&searchKey=${debounceValue}`);
+    navigate(`/${path}?page=${page}&searchKey=${debounceValue}`);
   }, [debounceValue]);
   return debounceValue as string;
 };
