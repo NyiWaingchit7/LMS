@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginOption, LoginSlice } from "../../types/auth";
 import { config } from "../../utils/config";
 import { errorHelper } from "../../utils/errorHelper";
+import { headerOptions } from "../../utils/requestOption";
 
 const initialState: LoginSlice = {
   items: [],
@@ -29,6 +30,21 @@ export const handleLogin = createAsyncThunk(
       thunkApi.dispatch(setToken(data.token));
       localStorage.setItem("accessToken", data.token);
       onSuccess && onSuccess();
+    } catch (error: any) {
+      errorHelper(error.message);
+    }
+  }
+);
+
+export const getHomeChart = createAsyncThunk(
+  "get/home",
+  async (_, thunkApi) => {
+    try {
+      const response = await fetch(`${config.apiUrl}/home`, {
+        method: "GET",
+        headers: headerOptions(),
+      });
+      const data = await response.json();
     } catch (error: any) {
       errorHelper(error.message);
     }

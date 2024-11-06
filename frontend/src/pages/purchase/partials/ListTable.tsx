@@ -42,7 +42,7 @@ export const ListTable = ({ data }: Props) => {
         id,
         onSuccess: () => {
           toast.success("Purchase is deleted successfully.");
-          dispatch(handleGetPurchase(page));
+          dispatch(handleGetPurchase({ page }));
         },
       })
     );
@@ -68,6 +68,7 @@ export const ListTable = ({ data }: Props) => {
               <TableCell>Payment Screenshot</TableCell>
               <TableCell>Student Name</TableCell>
               <TableCell>Lecture</TableCell>
+              <TableCell>Total Price</TableCell>
               <TableCell>Payment Status</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
@@ -98,6 +99,9 @@ export const ListTable = ({ data }: Props) => {
                     {row.student?.name || "-"}
                   </TableCell>
                   <TableCell>{row.lecture?.title || "-"}</TableCell>
+                  <TableCell>
+                    {row.lecture?.discount_price || row.lecture?.price} MMK
+                  </TableCell>
                   <TableCell>
                     <Chip
                       size="small"

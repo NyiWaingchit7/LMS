@@ -48,7 +48,9 @@ export const ShowCategory = () => {
               <th className="px-2 py-3 ">Image</th>
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
-                <Image src={category?.assetUrl || "./../test.jpg"} />
+                {category?.assetUrl && (
+                  <Image src={category?.assetUrl || "./../test.jpg"} />
+                )}
               </td>
             </tr>
           </tbody>

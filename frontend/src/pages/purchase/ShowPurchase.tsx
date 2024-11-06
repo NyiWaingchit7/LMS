@@ -128,6 +128,18 @@ export const ShowPurchase = () => {
             </tr>
             <tr>
               <th className="px-2 py-3 " scope="col">
+                Total Price
+              </th>
+              <td className="px-2 py-3 " scope="col">
+                -
+              </td>
+              <td className="px-2 py-3 " scope="col">
+                {purchase?.lecture?.discount_price || purchase?.lecture?.price}{" "}
+                MMK
+              </td>
+            </tr>
+            <tr>
+              <th className="px-2 py-3 " scope="col">
                 Payment Status
               </th>
               <td className="px-2 py-3 " scope="col">
