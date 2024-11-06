@@ -19,6 +19,7 @@ import { pageRouter } from "./src/routes/page.route";
 import { searchLecture } from "./src/controller/lecture.controller";
 import { getPaymentBanks } from "./src/controller/payment_bank.controller";
 import { createPurchase } from "./src/controller/purchase.controller";
+import { homeRouter } from "./src/routes/home.route";
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use("/api/v1/admin/payment-banks", paymentBankRouter);
 app.use("/api/v1/admin/payment-accounts", paymentAccountRouter);
 app.use("/api/v1/admin/purchases", pruchaseRouter);
 app.use("/api/v1/admin/pages", pageRouter);
+app.use("/api/v1/admin/home", homeRouter);
 app.post(
   "/api/v1/admin/file-upload",
   checkauth,
