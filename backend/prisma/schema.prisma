@@ -112,6 +112,7 @@ model Purchase {
   lectureId        Int
   student          Student  @relation(fields: [studentId], references: [id])
   studentId        Int
+  total_price      Int
   payment_assetUrl String
   payment_status   Status   @default(PENDING)
   deleted          Boolean  @default(false)

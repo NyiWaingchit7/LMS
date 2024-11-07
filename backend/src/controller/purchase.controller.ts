@@ -41,11 +41,11 @@ export const show = async (req: Request, res: Response) => {
 };
 
 export const store = async (req: Request, res: Response) => {
-  const { lectureId, studentId, payment_assetUrl } = req.body;
+  const { lectureId, studentId, payment_assetUrl, total_price } = req.body;
 
   try {
     const purchase = await prisma.purchase.create({
-      data: { lectureId, studentId, payment_assetUrl },
+      data: { lectureId, studentId, payment_assetUrl, total_price },
     });
     mailSend();
     return res.status(200).json({ purchase });
