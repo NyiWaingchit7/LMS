@@ -68,7 +68,8 @@ export const handleShowPurchase = createAsyncThunk(
 export const handleCreatePurchase = createAsyncThunk(
   "creat/purchase",
   async (option: CreatePurchase, thunkApi) => {
-    const { studentId, lectureId, payment_assetUrl, onSuccess } = option;
+    const { studentId, lectureId, payment_assetUrl, onSuccess, total_price } =
+      option;
     try {
       const response = await fetch(`${config.apiUrl}/purchases`, {
         method: "POST",
@@ -77,6 +78,7 @@ export const handleCreatePurchase = createAsyncThunk(
           studentId,
           lectureId,
           payment_assetUrl: payment_assetUrl,
+          total_price,
         }),
       });
       const data = await response.json();

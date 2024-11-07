@@ -34,7 +34,10 @@ export const Form = ({ students, lectures }: Props) => {
   const [lectureId, setLectureId] = useState<number | undefined>(undefined);
   const [imgUrl, setImgUrl] = useState("");
   const errors = useAppSelector((store) => store.purchase.error);
-
+  const total_price =
+    (lectures.find((data) => data.id === lectureId)
+      ?.discount_price as number) ||
+    (lectures.find((data) => data.id === lectureId)?.price as number);
   const onSuccess = () => {
     toast.success("Purchase is created successfully.");
     navigate("/purchases");
@@ -47,6 +50,7 @@ export const Form = ({ students, lectures }: Props) => {
         studentId: studentId as number,
         lectureId: lectureId as number,
         payment_assetUrl: imgUrl,
+        total_price,
         onSuccess,
       })
     );

@@ -24,6 +24,7 @@ export interface PurchaseSlice {
 export interface CreatePurchase extends BaseOption {
   studentId: number;
   lectureId: number;
+  total_price: number;
   payment_assetUrl: string;
 }
 
