@@ -5,14 +5,18 @@ import { Purchase, Status } from "@prisma/client";
 export const home = async (req: Request, res: Response) => {
   try {
     const totalStudent = await prisma.student.count();
-    const totalCourse = await prisma.lesson.count();
+    const totalLesson = await prisma.lesson.count();
     const totalLecture = await prisma.lecture.count();
+    const totalPurchase = await prisma.purchase.count({
+      where: { payment_status: "CONFIRMED" },
+    });
     const { topCustomer } = await getTopCustomer();
     const { topLecture } = await getTopLecture();
     return res.status(200).json({
-      totalCourse,
+      totalLesson,
       totalStudent,
       totalLecture,
+      totalPurchase,
       topCustomer,
       topLecture,
     });
@@ -72,6 +76,8 @@ const getTopCustomer = async () => {
 const getTopLecture = async () => {
   const groupLecture = await prisma.purchase.groupBy({
     by: ["lectureId"],
+    where: { payment_status: "CONFIRMED" },
+
     _count: {
       id: true,
     },
@@ -82,8 +88,22 @@ const getTopLecture = async () => {
     },
     take: 5,
   });
-  const topLecture = await prisma.lecture.findMany({
-    where: { id: { in: groupLecture.map((data) => data.lectureId) } },
+  const lectureIds = groupLecture.map((data) => data.lectureId);
+  const lectureWithTotalCount = await prisma.purchase.findMany({
+    where: { lectureId: { in: lectureIds }, payment_status: "CONFIRMED" },
+    select: { lectureId: true, lecture: true },
   });
+  const topLecture = groupLecture.map((lecture) => {
+    const totalLecture = lectureWithTotalCount.filter(
+      (data) => data.lectureId === lecture.lectureId
+    );
+
+    return {
+      purchaseCount: lecture._count.id,
+      lecture: totalLecture.find((data) => data.lectureId === lecture.lectureId)
+        ?.lecture,
+    };
+  });
+
   return { topLecture };
 };
