@@ -36,21 +36,6 @@ export const handleLogin = createAsyncThunk(
   }
 );
 
-export const getHomeChart = createAsyncThunk(
-  "get/home",
-  async (_, thunkApi) => {
-    try {
-      const response = await fetch(`${config.apiUrl}/home`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
-    } catch (error: any) {
-      errorHelper(error.message);
-    }
-  }
-);
-
 const authSlice = createSlice({
   name: "auth/slice",
   initialState,
