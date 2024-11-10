@@ -12,6 +12,12 @@ export const home = async (req: Request, res: Response) => {
     });
     const { topCustomer } = await getTopCustomer();
     const { topLecture } = await getTopLecture();
+    const purchases = await prisma.purchase.findMany({
+      where: { payment_status: "CONFIRMED" },
+      include: { student: true, lecture: true },
+
+      take: 10,
+    });
     return res.status(200).json({
       totalLesson,
       totalStudent,
@@ -19,6 +25,7 @@ export const home = async (req: Request, res: Response) => {
       totalPurchase,
       topCustomer,
       topLecture,
+      purchases,
     });
   } catch (error) {
     return res.status(500).json({ error });
@@ -37,6 +44,7 @@ const getTopCustomer = async () => {
         id: "desc",
       },
     },
+
     take: 5,
   });
   const studentIds = topStudents.map((student) => student.studentId);
