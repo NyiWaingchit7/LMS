@@ -1,4 +1,5 @@
 import { Lecture } from "./lecture";
+import { Purchase } from "./purchase";
 
 interface TopCustomer {
   totalPurchasePrice: 597;
@@ -21,6 +22,7 @@ export interface HomeData {
   totalPurchase: number;
   topCustomer: TopCustomer[];
   topLecture: TopLecture[];
+  purchases: Purchase[];
 }
 export interface HomeSlice {
   isLoading: boolean;

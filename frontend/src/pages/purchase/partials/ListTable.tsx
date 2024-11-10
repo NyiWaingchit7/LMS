@@ -29,8 +29,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
   data: Purchase[];
+  homeTable?: boolean;
 }
-export const ListTable = ({ data }: Props) => {
+export const ListTable = ({ data, homeTable = true }: Props) => {
   const dispatch = useAppDispatch();
   const router = useNavigate();
   const { page } = usePage();
@@ -74,7 +75,7 @@ export const ListTable = ({ data }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.length > 0 ? (
+            {data?.length > 0 ? (
               data.map((row) => (
                 <TableRow
                   key={row.id}
@@ -114,6 +115,7 @@ export const ListTable = ({ data }: Props) => {
                       id={row.id as number}
                       path="purchases"
                       edit={false}
+                      deleted={homeTable}
                       handleDelete={() => {
                         handleDelete(row.id as number);
                       }}
