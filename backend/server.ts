@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
@@ -52,5 +52,7 @@ app.delete("/api/v1/admin/file-delete", checkauth, fileDelete);
 app.get("/api/v1/admin/get-lectures", checkauth, searchLecture);
 app.get("/api/v1/admin/get-paymentbanks", checkauth, getPaymentBanks);
 app.get("/api/v1/admin/create-purchase", checkauth, createPurchase);
-
+app.get('/', (req:Request,res:Response)=>{
+res.send('hello')
+})
 app.listen(port, () => console.log(`server is runnig at ${port}`));
