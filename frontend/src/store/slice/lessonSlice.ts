@@ -147,7 +147,7 @@ export const handleUpdateLesson = createAsyncThunk(
 
 export const handleDeleteLesson = createAsyncThunk(
   "delete/lesson",
-  async (option: DeleteLesson, thunkApi) => {
+  async (option: DeleteLesson) => {
     const { id, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/lessons/${id}`, {

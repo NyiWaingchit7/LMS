@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginOption, LoginSlice } from "../../types/auth";
 import { config } from "../../utils/config";
 import { errorHelper } from "../../utils/errorHelper";
-import { headerOptions } from "../../utils/requestOption";
 
 const initialState: LoginSlice = {
   items: [],

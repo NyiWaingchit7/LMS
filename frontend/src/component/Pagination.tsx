@@ -1,12 +1,9 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface Props {
   links: any[];
 }
 export const Pagination = ({ links }: Props) => {
-  const [searchParam, setSearchParam] = useSearchParams();
-  const query = (searchParam.get("page") as string) || 1;
-  const page = Number(query);
 
   return (
     <div className="flex gap-2 mt-5">

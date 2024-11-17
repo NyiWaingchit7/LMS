@@ -149,7 +149,7 @@ export const handleUpdateLecture = createAsyncThunk(
 
 export const handleDeleteLecture = createAsyncThunk(
   "delete/lecture",
-  async (option: DeleteLecture, thunkApi) => {
+  async (option: DeleteLecture) => {
     const { id, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/lectures/${id}`, {

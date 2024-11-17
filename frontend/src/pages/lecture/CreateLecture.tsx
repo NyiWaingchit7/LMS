@@ -9,7 +9,7 @@ export const CreateLecture = () => {
   const categories = useAppSelector((store) => store.category.items);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(handleGetCategory());
+    dispatch(handleGetCategory({page:1}));
   }, []);
   return (
     <Layout title="Add Lecture">

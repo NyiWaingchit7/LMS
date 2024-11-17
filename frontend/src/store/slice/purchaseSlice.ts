@@ -96,7 +96,7 @@ export const handleCreatePurchase = createAsyncThunk(
 
 export const handleUpdatePurchase = createAsyncThunk(
   "update/purchase",
-  async (option: UpdatePurchase, thunkApi) => {
+  async (option: UpdatePurchase) => {
     const { id, payment_status, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/purchases/${id}`, {
@@ -121,7 +121,7 @@ export const handleUpdatePurchase = createAsyncThunk(
 
 export const handleDeletPurchase = createAsyncThunk(
   "delete/purchase",
-  async (option: DeletePurchase, thunkApi) => {
+  async (option: DeletePurchase) => {
     const { id, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/purchases/${id}`, {

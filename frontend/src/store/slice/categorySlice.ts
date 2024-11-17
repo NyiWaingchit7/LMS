@@ -114,7 +114,7 @@ export const handleUpdateCategory = createAsyncThunk(
 
 export const handleDeletCategory = createAsyncThunk(
   "delete/category",
-  async (option: DeleteCategory, thunkApi) => {
+  async (option: DeleteCategory) => {
     const { id, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/categories/${id}`, {

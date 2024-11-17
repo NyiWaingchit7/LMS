@@ -53,7 +53,6 @@ export const ListTable = ({ data }: Props) => {
           sx={{ minWidth: 650 }}
           stickyHeader
           aria-label="sticky table"
-          size="small"
         >
           <TableHead>
             <TableRow>

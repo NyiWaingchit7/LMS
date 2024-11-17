@@ -120,7 +120,7 @@ export const handleUpdatePage = createAsyncThunk(
 
 export const handleDeletePage = createAsyncThunk(
   "delete/page",
-  async (option: DeletePage, thunkApi) => {
+  async (option: DeletePage) => {
     const { id, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/pages/${id}`, {

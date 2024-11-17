@@ -1,5 +1,4 @@
 import { BaseOption } from "./auth";
-import { Lecture, lectureData } from "./lecture";
 
 export interface Page {
   id?: number;

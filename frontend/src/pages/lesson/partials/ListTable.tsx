@@ -37,7 +37,7 @@ export const ListTable = ({ data }: Props) => {
         id,
         onSuccess: () => {
           toast.success("Lesson is deleted successfully");
-          dispatch(handleGetLesson(page));
+          dispatch(handleGetLesson({page}));
         },
       })
     );
@@ -49,13 +49,11 @@ export const ListTable = ({ data }: Props) => {
   }, []);
   return (
     <div>
-      {" "}
       <TableContainer component={Paper} className="mt-5 capitalize">
         <Table
           sx={{ minWidth: 650 }}
           stickyHeader
           aria-label="sticky table"
-          size="small"
         >
           <TableHead>
             <TableRow>

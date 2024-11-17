@@ -114,7 +114,7 @@ export const handleUpdatePaymentBank = createAsyncThunk(
 
 export const handleDeletPaymentBank = createAsyncThunk(
   "delete/payment-bank",
-  async (option: DeletePaymentBank, thunkApi) => {
+  async (option: DeletePaymentBank) => {
     const { id, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/payment-banks/${id}`, {

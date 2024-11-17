@@ -9,7 +9,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Link, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 export const SideBar = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -40,7 +40,7 @@ export const SideBar = () => {
           <nav className="py-4 px-4 lg:px-6">
             <div>
               <ul className="mb-4 flex flex-col gap-1.5">
-                {sidebrItems.map((d, index) => (
+                {sidebrItems.map((d) => (
                   <Link to={`/${d.path}`} key={d.name}>
                     <div
                       className={`text-[15px] flex items-center gap-2 px-2 rounded-lg

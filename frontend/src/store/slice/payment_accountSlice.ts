@@ -122,7 +122,7 @@ export const handleUpdatePaymentAccount = createAsyncThunk(
 
 export const handleDeletePaymentAccount = createAsyncThunk(
   "delete/payment-account",
-  async (option: DeletePaymentAccount, thunkApi) => {
+  async (option: DeletePaymentAccount) => {
     const { id, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/payment-accounts/${id}`, {

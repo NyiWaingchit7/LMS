@@ -39,7 +39,7 @@ export const ListTable = ({ data }: Props) => {
         onSuccess: () => {
           toast.success("Lecture is deleted successfully.");
 
-          dispatch(handleGetLecture(page));
+          dispatch(handleGetLecture({page}));
         },
       })
     );
@@ -54,7 +54,6 @@ export const ListTable = ({ data }: Props) => {
           sx={{ minWidth: 650 }}
           stickyHeader
           aria-label="sticky table"
-          size="small"
         >
           <TableHead>
             <TableRow>

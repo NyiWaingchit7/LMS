@@ -115,7 +115,7 @@ export const handleUpdateStudent = createAsyncThunk(
 
 export const handleDeletStudent = createAsyncThunk(
   "delete/student",
-  async (option: DeletStudent, thunkApi) => {
+  async (option: DeletStudent) => {
     const { id, onSuccess } = option;
     try {
       const response = await fetch(`${config.apiUrl}/students/${id}`, {
