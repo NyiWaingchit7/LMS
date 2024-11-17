@@ -6,7 +6,6 @@ import {
   TableCell,
   TableBody,
   Chip,
-  Pagination,
   Table,
 } from "@mui/material";
 import { TableAction } from "../../../component/TableAction";

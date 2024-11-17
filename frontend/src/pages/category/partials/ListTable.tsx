@@ -18,7 +18,7 @@ import {
 import { Image } from "../../../component/Image";
 import toast from "react-hot-toast";
 import { Pagination } from "../../../component/Pagination";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePage } from "../../../utils/getPage";
 
 interface Props {

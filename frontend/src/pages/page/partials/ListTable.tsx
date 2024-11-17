@@ -10,11 +10,6 @@ import {
 import { TableAction } from "../../../component/TableAction";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 
-import {
-  handleDeleteLecture,
-  handleGetLecture,
-  setLectureLink,
-} from "../../../store/slice/lectureSlice";
 import toast from "react-hot-toast";
 
 import { useEffect } from "react";
@@ -25,6 +20,7 @@ import {
   handleDeletePage,
   handleGetPage,
 } from "../../../store/slice/pageSlice";
+import { setLectureLink } from "../../../store/slice/lectureSlice";
 
 interface Props {
   data: Page[];

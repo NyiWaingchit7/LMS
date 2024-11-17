@@ -19,7 +19,7 @@ export const EditLecture = () => {
 
   useEffect(() => {
     dispatch(handleShowLecture(id));
-    dispatch(handleGetCategory());
+    dispatch(handleGetCategory({page:1}));
     return () => {
       dispatch(setLectureData(lectureData));
     };

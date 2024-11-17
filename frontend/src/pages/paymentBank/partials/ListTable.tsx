@@ -37,7 +37,7 @@ export const ListTable = ({ data }: Props) => {
         onSuccess: () => {
           toast.success("Payment Bank is deleted successfully.");
 
-          dispatch(handleGetPaymentBank(page));
+          dispatch(handleGetPaymentBank({page}));
         },
       })
     );

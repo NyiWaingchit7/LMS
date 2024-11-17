@@ -29,7 +29,7 @@ export const Editor = ({ setContent, content }: Props) => {
     <CKEditor
       onChange={(e, data) => {
         setContent(data.getData());
-        console.log(data.getData());
+        console.log(e);
       }}
       editor={ClassicEditor}
       data={content}

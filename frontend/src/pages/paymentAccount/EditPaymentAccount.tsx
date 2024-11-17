@@ -12,7 +12,6 @@ import {
   handleShowPaymentAccount,
   setPaymentAccountData,
 } from "../../store/slice/payment_accountSlice";
-import { handleGetPaymentBank } from "../../store/slice/payment_bankSlice";
 import { PaymentBank } from "../../types/payment_bank";
 import { config } from "../../utils/config";
 import { headerOptions } from "../../utils/requestOption";

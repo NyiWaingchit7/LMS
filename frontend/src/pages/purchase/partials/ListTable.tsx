@@ -25,7 +25,7 @@ import {
 import { useEffect } from "react";
 import { Pagination } from "../../../component/Pagination";
 import { usePage } from "../../../utils/getPage";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 interface Props {
   data: Purchase[];

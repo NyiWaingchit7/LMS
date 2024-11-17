@@ -4,7 +4,6 @@ import { Layout } from "../../component/layout/Layout";
 import { HeadLine } from "../../component/HeadLine";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Image } from "../../component/Image";
 import { DetailButton } from "../../component/DetailButton";
 import { Page, pageData } from "../../types/page";
 import { handleShowPage, setPageData } from "../../store/slice/pageSlice";

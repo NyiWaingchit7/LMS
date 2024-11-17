@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import { Layout } from "../../component/layout/Layout";
-import { Button } from "@mui/material";
 import { HeadLine } from "../../component/HeadLine";
 import { ListTable } from "./partials/ListTable";
 import { useEffect } from "react";

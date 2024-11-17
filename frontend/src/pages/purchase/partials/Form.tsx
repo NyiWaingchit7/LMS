@@ -27,7 +27,7 @@ const defaultForm = {
 };
 
 export const Form = ({ students, lectures }: Props) => {
-  const [sumbitForm, setForm] = useState<Purchase>(defaultForm);
+  const [sumbitForm] = useState<Purchase>(defaultForm);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [studentId, setStudentId] = useState<number | undefined>(undefined);

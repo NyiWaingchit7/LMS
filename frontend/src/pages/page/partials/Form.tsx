@@ -4,12 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Checkbox,
-  FormControl,
-  ListItemText,
-  MenuItem,
   Paper,
-  Select,
   TextField,
 } from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
@@ -31,16 +26,7 @@ const defaultForm = {
   title: "",
   content: "",
 };
-const options = [
-  {
-    label: "True",
-    key: true,
-  },
-  {
-    label: "False",
-    key: false,
-  },
-];
+
 export const Form = ({ page }: Props) => {
   const [sumbitForm, setForm] = useState<Page>(defaultForm);
 

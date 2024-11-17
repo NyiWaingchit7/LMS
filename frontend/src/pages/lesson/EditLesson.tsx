@@ -4,7 +4,6 @@ import { Layout } from "../../component/layout/Layout";
 import { Form } from "./partials/Form";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect, useState } from "react";
-import { handleGetLecture } from "../../store/slice/lectureSlice";
 import { Lesson, lessonData } from "../../types/lesson";
 import { handleShowLesson, setLessonData } from "../../store/slice/lessonSlice";
 import { Lecture } from "../../types/lecture";

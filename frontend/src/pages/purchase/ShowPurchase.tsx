@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { Image } from "../../component/Image";
 
-import { PaymentStatus, Purchase, purchaseData } from "../../types/purchase";
+import {  Purchase, purchaseData } from "../../types/purchase";
 import {
   handleShowPurchase,
   handleUpdatePurchase,
