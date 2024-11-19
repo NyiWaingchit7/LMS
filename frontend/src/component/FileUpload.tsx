@@ -9,7 +9,6 @@ import { config } from "../utils/config";
 import { Button } from "@mui/material";
 import { headerOptions } from "../utils/requestOption";
 import toast from "react-hot-toast";
-import { FilePondFile } from "filepond";
 
 registerPlugin(FilePondPluginImagePreview);
 
@@ -22,25 +21,17 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
   const [files, setFiles] = useState<File[]>([]);
   const [edit, setEdit] = useState(false);
   const [fileRev, setFileRev] = useState("");
-
-  const handleUpdateFiles = (fileItems: FilePondFile[]) => {
-    const newFiles: File[] = fileItems.map(fileItem => {
-      const actualFile = fileItem.file; 
-      return new File([actualFile], actualFile.name, {
-        type: actualFile.type,
-        lastModified: actualFile.lastModified,
-      });
-    });
-    setFiles(newFiles);
-  }
+  const accessToken = localStorage.getItem("accessToken");
 
   const server = {
     process: {
       url: `${config.apiUrl}/file-upload`,
-      method: "POST" as "POST",
+      method: "POST",
       timeout: 7000,
       withCredentials: false,
-      headers: headerOptions(),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
       onload: (data: any) => {
         const res = JSON.parse(data);
 
@@ -52,7 +43,7 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
       },
       onerror: (data: any) => console.log(data),
     },
-  };
+  } 
 
   const removeFile = async () => {
     try {
@@ -82,11 +73,13 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
   return (
     <div className="App">
       {!edit && (
+        // @ts-ignore
+
         <FilePond
           files={files}
-          onupdatefiles={handleUpdateFiles}
+          onupdatefiles={setFiles}
           onremovefile={removeFile}
-          server={server.process}
+          server={server}
           name="files"
           labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
         />
