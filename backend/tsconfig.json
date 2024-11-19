@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "outDir": "dist",
+      "module": "commonjs",
+      "target": "es6",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": ["server.ts", "utils/**/*.ts", "src/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+  }
+  
