@@ -28,14 +28,13 @@ export const show = async (req: Request, res: Response) => {
   try {
     const data = await prisma.lecture.findFirst({
       where: { id, deleted: false },
-
       include: {
         LectureonCategory: { include: { category: true } },
         Lesson: { where: { deleted: false } },
       },
     });
-    if (!data)
-      return res.status(400).json({ message: "The lecture can not be found!" });
+    if (!data){
+      return res.status(404).json({ message: "The lecture can not be found!" })};
     const lecture = {
       ...data,
       categories: data.LectureonCategory.map((lc) => lc.category),
