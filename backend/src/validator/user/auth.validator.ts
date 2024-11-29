@@ -8,7 +8,10 @@ export const schema = yup.object().shape({
     .string()
     .min(8, "The password must be at least 8.")
     .required("The name field is required."),
-  confirm_password: yup.string().required("The name field is required."),
+  confirm_password: yup
+    .string()
+    .oneOf([yup.ref("password")], "Password must match")
+    .required("Confirm password is required."),
 });
 
 export const registerValidation = async (
