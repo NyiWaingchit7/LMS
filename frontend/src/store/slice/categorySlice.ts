@@ -7,10 +7,9 @@ import {
   UpdateCategory,
 } from "../../types/category";
 import { errorHelper } from "../../utils/errorHelper";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
 import toast from "react-hot-toast";
 import { Payload } from "../../types/auth";
+import { fetchFunction } from "../../utils/useFetchFunction";
 const initialState: CategorySlice = {
   items: [],
   links: [],
@@ -23,21 +22,22 @@ export const handleGetCategory = createAsyncThunk(
   "get/category",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
-      const response = await fetch(
-        `${config.apiUrl}/categories?page=${page}&searchKey=${searchKey}`,
-        {
-          method: "GET",
-          headers: headerOptions(),
-        }
-      );
-      const { data } = await response.json();
+      const params = {
+        page: page.toString(),
+        searchKey: searchKey || "",
+      };
+      const queryString = new URLSearchParams(params).toString();
+      const { data, response } = await fetchFunction({
+        url: `categories?${queryString}`,
+      });
+
       if (!response.ok) {
-        throw new Error(data.message);
+        throw new Error(data.data.message);
       }
 
-      thunkApi.dispatch(setCategory(data.data));
+      thunkApi.dispatch(setCategory(data.data.data));
 
-      thunkApi.dispatch(setLinks(data.links));
+      thunkApi.dispatch(setLinks(data.data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -47,11 +47,9 @@ export const handleShowCategory = createAsyncThunk(
   "show/category",
   async (id: number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/categories/${id}`, {
-        method: "GET",
-        headers: headerOptions(),
+      const { response, data } = await fetchFunction({
+        url: `categories/${id}`,
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -70,12 +68,11 @@ export const handleCreateCategory = createAsyncThunk(
   async (option: CreateCategory, thunkApi) => {
     const { name, assetUrl, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/categories`, {
+      const { response, data } = await fetchFunction({
+        url: "categories",
         method: "POST",
-        headers: headerOptions(),
         body: JSON.stringify({ name, assetUrl }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setCategoryError(data.errors));
         throw Error(data);
@@ -93,12 +90,11 @@ export const handleUpdateCategory = createAsyncThunk(
   async (option: UpdateCategory, thunkApi) => {
     const { id, name, assetUrl, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/categories/${id}`, {
+      const { response, data } = await fetchFunction({
+        url: `categories/${id}`,
         method: "PUT",
-        headers: headerOptions(),
         body: JSON.stringify({ name, assetUrl }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setCategoryError(data.errors));
 
@@ -117,11 +113,10 @@ export const handleDeletCategory = createAsyncThunk(
   async (option: DeleteCategory) => {
     const { id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/categories/${id}`, {
+      const { data, response } = await fetchFunction({
+        url: `categories/${id}`,
         method: "DELETE",
-        headers: headerOptions(),
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }

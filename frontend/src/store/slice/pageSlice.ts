@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { errorHelper } from "../../utils/errorHelper";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
 import toast from "react-hot-toast";
 import {
   CreatePage,
@@ -12,6 +10,7 @@ import {
   UpdatePage,
 } from "../../types/page";
 import { Payload } from "../../types/auth";
+import { fetchFunction } from "../../utils/useFetchFunction";
 const initialState: PageSlice = {
   items: [],
   links: [],
@@ -24,20 +23,20 @@ export const handleGetPage = createAsyncThunk(
   "get/page",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
-      const response = await fetch(
-        `${config.apiUrl}/pages?page=${page}&searchKey=${searchKey}`,
-        {
-          method: "GET",
-          headers: headerOptions(),
-        }
-      );
-      const { data } = await response.json();
+      const params = {
+        page: page.toString(),
+        searchKey: searchKey || "",
+      };
+      const queryString = new URLSearchParams(params).toString();
+      const { data, response } = await fetchFunction({
+        url: `pages?${queryString}`,
+      });
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPage(data.data));
-      thunkApi.dispatch(setPageLink(data.links));
+      thunkApi.dispatch(setPage(data.data.data));
+      thunkApi.dispatch(setPageLink(data.data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -47,11 +46,7 @@ export const handleShowPage = createAsyncThunk(
   "show/page",
   async (id: number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/pages/${id}`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
+      const { data, response } = await fetchFunction({ url: `pages/${id}` });
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -70,15 +65,14 @@ export const handleCreatePage = createAsyncThunk(
   async (option: CreatePage, thunkApi) => {
     const { title, content, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/pages`, {
+      const { data, response } = await fetchFunction({
+        url: "pages",
         method: "POST",
-        headers: headerOptions(),
         body: JSON.stringify({
           title,
           content,
         }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setPageError(data.errors));
 
@@ -97,15 +91,14 @@ export const handleUpdatePage = createAsyncThunk(
   async (option: UpdatePage, thunkApi) => {
     const { id, title, content, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/pages/${id}`, {
+      const { data, response } = await fetchFunction({
+        url: `pages/${id}`,
         method: "PUT",
-        headers: headerOptions(),
         body: JSON.stringify({
           title,
           content,
         }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setPageError(data.errors));
         throw new Error(data);
@@ -123,11 +116,10 @@ export const handleDeletePage = createAsyncThunk(
   async (option: DeletePage) => {
     const { id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/pages/${id}`, {
+      const { response, data } = await fetchFunction({
+        url: `pages/${id}`,
         method: "DELETE",
-        headers: headerOptions(),
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }

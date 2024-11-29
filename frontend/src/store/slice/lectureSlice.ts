@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { errorHelper } from "../../utils/errorHelper";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
 import {
   CreateLecture,
   DeleteLecture,
@@ -12,6 +10,7 @@ import {
 } from "../../types/lecture";
 import toast from "react-hot-toast";
 import { Payload } from "../../types/auth";
+import { fetchFunction } from "../../utils/useFetchFunction";
 const initialState: LectureSlice = {
   items: [],
   links: [],
@@ -24,20 +23,22 @@ export const handleGetLecture = createAsyncThunk(
   "get/lecture",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
-      const response = await fetch(
-        `${config.apiUrl}/lectures?page=${page}&searchKey=${searchKey}`,
-        {
-          method: "GET",
-          headers: headerOptions(),
-        }
-      );
-      const { data } = await response.json();
+      const params = {
+        page: page.toString(),
+        searchKey: searchKey || "",
+      };
+      const queryString = new URLSearchParams(params).toString();
+
+      const { data, response } = await fetchFunction({
+        url: `lectures?${queryString}`,
+      });
+
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLecture(data.data));
-      thunkApi.dispatch(setLectureLink(data.links));
+      thunkApi.dispatch(setLecture(data.data.data));
+      thunkApi.dispatch(setLectureLink(data.data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -47,11 +48,7 @@ export const handleShowLecture = createAsyncThunk(
   "show/lecture",
   async (id: number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
+      const { response, data } = await fetchFunction({ url: `lectures/${id}` });
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -79,9 +76,9 @@ export const handleCreateLecture = createAsyncThunk(
       onSuccess,
     } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lectures`, {
+      const { response, data } = await fetchFunction({
+        url: "lectures",
         method: "POST",
-        headers: headerOptions(),
         body: JSON.stringify({
           title,
           description,
@@ -92,7 +89,6 @@ export const handleCreateLecture = createAsyncThunk(
           categories,
         }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setLectureError(data.errors));
 
@@ -121,9 +117,9 @@ export const handleUpdateLecture = createAsyncThunk(
       onSuccess,
     } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
+      const { response, data } = await fetchFunction({
+        url: `lectures/${id}`,
         method: "PUT",
-        headers: headerOptions(),
         body: JSON.stringify({
           title,
           description,
@@ -134,7 +130,6 @@ export const handleUpdateLecture = createAsyncThunk(
           categories,
         }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setLectureError(data.errors));
         throw new Error(data);
@@ -152,11 +147,10 @@ export const handleDeleteLecture = createAsyncThunk(
   async (option: DeleteLecture) => {
     const { id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/lectures/${id}`, {
+      const { response, data } = await fetchFunction({
+        url: `lectures/${id}`,
         method: "DELETE",
-        headers: headerOptions(),
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
