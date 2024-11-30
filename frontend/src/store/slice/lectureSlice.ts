@@ -82,8 +82,8 @@ export const handleCreateLecture = createAsyncThunk(
         body: JSON.stringify({
           title,
           description,
-          price,
-          discount_price,
+          price: isPremium ? price : undefined,
+          discount_price: isPremium ? discount_price : undefined,
           isPremium,
           assetUrl,
           categories,
@@ -91,7 +91,6 @@ export const handleCreateLecture = createAsyncThunk(
       });
       if (!response.ok) {
         thunkApi.dispatch(setLectureError(data.errors));
-
         throw new Error(data);
       }
 
@@ -123,8 +122,8 @@ export const handleUpdateLecture = createAsyncThunk(
         body: JSON.stringify({
           title,
           description,
-          price,
-          discount_price,
+          price: isPremium ? price : undefined,
+          discount_price: isPremium ? discount_price : undefined,
           isPremium,
           assetUrl,
           categories,
