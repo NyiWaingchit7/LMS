@@ -33,8 +33,9 @@ export const show = async (req: Request, res: Response) => {
         Lesson: { where: { deleted: false } },
       },
     });
-    if (!data){
-      return res.status(404).json({ message: "The lecture can not be found!" })};
+    if (!data) {
+      return res.status(404).json({ message: "The lecture can not be found!" });
+    }
     const lecture = {
       ...data,
       categories: data.LectureonCategory.map((lc) => lc.category),
@@ -84,7 +85,7 @@ export const update = async (req: Request, res: Response) => {
         title,
         description,
         isPremium,
-        price,
+        price: price ?? 0,
         discount_price: discount_price ?? 0,
       },
     });
