@@ -46,6 +46,15 @@ export const show = async (req: Request, res: Response) => {
   }
 };
 
+export const create = async (req: Request, res: Response) => {
+  try {
+    const categories = await prisma.category.findMany();
+    return res.status(200).json({ categories });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 export const store = async (req: Request, res: Response) => {
   const { title, description, isPremium, categories, price, discount_price } =
     req.body;

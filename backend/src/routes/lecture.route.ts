@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  create,
   destroy,
   index,
   searchLecture,
@@ -13,6 +14,7 @@ import { lectureValidation } from "../validator/lecture.validator";
 export const lectureRouter = express.Router();
 
 lectureRouter.get("/", checkauth, index);
+lectureRouter.get("/create", checkauth, create);
 
 lectureRouter.get("/:id", checkauth, show);
 
