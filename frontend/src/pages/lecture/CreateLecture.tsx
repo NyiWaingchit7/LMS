@@ -3,13 +3,13 @@ import { HeadLine } from "../../component/HeadLine";
 import { Layout } from "../../component/layout/Layout";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Form } from "./partials/Form";
-import { handleGetCategory } from "../../store/slice/categorySlice";
+import { handleGetCategoryinLecture } from "../../store/slice/lectureSlice";
 
 export const CreateLecture = () => {
-  const categories = useAppSelector((store) => store.category.items);
+  const categories = useAppSelector((store) => store.lecture.categories);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(handleGetCategory({page:1}));
+    dispatch(handleGetCategoryinLecture());
   }, []);
   return (
     <Layout title="Add Lecture">

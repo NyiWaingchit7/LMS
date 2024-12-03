@@ -18,7 +18,23 @@ const initialState: LessonSlice = {
   data: lessonData,
   isLoading: false,
   error: null,
+  lectures: [],
 };
+
+export const handleGetLectureinLesson = createAsyncThunk(
+  "get/create-lesson",
+  async (_, thunkApi) => {
+    try {
+      const { data, response } = await fetchFunction({ url: "lessons/create" });
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      thunkApi.dispatch(setLectureLesson(data.lectures));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const handleGetLesson = createAsyncThunk(
   "get/lesson",
@@ -176,9 +192,17 @@ export const lessonSlice = createSlice({
     setLessonLink: (state, action) => {
       state.links = action.payload;
     },
+    setLectureLesson: (state, action) => {
+      state.lectures = action.payload;
+    },
   },
 });
 
-export const { setLesson, setLessonData, setLessonError, setLessonLink } =
-  lessonSlice.actions;
+export const {
+  setLesson,
+  setLessonData,
+  setLessonError,
+  setLessonLink,
+  setLectureLesson,
+} = lessonSlice.actions;
 export default lessonSlice.reducer;

@@ -17,7 +17,26 @@ const initialState: LectureSlice = {
   data: lectureData,
   isLoading: false,
   error: null,
+  categories: [],
 };
+
+export const handleGetCategoryinLecture = createAsyncThunk(
+  "get/create-lecture",
+  async (_, thunkApi) => {
+    try {
+      const { data, response } = await fetchFunction({
+        url: "lectures/create",
+      });
+      if (!response) {
+        toast.error(data.message);
+      }
+      thunkApi.dispatch(setLectureCategory(data.categories));
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const handleGetLecture = createAsyncThunk(
   "get/lecture",
@@ -179,9 +198,17 @@ export const lectureSlice = createSlice({
     setLectureLink: (state, action) => {
       state.links = action.payload;
     },
+    setLectureCategory: (state, action) => {
+      state.categories = action.payload;
+    },
   },
 });
 
-export const { setLecture, setLectureData, setLectureError, setLectureLink } =
-  lectureSlice.actions;
+export const {
+  setLecture,
+  setLectureData,
+  setLectureError,
+  setLectureLink,
+  setLectureCategory,
+} = lectureSlice.actions;
 export default lectureSlice.reducer;
