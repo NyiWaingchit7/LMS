@@ -34,6 +34,15 @@ export const show = async (req: Request, res: Response) => {
   }
 };
 
+export const create = async (req: Request, res: Response) => {
+  try {
+    const banks = await prisma.paymentBank.findMany();
+    return res.status(200).json({ banks });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 export const store = async (req: Request, res: Response) => {
   const { name, phone_number, payment_bank_id } = req.body;
   try {

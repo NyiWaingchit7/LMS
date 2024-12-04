@@ -2,6 +2,7 @@ import express from "express";
 
 import { checkauth } from "../../utils/auth";
 import {
+  create,
   destroy,
   index,
   show,
@@ -13,6 +14,7 @@ import { purchaseValidation } from "../validator/purchase.validator";
 export const pruchaseRouter = express.Router();
 
 pruchaseRouter.get("/", checkauth, index);
+pruchaseRouter.get("/create", checkauth, create);
 
 pruchaseRouter.get("/:id", checkauth, show);
 

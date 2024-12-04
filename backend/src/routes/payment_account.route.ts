@@ -1,6 +1,7 @@
 import express from "express";
 import { checkauth } from "../../utils/auth";
 import {
+  create,
   destroy,
   index,
   show,
@@ -12,6 +13,7 @@ import { paymentAccountValidation } from "../validator/payment_account.validator
 export const paymentAccountRouter = express.Router();
 
 paymentAccountRouter.get("/", checkauth, index);
+paymentAccountRouter.get("/create", checkauth, create);
 
 paymentAccountRouter.get("/:id", checkauth, show);
 

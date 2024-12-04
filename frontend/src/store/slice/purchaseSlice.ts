@@ -17,8 +17,26 @@ const initialState: PurchaseSlice = {
   data: purchaseData,
   isLoading: false,
   error: null,
+  students: [],
+  lectures: [],
 };
-
+export const handlGetCreatePurchase = createAsyncThunk(
+  "get/create-purchase",
+  async (_, thunkApi) => {
+    try {
+      const { data, response } = await fetchFunction({
+        url: "purchases/create",
+      });
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      thunkApi.dispatch(setPurchaseStudent(data.students));
+      thunkApi.dispatch(setPurchaseLecture(data.lectures));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const handleGetPurchase = createAsyncThunk(
   "get/purchase",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
@@ -149,6 +167,12 @@ export const purchaseSlice = createSlice({
     setPurchaseLink: (state, action) => {
       state.links = action.payload;
     },
+    setPurchaseStudent: (state, action) => {
+      state.students = action.payload;
+    },
+    setPurchaseLecture: (state, action) => {
+      state.lectures = action.payload;
+    },
   },
 });
 
@@ -157,5 +181,7 @@ export const {
   setPurchaseData,
   setPurchaseError,
   setPurchaseLink,
+  setPurchaseLecture,
+  setPurchaseStudent,
 } = purchaseSlice.actions;
 export default purchaseSlice.reducer;

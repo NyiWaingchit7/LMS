@@ -3,18 +3,12 @@ import { HeadLine } from "../../component/HeadLine";
 import { Layout } from "../../component/layout/Layout";
 import { Form } from "./partials/Form";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { PaymentAccount } from "../../types/payment_account";
 import {
-  payment_accountData,
-  PaymentAccount,
-} from "../../types/payment_account";
-import {
+  handleGetCreateAccount,
   handleShowPaymentAccount,
-  setPaymentAccountData,
 } from "../../store/slice/payment_accountSlice";
-import { PaymentBank } from "../../types/payment_bank";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
 
 export const EditPaymentAccount = () => {
   const id = Number(useParams().id);
@@ -22,26 +16,12 @@ export const EditPaymentAccount = () => {
   const paymentAccount = useAppSelector(
     (store) => store.paymentAccount.data
   ) as PaymentAccount;
-
-  const [paymentBanks, setPaymentBanks] = useState<PaymentBank[]>([]);
+  const paymentBanks = useAppSelector((store) => store.paymentAccount.banks);
 
   useEffect(() => {
     dispatch(handleShowPaymentAccount(id));
 
-    const fetchData = async () => {
-      const response = await fetch(`${config.apiUrl}/get-paymentbanks`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
-      setPaymentBanks(data.data);
-    };
-    fetchData();
-
-    return () => {
-      setPaymentBanks([]);
-      dispatch(setPaymentAccountData(payment_accountData));
-    };
+    dispatch(handleGetCreateAccount());
   }, [id]);
   if (!paymentAccount) return null;
   return (

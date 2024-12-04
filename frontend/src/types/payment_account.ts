@@ -15,6 +15,7 @@ export interface PaymentAccountSlice {
   data: PaymentAccount;
   isLoading: boolean;
   error: null | { [key: string]: string };
+  banks: PaymentBank[];
 }
 
 export interface CreatePaymentAccount extends BaseOption {
