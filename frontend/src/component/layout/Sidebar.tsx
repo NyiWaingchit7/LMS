@@ -5,11 +5,12 @@ import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import {  useState } from "react";
+import { useState } from "react";
 export const SideBar = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -99,7 +100,7 @@ export const sidebrItems = [
   },
   {
     name: "Pages",
-    icon: <SupervisedUserCircleIcon />,
+    icon: <FileCopyIcon />,
     path: "pages",
   },
   {
