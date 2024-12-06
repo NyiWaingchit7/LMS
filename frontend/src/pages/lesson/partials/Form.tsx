@@ -3,11 +3,10 @@ import { Lecture, lectureData } from "../../../types/lecture";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
+  Autocomplete,
   Button,
   FormControl,
-  MenuItem,
   Paper,
-  Select,
   TextField,
 } from "@mui/material";
 import { InputLabel } from "../../../component/InputLabel";
@@ -39,7 +38,7 @@ const defaultForm = {
 
 export const Form = ({ lectures, lesson }: Props) => {
   const [sumbitForm, setForm] = useState<Lesson>(defaultForm);
-  const [selectedIds, setSelectedIds] = useState<number>();
+  const [selectedIds, setSelectedIds] = useState<number | null>(null);
   const [imgUrl, setImgUrl] = useState("");
   const [content, setContent] = useState("");
   const errors = useAppSelector((store) => store.lesson.error);
@@ -147,7 +146,7 @@ export const Form = ({ lectures, lesson }: Props) => {
       <div className="mt-5">
         <FormControl fullWidth>
           <InputLabel label="lectures" />
-          <Select
+          {/* <Select
             id="lectures"
             size="small"
             value={selectedIds || ""}
@@ -160,7 +159,36 @@ export const Form = ({ lectures, lesson }: Props) => {
                 {d.title}
               </MenuItem>
             ))}
-          </Select>
+          </Select> */}
+          <Autocomplete
+            id="lectures"
+            disableClearable
+            options={lectures}
+            getOptionLabel={(option) =>
+              typeof option === "string" ? option : option.title || ""
+            }
+            isOptionEqualToValue={(option, value) => option.id === value?.id}
+            value={lectures.find((lecture) => lecture.id === selectedIds)}
+            onChange={(event, value) => {
+              setSelectedIds(value?.id || null);
+              console.log(event);
+            }}
+            renderOption={(props, option) => (
+              <li {...props} key={option.id}>
+                {option.title}
+              </li>
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Search Lectures"
+                InputProps={{
+                  ...params.InputProps,
+                  type: "search",
+                }}
+              />
+            )}
+          />
         </FormControl>
         <Error message={errors?.lectureId || ""} />
       </div>
