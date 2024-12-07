@@ -1,32 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { HeadLine } from "../../component/HeadLine";
 import { Layout } from "../../component/layout/Layout";
 import { Form } from "./partials/Form";
 
-import { Student } from "../../types/student";
-import { Lecture } from "../../types/lecture";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { handlGetCreatePurchase } from "../../store/slice/purchaseSlice";
 
 export const CreatePurchase = () => {
-  const [students, setStudents] = useState<Student[]>([]);
-  const [lectures, setLectures] = useState<Lecture[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${config.apiUrl}/create-purchase`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
-      setStudents(data.student);
-      setLectures(data.lecture);
-    };
+  const students = useAppSelector((store) => store.purchase.students);
+  const lectures = useAppSelector((store) => store.purchase.lectures);
+  const dispatch = useAppDispatch();
 
-    fetchData();
-    return () => {
-      setStudents([]);
-      setLectures([]);
-    };
+  useEffect(() => {
+    dispatch(handlGetCreatePurchase());
   }, []);
   return (
     <Layout title="Add Purchase">

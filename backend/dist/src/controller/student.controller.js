@@ -12,11 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.register = exports.destroy = exports.update = exports.store = exports.show = exports.index = void 0;
+exports.destroy = exports.update = exports.store = exports.show = exports.index = void 0;
 const db_1 = require("../../utils/db");
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const config_1 = require("../../utils/config");
 const pagination_1 = require("../../utils/pagination");
 const fileUpload_1 = require("../../utils/fileUpload");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -113,43 +111,3 @@ const destroy = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.destroy = destroy;
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, phone, assetUrl } = req.body;
-    try {
-        const isvalid = name && email && password;
-        if (!isvalid)
-            return res.status(400).json({ message: "All fields are required!" });
-        const hasPassword = yield bcrypt_1.default.hash(password, 10);
-        const student = yield db_1.prisma.student.create({
-            data: { name, email, password: hasPassword, phone, assetUrl },
-        });
-        const token = jsonwebtoken_1.default.sign(student, config_1.config.jwtStudentSecret);
-        return res.status(200).json({ student, token });
-    }
-    catch (error) {
-        res.status(500).json({ error });
-    }
-});
-exports.register = register;
-const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
-    try {
-        const isvalid = email && password;
-        if (!isvalid)
-            return res.status(400).json({ message: "All fields are required" });
-        const student = yield db_1.prisma.student.findFirst({ where: { email } });
-        if (!student)
-            return res
-                .status(404)
-                .json({ message: "There is no user with this email" });
-        const passwordValidate = yield bcrypt_1.default.compare(password, student.password);
-        if (!passwordValidate)
-            return res.status(400).json({ message: "Wrong password" });
-        const token = jsonwebtoken_1.default.sign(student, config_1.config.jwtStudentSecret);
-        return res.status(200).json({ token });
-    }
-    catch (error) {
-        return res.status(500).json({ error });
-    }
-});
-exports.login = login;

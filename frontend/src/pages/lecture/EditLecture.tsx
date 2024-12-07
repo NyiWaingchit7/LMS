@@ -5,21 +5,21 @@ import { Form } from "./partials/Form";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
 import {
+  handleGetCategoryinLecture,
   handleShowLecture,
   setLectureData,
 } from "../../store/slice/lectureSlice";
 import { Lecture, lectureData } from "../../types/lecture";
-import { handleGetCategory } from "../../store/slice/categorySlice";
 
 export const EditLecture = () => {
   const id = Number(useParams().id);
   const dispatch = useAppDispatch();
   const lecture = useAppSelector((store) => store.lecture.data) as Lecture;
-  const categories = useAppSelector((store) => store.category.items);
+  const categories = useAppSelector((store) => store.lecture.categories);
 
   useEffect(() => {
     dispatch(handleShowLecture(id));
-    dispatch(handleGetCategory({page:1}));
+    dispatch(handleGetCategoryinLecture());
     return () => {
       dispatch(setLectureData(lectureData));
     };

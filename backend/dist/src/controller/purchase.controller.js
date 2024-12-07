@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPurchase = exports.destroy = exports.update = exports.store = exports.show = exports.index = void 0;
+exports.createPurchase = exports.destroy = exports.update = exports.store = exports.create = exports.show = exports.index = void 0;
 const db_1 = require("../../utils/db");
 const pagination_1 = require("../../utils/pagination");
 const mailer_1 = require("../../utils/mailer");
@@ -47,6 +47,17 @@ const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.show = show;
+const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const students = yield db_1.prisma.student.findMany();
+        const lectures = yield db_1.prisma.lecture.findMany();
+        return res.status(200).json({ students, lectures });
+    }
+    catch (error) {
+        return res.status(500).json({ error });
+    }
+});
+exports.create = create;
 const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { lectureId, studentId, payment_assetUrl, total_price } = req.body;
     try {

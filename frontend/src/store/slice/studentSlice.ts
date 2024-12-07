@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { errorHelper } from "../../utils/errorHelper";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
 import {
   CreateStudent,
   DeletStudent,
@@ -11,6 +9,7 @@ import {
 } from "../../types/student";
 import toast from "react-hot-toast";
 import { Payload } from "../../types/auth";
+import { fetchFunction } from "../../utils/useFetchFunction";
 const initialState: StudentSlice = {
   items: [],
   links: [],
@@ -23,20 +22,20 @@ export const handleGetStudent = createAsyncThunk(
   "get/student",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
-      const response = await fetch(
-        `${config.apiUrl}/students?page=${page}&searchKey=${searchKey}`,
-        {
-          method: "GET",
-          headers: headerOptions(),
-        }
-      );
-      const { data } = await response.json();
+      const params = {
+        page: page.toString(),
+        searchKey: searchKey || "",
+      };
+      const queryString = new URLSearchParams(params).toString();
+      const { data, response } = await fetchFunction({
+        url: `students?${queryString}`,
+      });
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setStudent(data.data));
-      thunkApi.dispatch(setStudentLink(data.links));
+      thunkApi.dispatch(setStudent(data.data.data));
+      thunkApi.dispatch(setStudentLink(data.data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -46,11 +45,7 @@ export const handleShowStudent = createAsyncThunk(
   "show/student",
   async (id: number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/students/${id}`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
+      const { data, response } = await fetchFunction({ url: `students/${id}` });
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -69,12 +64,11 @@ export const handleCreateStudent = createAsyncThunk(
   async (option: CreateStudent, thunkApi) => {
     const { name, email, password, phone, assetUrl, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/students`, {
+      const { data, response } = await fetchFunction({
+        url: "students",
         method: "POST",
-        headers: headerOptions(),
         body: JSON.stringify({ name, email, password, phone, assetUrl }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setStudentError(data.errors));
         throw new Error(data);
@@ -92,12 +86,11 @@ export const handleUpdateStudent = createAsyncThunk(
   async (option: UpdateStudent, thunkApi) => {
     const { id, name, email, password, phone, assetUrl, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/students/${id}`, {
+      const { data, response } = await fetchFunction({
+        url: `students/${id}`,
         method: "PUT",
-        headers: headerOptions(),
         body: JSON.stringify({ name, email, password, phone, assetUrl }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setStudentError(data.errors));
         throw new Error(data);
@@ -118,11 +111,10 @@ export const handleDeletStudent = createAsyncThunk(
   async (option: DeletStudent) => {
     const { id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/students/${id}`, {
+      const { data, response } = await fetchFunction({
+        url: `students/${id}`,
         method: "DELETE",
-        headers: headerOptions(),
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }

@@ -158,43 +158,6 @@ export const Form = ({ lecture, categories }: Props) => {
         <Error message={errors?.description || ""} />
       </div>
       <div className="mt-5">
-        <InputLabel label="price" />
-        <TextField
-          id="price"
-          type="number"
-          size="small"
-          fullWidth
-          required
-          autoComplete="off"
-          value={sumbitForm.price ?? ""}
-          onChange={(e) => {
-            setForm({
-              ...sumbitForm,
-              price: e.target.value === "" ? undefined : Number(e.target.value),
-            });
-          }}
-        />
-      </div>
-      <div className="mt-5">
-        <InputLabel label="discount_price" />
-        <TextField
-          id="discount_price"
-          type="number"
-          size="small"
-          fullWidth
-          required
-          autoComplete="off"
-          value={sumbitForm.discount_price ?? ""}
-          onChange={(e) =>
-            setForm({
-              ...sumbitForm,
-              discount_price:
-                e.target.value === "" ? undefined : Number(e.target.value),
-            })
-          }
-        />
-      </div>
-      <div className="mt-5">
         <FormControl fullWidth>
           <InputLabel label="is premium" />
           <Select
@@ -213,6 +176,50 @@ export const Form = ({ lecture, categories }: Props) => {
           </Select>
         </FormControl>
       </div>
+      {sumbitForm.isPremium && (
+        <div>
+          <div className="mt-5">
+            <InputLabel label="price" />
+            <TextField
+              id="price"
+              type="number"
+              size="small"
+              fullWidth
+              required
+              autoComplete="off"
+              value={sumbitForm.price ?? ""}
+              onChange={(e) => {
+                setForm({
+                  ...sumbitForm,
+                  price:
+                    e.target.value === "" ? undefined : Number(e.target.value),
+                });
+              }}
+            />
+            <Error message={errors?.price || ""} />
+          </div>
+          <div className="mt-5">
+            <InputLabel label="discount_price" />
+            <TextField
+              id="discount_price"
+              type="number"
+              size="small"
+              fullWidth
+              required
+              autoComplete="off"
+              value={sumbitForm.discount_price ?? ""}
+              onChange={(e) =>
+                setForm({
+                  ...sumbitForm,
+                  discount_price:
+                    e.target.value === "" ? undefined : Number(e.target.value),
+                })
+              }
+            />
+          </div>
+        </div>
+      )}
+
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button
           size="small"

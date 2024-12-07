@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { errorHelper } from "../../utils/errorHelper";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
 import {
   CreatePurchase,
   DeletePurchase,
@@ -12,32 +10,51 @@ import {
 } from "../../types/purchase";
 import toast from "react-hot-toast";
 import { Payload } from "../../types/auth";
+import { fetchFunction } from "../../utils/useFetchFunction";
 const initialState: PurchaseSlice = {
   items: [],
   links: [],
   data: purchaseData,
   isLoading: false,
   error: null,
+  students: [],
+  lectures: [],
 };
-
+export const handlGetCreatePurchase = createAsyncThunk(
+  "get/create-purchase",
+  async (_, thunkApi) => {
+    try {
+      const { data, response } = await fetchFunction({
+        url: "purchases/create",
+      });
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      thunkApi.dispatch(setPurchaseStudent(data.students));
+      thunkApi.dispatch(setPurchaseLecture(data.lectures));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const handleGetPurchase = createAsyncThunk(
   "get/purchase",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
-      const response = await fetch(
-        `${config.apiUrl}/purchases?page=${page}&searchKey=${searchKey}`,
-        {
-          method: "GET",
-          headers: headerOptions(),
-        }
-      );
-      const { data } = await response.json();
+      const params = {
+        page: page.toString(),
+        searchKey: searchKey || "",
+      };
+      const queryString = new URLSearchParams(params).toString();
+      const { data, response } = await fetchFunction({
+        url: `purchases?${queryString}`,
+      });
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPurchase(data.data));
-      thunkApi.dispatch(setPurchaseLink(data.links));
+      thunkApi.dispatch(setPurchase(data.data.data));
+      thunkApi.dispatch(setPurchaseLink(data.data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -47,11 +64,9 @@ export const handleShowPurchase = createAsyncThunk(
   "show/purchase",
   async (id: number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/purchases/${id}`, {
-        method: "GET",
-        headers: headerOptions(),
+      const { data, response } = await fetchFunction({
+        url: `purchases/${id}`,
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -71,9 +86,9 @@ export const handleCreatePurchase = createAsyncThunk(
     const { studentId, lectureId, payment_assetUrl, onSuccess, total_price } =
       option;
     try {
-      const response = await fetch(`${config.apiUrl}/purchases`, {
+      const { data, response } = await fetchFunction({
+        url: "purchases",
         method: "POST",
-        headers: headerOptions(),
         body: JSON.stringify({
           studentId,
           lectureId,
@@ -81,7 +96,6 @@ export const handleCreatePurchase = createAsyncThunk(
           total_price,
         }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setPurchaseError(data.errors));
         throw new Error(data.message);
@@ -99,12 +113,11 @@ export const handleUpdatePurchase = createAsyncThunk(
   async (option: UpdatePurchase) => {
     const { id, payment_status, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/purchases/${id}`, {
+      const { data, response } = await fetchFunction({
+        url: `purchases/${id}`,
         method: "PUT",
-        headers: headerOptions(),
         body: JSON.stringify({ payment_status }),
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -124,11 +137,10 @@ export const handleDeletPurchase = createAsyncThunk(
   async (option: DeletePurchase) => {
     const { id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/purchases/${id}`, {
+      const { data, response } = await fetchFunction({
+        url: `purchases/${id}`,
         method: "DELETE",
-        headers: headerOptions(),
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -155,6 +167,12 @@ export const purchaseSlice = createSlice({
     setPurchaseLink: (state, action) => {
       state.links = action.payload;
     },
+    setPurchaseStudent: (state, action) => {
+      state.students = action.payload;
+    },
+    setPurchaseLecture: (state, action) => {
+      state.lectures = action.payload;
+    },
   },
 });
 
@@ -163,5 +181,7 @@ export const {
   setPurchaseData,
   setPurchaseError,
   setPurchaseLink,
+  setPurchaseLecture,
+  setPurchaseStudent,
 } = purchaseSlice.actions;
 export default purchaseSlice.reducer;

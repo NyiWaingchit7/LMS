@@ -40,6 +40,16 @@ export const show = async (req: Request, res: Response) => {
   }
 };
 
+export const create = async (req: Request, res: Response) => {
+  try {
+    const students = await prisma.student.findMany();
+    const lectures = await prisma.lecture.findMany();
+    return res.status(200).json({ students, lectures });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+
 export const store = async (req: Request, res: Response) => {
   const { lectureId, studentId, payment_assetUrl, total_price } = req.body;
 

@@ -43,7 +43,7 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
       },
       onerror: (data: any) => console.log(data),
     },
-  } 
+  };
 
   const removeFile = async () => {
     try {

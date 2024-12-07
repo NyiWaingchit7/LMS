@@ -31,7 +31,16 @@ export const show = async (req: Request, res: Response) => {
     res.status(500).json({ error });
   }
 };
-
+export const create = async (req: Request, res: Response) => {
+  try {
+    const lectures = await prisma.lecture.findMany({
+      where: { deleted: false },
+    });
+    return res.status(200).json({ lectures });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
 export const store = async (req: Request, res: Response) => {
   const { title, description, content, assetImage, assetVideo, lectureId } =
     req.body;

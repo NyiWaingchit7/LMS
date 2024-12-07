@@ -28,19 +28,28 @@ export const show = async (req: Request, res: Response) => {
   try {
     const data = await prisma.lecture.findFirst({
       where: { id, deleted: false },
-
       include: {
         LectureonCategory: { include: { category: true } },
         Lesson: { where: { deleted: false } },
       },
     });
-    if (!data)
-      return res.status(400).json({ message: "The lecture can not be found!" });
+    if (!data) {
+      return res.status(404).json({ message: "The lecture can not be found!" });
+    }
     const lecture = {
       ...data,
       categories: data.LectureonCategory.map((lc) => lc.category),
     };
     return res.status(200).json({ lecture });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+export const create = async (req: Request, res: Response) => {
+  try {
+    const categories = await prisma.category.findMany();
+    return res.status(200).json({ categories });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -85,7 +94,7 @@ export const update = async (req: Request, res: Response) => {
         title,
         description,
         isPremium,
-        price,
+        price: price ?? 0,
         discount_price: discount_price ?? 0,
       },
     });

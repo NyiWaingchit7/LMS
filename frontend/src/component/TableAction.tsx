@@ -35,21 +35,21 @@ export const TableAction = ({
   return (
     <div>
       {show && (
-        <Link to={`/${path}/${id}`}>
+        <Link to={`/${path}/${id}`} title="view">
           <IconButton size="small">
             <VisibilityIcon />
           </IconButton>
         </Link>
       )}
       {edit && (
-        <Link to={`/${path}/${id}/edit`}>
+        <Link to={`/${path}/${id}/edit`} title="edit">
           <IconButton size="small">
             <EditIcon />
           </IconButton>
         </Link>
       )}
       {deleted && (
-        <IconButton size="small" onClick={() => setOpen(true)}>
+        <IconButton size="small" onClick={() => setOpen(true)} title="delete">
           <DeleteIcon />
         </IconButton>
       )}

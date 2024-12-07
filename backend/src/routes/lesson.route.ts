@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  create,
   destroy,
   index,
   show,
@@ -12,6 +13,7 @@ import { lessonValidation } from "../validator/lesson.validator";
 export const lessonRouter = express.Router();
 
 lessonRouter.get("/", checkauth, index);
+lessonRouter.get("/create", checkauth, create);
 
 lessonRouter.get("/:id", checkauth, show);
 

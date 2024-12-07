@@ -1,26 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { HeadLine } from "../../component/HeadLine";
 import { Layout } from "../../component/layout/Layout";
 import { Form } from "./partials/Form";
-import { PaymentBank } from "../../types/payment_bank";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { handleGetCreateAccount } from "../../store/slice/payment_accountSlice";
 
 export const CreatePaymentAccount = () => {
-  const [paymentBanks, setPaymentBanks] = useState<PaymentBank[]>([]);
+  const paymentBanks = useAppSelector((store) => store.paymentAccount.banks);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${config.apiUrl}/get-paymentbanks`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
-      setPaymentBanks(data.data);
-    };
-    fetchData();
-    return () => {
-      setPaymentBanks([]);
-    };
+    dispatch(handleGetCreateAccount());
   }, []);
   return (
     <Layout title="Add Paymet Account">

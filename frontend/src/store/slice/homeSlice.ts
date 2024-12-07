@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
+
 import { errorHelper } from "../../utils/errorHelper";
 import { HomeSlice } from "../../types/home";
+import { fetchFunction } from "../../utils/useFetchFunction";
 const initialState: HomeSlice = {
   isLoading: false,
   homeData: null,
@@ -12,11 +12,7 @@ export const getHomeChart = createAsyncThunk(
   "get/home",
   async (_, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/home`, {
-        method: "GET",
-        headers: headerOptions(),
-      });
-      const data = await response.json();
+      const { data } = await fetchFunction({ url: "home" });
       thunkApi.dispatch(setHomeData(data));
     } catch (error: any) {
       errorHelper(error.message);

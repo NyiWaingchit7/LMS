@@ -19,6 +19,8 @@ export interface PurchaseSlice {
   data: Purchase;
   isLoading: boolean;
   error: null | { [key: string]: string };
+  students: Student[];
+  lectures: Lecture[];
 }
 
 export interface CreatePurchase extends BaseOption {

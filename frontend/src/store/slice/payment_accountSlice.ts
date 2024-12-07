@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { errorHelper } from "../../utils/errorHelper";
-import { config } from "../../utils/config";
-import { headerOptions } from "../../utils/requestOption";
 import {
   CreatePaymentAccount,
   DeletePaymentAccount,
@@ -12,6 +10,7 @@ import {
 } from "../../types/payment_account";
 import toast from "react-hot-toast";
 import { Payload } from "../../types/auth";
+import { fetchFunction } from "../../utils/useFetchFunction";
 
 const initialState: PaymentAccountSlice = {
   items: [],
@@ -19,26 +18,42 @@ const initialState: PaymentAccountSlice = {
   data: payment_accountData,
   isLoading: false,
   error: null,
+  banks: [],
 };
-
+export const handleGetCreateAccount = createAsyncThunk(
+  "get/account-banks",
+  async (_, thunkApi) => {
+    try {
+      const { data, response } = await fetchFunction({
+        url: "payment-accounts/create",
+      });
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      thunkApi.dispatch(setBank(data.banks));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const handleGetPaymentAccount = createAsyncThunk(
   "get/payment-account",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
-      const response = await fetch(
-        `${config.apiUrl}/payment-accounts?page=${page}&searchKey=${searchKey}`,
-        {
-          method: "GET",
-          headers: headerOptions(),
-        }
-      );
-      const { data } = await response.json();
+      const params = {
+        page: page.toString(),
+        searchKey: searchKey || "",
+      };
+      const queryString = new URLSearchParams(params).toString();
+      const { data, response } = await fetchFunction({
+        url: `payment-accounts?${queryString}`,
+      });
       if (!response.ok) {
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPaymentAccount(data.data));
-      thunkApi.dispatch(setPaymentAccountLinks(data.links));
+      thunkApi.dispatch(setPaymentAccount(data.data.data));
+      thunkApi.dispatch(setPaymentAccountLinks(data.data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }
@@ -48,11 +63,9 @@ export const handleShowPaymentAccount = createAsyncThunk(
   "show/payment-account",
   async (id: number, thunkApi) => {
     try {
-      const response = await fetch(`${config.apiUrl}/payment-accounts/${id}`, {
-        method: "GET",
-        headers: headerOptions(),
+      const { response, data } = await fetchFunction({
+        url: `payment-accounts/${id}`,
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -71,16 +84,15 @@ export const handleCreatePaymentAccount = createAsyncThunk(
   async (option: CreatePaymentAccount, thunkApi) => {
     const { name, phone_number, payment_bank_id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/payment-accounts`, {
+      const { data, response } = await fetchFunction({
+        url: "payment-accounts",
         method: "POST",
-        headers: headerOptions(),
         body: JSON.stringify({
           name,
           phone_number,
           payment_bank_id,
         }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setPaymentAccountError(data.errors));
         throw new Error(data.message);
@@ -98,16 +110,15 @@ export const handleUpdatePaymentAccount = createAsyncThunk(
   async (option: UpdatePaymentAccount, thunkApi) => {
     const { id, name, phone_number, payment_bank_id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/payment-accounts/${id}`, {
+      const { data, response } = await fetchFunction({
+        url: `payment-accounts/${id}`,
         method: "PUT",
-        headers: headerOptions(),
         body: JSON.stringify({
           name,
           phone_number,
           payment_bank_id,
         }),
       });
-      const data = await response.json();
       if (!response.ok) {
         thunkApi.dispatch(setPaymentAccountError(data.errors));
         throw new Error(data.message);
@@ -125,11 +136,10 @@ export const handleDeletePaymentAccount = createAsyncThunk(
   async (option: DeletePaymentAccount) => {
     const { id, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/payment-accounts/${id}`, {
+      const { data, response } = await fetchFunction({
+        url: `payment-accounts/${id}`,
         method: "DELETE",
-        headers: headerOptions(),
       });
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
@@ -159,6 +169,9 @@ export const paymentAccountSlice = createSlice({
     setPaymentAccountLinks: (state, action) => {
       state.links = action.payload;
     },
+    setBank: (state, action) => {
+      state.banks = action.payload;
+    },
   },
 });
 
@@ -167,5 +180,6 @@ export const {
   setPaymentAccountData,
   setPaymentAccountError,
   setPaymentAccountLinks,
+  setBank,
 } = paymentAccountSlice.actions;
 export default paymentAccountSlice.reducer;

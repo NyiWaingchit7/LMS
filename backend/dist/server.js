@@ -24,6 +24,11 @@ const lecture_controller_1 = require("./src/controller/lecture.controller");
 const payment_bank_controller_1 = require("./src/controller/payment_bank.controller");
 const purchase_controller_1 = require("./src/controller/purchase.controller");
 const home_route_1 = require("./src/routes/home.route");
+const category_route_2 = require("./src/routes/user/category.route");
+const lecture_route_2 = require("./src/routes/user/lecture.route");
+const lesson_route_2 = require("./src/routes/user/lesson.route");
+const payment_route_1 = require("./src/routes/user/payment.route");
+const auth_route_1 = require("./src/routes/user/auth.route");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -41,12 +46,18 @@ app.use("/api/v1/admin/payment-accounts", payment_account_route_1.paymentAccount
 app.use("/api/v1/admin/purchases", purchase_route_1.pruchaseRouter);
 app.use("/api/v1/admin/pages", page_route_1.pageRouter);
 app.use("/api/v1/admin/home", home_route_1.homeRouter);
+// user
+app.use("/api/v1/categories", category_route_2.userCategoryRouter);
+app.use("/api/v1/lectures", lecture_route_2.userLectureRouter);
+app.use("/api/v1/lessons", lesson_route_2.userLessonRouter);
+app.use("/api/v1/payments", payment_route_1.userPaymentRouter);
+app.use("/api/v1/auth", auth_route_1.userAuthRouter);
 app.post("/api/v1/admin/file-upload", auth_1.checkauth, upload.array("files"), fileUpload_1.fileUpload);
 app.delete("/api/v1/admin/file-delete", auth_1.checkauth, fileUpload_1.fileDelete);
 app.get("/api/v1/admin/get-lectures", auth_1.checkauth, lecture_controller_1.searchLecture);
 app.get("/api/v1/admin/get-paymentbanks", auth_1.checkauth, payment_bank_controller_1.getPaymentBanks);
 app.get("/api/v1/admin/create-purchase", auth_1.checkauth, purchase_controller_1.createPurchase);
-app.get('/', (req, res) => {
-    res.send('hello');
+app.get("/", (req, res) => {
+    res.send("hello");
 });
 app.listen(port, () => console.log(`server is runnig at ${port}`));
