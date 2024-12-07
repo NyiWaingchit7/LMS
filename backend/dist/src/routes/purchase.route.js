@@ -10,6 +10,7 @@ const purchase_controller_1 = require("../controller/purchase.controller");
 const purchase_validator_1 = require("../validator/purchase.validator");
 exports.pruchaseRouter = express_1.default.Router();
 exports.pruchaseRouter.get("/", auth_1.checkauth, purchase_controller_1.index);
+exports.pruchaseRouter.get("/create", auth_1.checkauth, purchase_controller_1.create);
 exports.pruchaseRouter.get("/:id", auth_1.checkauth, purchase_controller_1.show);
 exports.pruchaseRouter.post("/", auth_1.checkauth, purchase_validator_1.purchaseValidation, purchase_controller_1.store);
 exports.pruchaseRouter.put("/:id", auth_1.checkauth, purchase_controller_1.update);

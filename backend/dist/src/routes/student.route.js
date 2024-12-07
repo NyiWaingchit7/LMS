@@ -11,8 +11,6 @@ const student_validator_1 = require("../validator/student.validator");
 exports.studentRouter = express_1.default.Router();
 exports.studentRouter.get("/", auth_1.checkauth, student_controller_1.index);
 exports.studentRouter.get("/:id", auth_1.checkauth, student_controller_1.show);
-exports.studentRouter.post("/register", student_controller_1.register);
-exports.studentRouter.post("/login", student_controller_1.login);
 exports.studentRouter.post("/", auth_1.checkauth, student_validator_1.studentValidation, student_controller_1.store);
 exports.studentRouter.put("/:id", auth_1.checkauth, student_validator_1.studentValidation, student_controller_1.update);
 exports.studentRouter.delete("/:id", auth_1.checkauth, student_controller_1.destroy);

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.destroy = exports.update = exports.store = exports.show = exports.index = void 0;
+exports.destroy = exports.update = exports.store = exports.create = exports.show = exports.index = void 0;
 const db_1 = require("../../utils/db");
 const pagination_1 = require("../../utils/pagination");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -43,6 +43,16 @@ const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.show = show;
+const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const banks = yield db_1.prisma.paymentBank.findMany();
+        return res.status(200).json({ banks });
+    }
+    catch (error) {
+        res.status(500).json({ error });
+    }
+});
+exports.create = create;
 const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, phone_number, payment_bank_id } = req.body;
     try {

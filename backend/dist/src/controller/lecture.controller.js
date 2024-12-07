@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchLecture = exports.destroy = exports.update = exports.store = exports.show = exports.index = void 0;
+exports.searchLecture = exports.destroy = exports.update = exports.store = exports.create = exports.show = exports.index = void 0;
 const db_1 = require("../../utils/db");
 const pagination_1 = require("../../utils/pagination");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -39,8 +39,9 @@ const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 Lesson: { where: { deleted: false } },
             },
         });
-        if (!data)
-            return res.status(400).json({ message: "The lecture can not be found!" });
+        if (!data) {
+            return res.status(404).json({ message: "The lecture can not be found!" });
+        }
         const lecture = Object.assign(Object.assign({}, data), { categories: data.LectureonCategory.map((lc) => lc.category) });
         return res.status(200).json({ lecture });
     }
@@ -49,6 +50,16 @@ const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.show = show;
+const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const categories = yield db_1.prisma.category.findMany();
+        return res.status(200).json({ categories });
+    }
+    catch (error) {
+        res.status(500).json({ error });
+    }
+});
+exports.create = create;
 const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, isPremium, categories, price, discount_price } = req.body;
     try {
@@ -80,7 +91,7 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 title,
                 description,
                 isPremium,
-                price,
+                price: price !== null && price !== void 0 ? price : 0,
                 discount_price: discount_price !== null && discount_price !== void 0 ? discount_price : 0,
             },
         });
