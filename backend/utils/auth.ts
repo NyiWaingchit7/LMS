@@ -17,7 +17,21 @@ export const checkauth = (req: Request, res: Response, next: NextFunction) => {
     return res.status(500).json({ error });
   }
 };
-export const usercheckauth = (req: Request, res: Response, next: NextFunction) => {
+export const usercheckauth = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const validate = getUserFromToken(req, res);
+    if (!validate) return res.status(401).json({ message: "unauthorize!" });
+    next();
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+
+export const getUserFromToken = (req: Request, res: Response) => {
   try {
     const header = req.headers;
     const authorization = header.authorization;
@@ -26,8 +40,11 @@ export const usercheckauth = (req: Request, res: Response, next: NextFunction) =
     const accessToken = authorization.split(" ")[1];
     const validate = jwt.verify(accessToken, config.jwtStudentSecret);
 
-    if (!validate) return res.status(401).json({ message: "unauthorize!" });
-    next();
+    if (!validate) {
+      return res.status(401).json({ message: "unauthorize!" });
+    } else {
+      return validate;
+    }
   } catch (error) {
     return res.status(500).json({ error });
   }

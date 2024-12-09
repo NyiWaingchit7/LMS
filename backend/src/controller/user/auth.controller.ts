@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { prisma } from "../../../utils/db";
 import jwt from "jsonwebtoken";
 import { config } from "../../../utils/config";
 import NodeCache from "node-cache";
+import { getUserFromToken } from "../../../utils/auth";
 const cache = new NodeCache({ stdTTL: 660 });
 export const register = async (req: Request, res: Response) => {
   const { name, email, password, phone, assetUrl } = req.body;
@@ -34,9 +35,13 @@ export const login = async (req: Request, res: Response) => {
         .json({ message: "There is no user with this email" });
 
     const passwordValidate = await bcrypt.compare(password, student.password);
-    if (!passwordValidate)
+
+    if (!passwordValidate) {
       return res.status(400).json({ message: "Wrong password" });
+    }
+
     const token = jwt.sign(student, config.jwtStudentSecret);
+
     return res.status(200).json({ token });
   } catch (error) {
     return res.status(500).json({ error });
@@ -71,4 +76,13 @@ export const generateRandomCode = (length = 6) => {
   const min = Math.pow(10, length - 1);
   const max = Math.pow(10, length) - 1;
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const myProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = getUserFromToken(req, res);
+  return res.status(200).json({ user });
 };
