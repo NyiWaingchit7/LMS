@@ -97,7 +97,6 @@ export const profileDelete = async (req: Request, res: Response) => {
 
 export const forgetPassword = async (req: Request, res: Response) => {
   try {
-    //need validation
     const { email } = req.body;
     const isExist = await prisma.user.findFirst({ where: { email } });
     if (!isExist)
