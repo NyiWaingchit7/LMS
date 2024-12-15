@@ -39,4 +39,4 @@ userAuthRouter.get(
   changePassword
 );
 
-userAuthRouter.post("/edit-profile", update);
+userAuthRouter.post("/edit-profile", usercheckauth, update);
