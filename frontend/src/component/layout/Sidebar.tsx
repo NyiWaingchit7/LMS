@@ -11,6 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import SettingsIcon from "@mui/icons-material/Settings";
 export const SideBar = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -112,5 +113,10 @@ export const sidebrItems = [
     name: "Payment Account",
     icon: <MonetizationOnIcon />,
     path: "payment-accounts",
+  },
+  {
+    name: "Settings",
+    icon: <SettingsIcon />,
+    path: "settings",
   },
 ];

@@ -1,7 +1,7 @@
 import { BaseOption } from "./auth";
 
 export interface Setting {
-  [key: string]: string;
+  [key: string]: string | null;
 }
 export interface SettingSlice extends BaseOption {
   isLoading: boolean;

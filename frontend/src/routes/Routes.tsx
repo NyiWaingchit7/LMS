@@ -34,6 +34,7 @@ import { Page } from "../pages/page/Page";
 import { ShowPage } from "../pages/page/ShowPage";
 import { CreatePage } from "../pages/page/CreatePage";
 import { EditPage } from "../pages/page/EditPage";
+import { SettingPage } from "../pages/setting/Setting";
 
 export const Router = () => {
   return (
@@ -79,6 +80,7 @@ export const Router = () => {
           <Route path="/pages/:id" Component={ShowPage} />
           <Route path="/pages/create" Component={CreatePage} />
           <Route path="/pages/:id/edit" Component={EditPage} />
+          <Route path="/settings" Component={SettingPage} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>
