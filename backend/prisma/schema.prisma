@@ -140,6 +140,15 @@ model Page {
   updated_at DateTime @updatedAt
 }
 
+model Setting {
+  id         Int      @id @default(autoincrement())
+  key        String   @unique
+  value      String
+  deleted    Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
 enum Status {
   PENDING
   CONFIRMED
