@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginOption, LoginSlice } from "../../types/auth";
 import { config } from "../../utils/config";
 import { errorHelper } from "../../utils/errorHelper";
+import toast from "react-hot-toast";
 
 const initialState: LoginSlice = {
   items: [],
@@ -23,6 +24,7 @@ export const handleLogin = createAsyncThunk(
       const data = await response.json();
 
       if (!response.ok) {
+        toast.error(data.message);
         throw new Error(data.message);
       }
       thunkApi.dispatch(setUser(data.user));

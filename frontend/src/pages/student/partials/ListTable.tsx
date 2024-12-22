@@ -49,11 +49,7 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table
-          sx={{ minWidth: 650 }}
-          stickyHeader
-          aria-label="sticky table"
-        >
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell>Image</TableCell>
@@ -76,7 +72,9 @@ export const ListTable = ({ data }: Props) => {
                     )}
                   </TableCell>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.email}</TableCell>
+                  <TableCell sx={{ textTransform: "initial" }}>
+                    {row.email}
+                  </TableCell>
                   <TableCell>{row.phone}</TableCell>
                   <TableCell>
                     <TableAction
