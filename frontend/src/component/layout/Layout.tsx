@@ -1,8 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { TopBar } from "./TopBar";
 import { SideBar } from "./Sidebar";
 import { Helmet } from "react-helmet";
 import { Footer } from "./Footer";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { getSetting } from "../../store/slice/settingSlice";
 
 interface Prop {
   children: ReactNode;
@@ -10,10 +12,17 @@ interface Prop {
 }
 
 export const Layout = ({ children, title }: Prop) => {
+  const appName = useAppSelector((store) => store.setting.data?.app_name);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (!appName) {
+      dispatch(getSetting());
+    }
+  }, []);
   return (
     <div>
       <Helmet>
-        <title>{`${title || ""} - LMS`}</title>
+        <title>{`${title || ""} - ${appName || "LMS"}`}</title>
       </Helmet>
 
       <div className="flex h-screen overflow-hidden">

@@ -13,6 +13,8 @@ export const Category = () => {
   const { page, searchKey } = usePage();
 
   useEffect(() => {
+    console.log(page, searchKey);
+
     dispatch(handleGetCategory({ page, searchKey }));
   }, [page, searchKey]);
 

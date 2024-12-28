@@ -28,7 +28,7 @@ export const SideBar = () => {
         </button>
       )}
       <aside
-        className={`absolute top-0 z-30 flex h-screen w-60 flex-col overflow-y-hidden bg-white duration-300 ease-linear -translate-x-96 lg:static lg:translate-x-0 ${
+        className={`absolute top-0 z-30 flex h-screen w-64 flex-col overflow-y-hidden bg-white duration-300 ease-linear -translate-x-96 lg:static lg:translate-x-0 ${
           open && "translate-x-0 "
         } `}
       >

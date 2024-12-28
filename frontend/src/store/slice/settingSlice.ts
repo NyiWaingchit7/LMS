@@ -26,7 +26,7 @@ export const getSetting = createAsyncThunk(
 
 export const createSetting = createAsyncThunk(
   "create/setting",
-  async (option: CreateSetting) => {
+  async (option: CreateSetting, thunkApi) => {
     try {
       const { settings, onSuccess } = option;
       const { data, response } = await fetchFunction({
@@ -35,7 +35,7 @@ export const createSetting = createAsyncThunk(
         method: "POST",
       });
       if (!response.ok) {
-        toast.error(data.message);
+        thunkApi.dispatch(setSettingError(data.errors));
         return;
       }
       onSuccess && onSuccess();
@@ -52,8 +52,11 @@ export const settingSlice = createSlice({
     setSetting: (state, action) => {
       state.data = action.payload;
     },
+    setSettingError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setSetting } = settingSlice.actions;
+export const { setSetting, setSettingError } = settingSlice.actions;
 export default settingSlice.reducer;
