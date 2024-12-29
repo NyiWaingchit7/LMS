@@ -29,7 +29,7 @@ export const SettingPage = () => {
         settings: { ...sumbitForm },
         onSuccess: () => {
           toast.success("Submitted Successfully");
-          window.location.reload();
+          // window.location.reload();
         },
       })
     );
