@@ -5,6 +5,7 @@ import { useAppDispatch } from "../store/hooks";
 import { handleLogin } from "../store/slice/authSlice";
 import { errorHelper } from "../utils/errorHelper";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 interface DefaultForm {
   email: string;
   password: string;
@@ -19,7 +20,7 @@ export const LogIn = () => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    console.log("success");
+    toast.success("Log in successfully.");
     navigate("/");
   };
 

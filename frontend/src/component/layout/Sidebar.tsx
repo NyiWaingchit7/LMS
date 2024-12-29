@@ -11,6 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import SettingsIcon from "@mui/icons-material/Settings";
 export const SideBar = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -27,7 +28,7 @@ export const SideBar = () => {
         </button>
       )}
       <aside
-        className={`absolute top-0 z-30 flex h-screen w-60 flex-col overflow-y-hidden bg-white duration-300 ease-linear -translate-x-96 lg:static lg:translate-x-0 ${
+        className={`absolute top-0 z-30 flex h-screen w-64 flex-col overflow-y-hidden bg-white duration-300 ease-linear -translate-x-96 lg:static lg:translate-x-0 ${
           open && "translate-x-0 "
         } `}
       >
@@ -112,5 +113,10 @@ export const sidebrItems = [
     name: "Payment Account",
     icon: <MonetizationOnIcon />,
     path: "payment-accounts",
+  },
+  {
+    name: "Settings",
+    icon: <SettingsIcon />,
+    path: "settings",
   },
 ];
