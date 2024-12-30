@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
+import StarIcon from "@mui/icons-material/Star";
 export const SideBar = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -113,6 +114,11 @@ export const sidebrItems = [
     name: "Payment Account",
     icon: <MonetizationOnIcon />,
     path: "payment-accounts",
+  },
+  {
+    name: "Taglines",
+    icon: <StarIcon />,
+    path: "tag-lines",
   },
   {
     name: "Settings",

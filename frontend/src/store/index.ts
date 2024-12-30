@@ -10,6 +10,7 @@ import purchaseReducer from "./slice/purchaseSlice";
 import pageReducer from "./slice/pageSlice";
 import homeReducer from "./slice/homeSlice";
 import settingReducer from "./slice/settingSlice";
+import tagLineReducer from "./slice/taglinSlice";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     page: pageReducer,
     home: homeReducer,
     setting: settingReducer,
+    tagLine: tagLineReducer,
   },
 });
 
