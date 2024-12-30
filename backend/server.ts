@@ -25,6 +25,7 @@ import { userLessonRouter } from "./src/routes/user/lesson.route";
 import { userPaymentRouter } from "./src/routes/user/payment.route";
 import { userAuthRouter } from "./src/routes/user/auth.route";
 import { settingRouter } from "./src/routes/setting.route";
+import { tagLineRouter } from "./src/routes/tagline.route";
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use("/api/v1/admin/purchases", pruchaseRouter);
 app.use("/api/v1/admin/pages", pageRouter);
 app.use("/api/v1/admin/home", homeRouter);
 app.use("/api/v1/admin/settings", settingRouter);
+app.use("/api/v1/admin/tag-lines", tagLineRouter);
 
 // user
 app.use("/api/v1/categories", userCategoryRouter);
