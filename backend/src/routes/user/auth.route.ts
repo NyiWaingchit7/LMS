@@ -17,23 +17,23 @@ import { changePasswordValidation } from "../../validator/user/change_password.v
 export const userAuthRouter = express.Router();
 
 userAuthRouter.post("/register", register);
-userAuthRouter.post("/forget-password", register);
+// userAuthRouter.post("/forget-password", register);
 userAuthRouter.post("/verify", verify);
 userAuthRouter.post("/log-in", login);
 userAuthRouter.get("/my-profile", myProfile);
-userAuthRouter.get("/delete-account", profileDelete);
-userAuthRouter.get(
+userAuthRouter.delete("/delete-account", profileDelete);
+userAuthRouter.post(
   "/forget-password",
   forgetPasswordValidation,
   forgetPassword
 );
-userAuthRouter.get(
+userAuthRouter.post(
   "/forget-password-change",
   changePasswordValidation,
   forgetPasswordChange
 );
-userAuthRouter.get("/forget-verify", forgetVerify);
-userAuthRouter.get(
+userAuthRouter.post("/forget-verify", forgetVerify);
+userAuthRouter.post(
   "/change-password",
   changePasswordValidation,
   changePassword
