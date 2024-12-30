@@ -35,6 +35,10 @@ import { ShowPage } from "../pages/page/ShowPage";
 import { CreatePage } from "../pages/page/CreatePage";
 import { EditPage } from "../pages/page/EditPage";
 import { SettingPage } from "../pages/setting/Setting";
+import { TagLine } from "../pages/tagLine/TagLine";
+import { ShowTagLine } from "../pages/tagLine/ShowTagLine";
+import { CreateTagLine } from "../pages/tagLine/CreateTagLine";
+import { EditTagLine } from "../pages/tagLine/EditTagLine";
 
 export const Router = () => {
   return (
@@ -81,6 +85,10 @@ export const Router = () => {
           <Route path="/pages/create" Component={CreatePage} />
           <Route path="/pages/:id/edit" Component={EditPage} />
           <Route path="/settings" Component={SettingPage} />
+          <Route path="/tag-lines" Component={TagLine} />
+          <Route path="/tag-lines/:id" Component={ShowTagLine} />
+          <Route path="/tag-lines/create" Component={CreateTagLine} />
+          <Route path="/tag-lines/:id/edit" Component={EditTagLine} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>
