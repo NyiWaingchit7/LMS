@@ -98,7 +98,7 @@ export const profileDelete = async (req: Request, res: Response) => {
 export const forgetPassword = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
-    const isExist = await prisma.user.findFirst({ where: { email } });
+    const isExist = await prisma.student.findFirst({ where: { email } });
     if (!isExist)
       return res
         .status(404)
@@ -131,10 +131,11 @@ export const forgetPasswordChange = async (req: Request, res: Response) => {
   try {
     const { new_password, confirm_password } = req.body;
     const user = getUserFromToken(req, res) as any;
+    const hashPassword = await bcrypt.hash(new_password, 10);
 
     const data = await prisma.student.update({
       where: { id: user.id },
-      data: { password: new_password },
+      data: { password: hashPassword },
     });
 
     return res.status(200).json({ message: "Password Changed Successfully." });
@@ -150,14 +151,21 @@ export const changePassword = async (req: Request, res: Response) => {
     const user = getUserFromToken(req, res) as any;
 
     const hash = user?.password as string;
+
     const isOldPassword = await bcrypt.compare(old_password, hash);
-    if (!isOldPassword)
+
+    if (!isOldPassword){
       return res
-        .status(400)
-        .json({ message: "Your old password is not correct" });
+      .status(400)
+      .json({ message: "Your old password is not correct" });
+    }
+    
+
+    const hashPassword = await bcrypt.hash(new_password, 10);
+
     const data = await prisma.student.update({
       where: { id: user.id },
-      data: { password: new_password },
+      data: { password: hashPassword },
     });
     return res.status(200).json({ message: "Password Changed Successfully." });
   } catch (error) {

@@ -8,7 +8,7 @@ export const schema = yup.object().shape({
     .required("The name field is required."),
   confirm_password: yup
     .string()
-    .oneOf([yup.ref("password")], "Password must match")
+    .oneOf([yup.ref("new_password")], "Password must match")
     .required("Confirm password is required."),
 });
 
