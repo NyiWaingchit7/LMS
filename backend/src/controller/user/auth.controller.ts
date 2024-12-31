@@ -77,8 +77,28 @@ export const verify = async (req: Request, res: Response) => {
 
 export const myProfile = async (req: Request, res: Response) => {
   try {
-    const user = getUserFromToken(req, res);
-    return res.status(200).json({ user });
+    const user = getUserFromToken(req, res) as any;
+    const id = Number(user?.id);
+    const data = await prisma.student.findFirst({
+      where: { id, deleted: false },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        assetUrl: true,
+        password: false,
+      },
+    });
+    const purchase = await prisma.purchase.findMany({
+      where: { studentId: data?.id, deleted: false },
+      include: { student: true, lecture: true },
+    });
+
+    if (!data)
+      return res.status(400).json({ message: "The student can not be found!" });
+    const student = { ...data, Purchase: purchase };
+    return res.status(200).json({ student });
   } catch (error) {
     return res.status(500).json({ error });
   }
@@ -154,12 +174,11 @@ export const changePassword = async (req: Request, res: Response) => {
 
     const isOldPassword = await bcrypt.compare(old_password, hash);
 
-    if (!isOldPassword){
+    if (!isOldPassword) {
       return res
-      .status(400)
-      .json({ message: "Your old password is not correct" });
+        .status(400)
+        .json({ message: "Your old password is not correct" });
     }
-    
 
     const hashPassword = await bcrypt.hash(new_password, 10);
 
