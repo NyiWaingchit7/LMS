@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 import { usePagination } from "../../utils/pagination";
+import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
   const searchKey = (req.query.searchKey as string) || "";
@@ -56,11 +57,18 @@ export const create = async (req: Request, res: Response) => {
 };
 
 export const store = async (req: Request, res: Response) => {
-  const { title, description, isPremium, categories, price, discount_price } =
-    req.body;
+  const {
+    title,
+    description,
+    assetUrl,
+    isPremium,
+    categories,
+    price,
+    discount_price,
+  } = req.body;
   try {
     const lecture = await prisma.lecture.create({
-      data: { title, description, isPremium, price, discount_price },
+      data: { title, assetUrl, description, isPremium, price, discount_price },
     });
 
     const data = await prisma.$transaction(
@@ -79,21 +87,31 @@ export const store = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const { title, description, isPremium, categories, price, discount_price } =
-    req.body;
+  const {
+    title,
+    description,
+    assetUrl,
+    isPremium,
+    categories,
+    price,
+    discount_price,
+  } = req.body;
   try {
     const exist = await prisma.lecture.findFirst({
       where: { id, deleted: false },
     });
     if (!exist)
       return res.status(400).json({ message: "The lecture can not be found!" });
-
+    if (exist.assetUrl !== null && assetUrl !== exist.assetUrl) {
+      fileRemove(exist.assetUrl);
+    }
     const lecture = await prisma.lecture.update({
       where: { id },
       data: {
         title,
         description,
         isPremium,
+        assetUrl,
         price: price ?? 0,
         discount_price: discount_price ?? 0,
       },
