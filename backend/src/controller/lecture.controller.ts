@@ -4,12 +4,23 @@ import { usePagination } from "../../utils/pagination";
 import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
-  const searchKey = (req.query.searchKey as string) || "";
+  const { searchKey, isPremium } = req.query as any;
+  console.log(isPremium);
 
   const lectureData = await prisma.lecture.findMany({
-    where: searchKey
-      ? { title: { contains: searchKey, mode: "insensitive" }, deleted: false }
-      : { deleted: false },
+    where: {
+      deleted: false,
+      ...(searchKey && {
+        title: {
+          contains: searchKey,
+          mode: "insensitive",
+        },
+      }),
+      ...(isPremium !== undefined && {
+        isPremium: isPremium === "true",
+      }),
+    },
+
     orderBy: { id: "desc" },
     include: {
       LectureonCategory: { include: { category: true } },
