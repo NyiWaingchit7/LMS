@@ -21,6 +21,7 @@ import { InputLabel } from "../../../component/InputLabel";
 import { Category } from "../../../types/category";
 import { Error } from "../../../component/Error";
 import toast from "react-hot-toast";
+import { FileUpload } from "../../../component/FileUpload";
 
 interface Props {
   lecture?: Lecture;
@@ -49,6 +50,7 @@ const options = [
 export const Form = ({ lecture, categories }: Props) => {
   const [sumbitForm, setForm] = useState<Lecture>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [imgUrl, setImgUrl] = useState("");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -62,7 +64,12 @@ export const Form = ({ lecture, categories }: Props) => {
 
   const handleSubmit = () => {
     dispatch(
-      handleCreateLecture({ ...sumbitForm, categories: selectedIds, onSuccess })
+      handleCreateLecture({
+        ...sumbitForm,
+        assetUrl: imgUrl,
+        categories: selectedIds,
+        onSuccess,
+      })
     );
   };
 
@@ -72,6 +79,7 @@ export const Form = ({ lecture, categories }: Props) => {
         id: lecture?.id as number,
         ...sumbitForm,
         categories: selectedIds,
+        assetUrl: imgUrl,
         onSuccess: () => {
           toast.success("Lecture is updated successfully.");
         },
@@ -219,6 +227,10 @@ export const Form = ({ lecture, categories }: Props) => {
           </div>
         </div>
       )}
+      <div className="mt-5">
+        <InputLabel label="image" />
+        <FileUpload setImgUrl={setImgUrl} editImg={sumbitForm.assetUrl} />
+      </div>
 
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button

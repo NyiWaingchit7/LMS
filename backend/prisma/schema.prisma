@@ -40,6 +40,7 @@ model Lecture {
   isPremium         Boolean             @default(false)
   price             Int                 @default(0)
   discount_price    Int                 @default(0)
+  assetUrl          String
   deleted           Boolean             @default(false)
   LectureonCategory LectureonCategory[]
   created_at        DateTime            @default(now())
@@ -150,12 +151,12 @@ model Setting {
 }
 
 model TagLine {
-  id         Int      @id @default(autoincrement())
-  title        String   
-  description      String
-  deleted    Boolean  @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  deleted     Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }
 
 enum Status {
