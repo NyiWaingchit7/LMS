@@ -16,7 +16,7 @@ export const index = async (req: Request, res: Response) => {
           mode: "insensitive",
         },
       }),
-      ...(isPremium !== undefined && {
+      ...(isPremium && {
         isPremium: isPremium === "true",
       }),
     },
