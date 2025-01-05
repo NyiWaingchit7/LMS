@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 import { usePagination } from "../../utils/pagination";
-import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
   const { searchKey, isPremium } = req.query as any;
@@ -113,9 +112,8 @@ export const update = async (req: Request, res: Response) => {
     });
     if (!exist)
       return res.status(400).json({ message: "The lecture can not be found!" });
-    if (exist.assetUrl !== null && assetUrl !== exist.assetUrl) {
-      fileRemove(exist.assetUrl);
-    }
+    console.log(req.body);
+
     const lecture = await prisma.lecture.update({
       where: { id },
       data: {
@@ -127,7 +125,6 @@ export const update = async (req: Request, res: Response) => {
         discount_price: discount_price ?? 0,
       },
     });
-
     await prisma.lectureonCategory.deleteMany({ where: { lectureId: id } });
 
     const data = await prisma.$transaction(
@@ -140,6 +137,7 @@ export const update = async (req: Request, res: Response) => {
 
     return res.status(200).json({ lecture, data });
   } catch (error) {
+    console.error("Prisma Error:", error);
     res.status(500).json({ error });
   }
 };

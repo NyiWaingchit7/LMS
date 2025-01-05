@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "../../utils/config";
 import { usePagination } from "../../utils/pagination";
-import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
   const searchKey = (req.query.searchKey as string) || "";
@@ -70,10 +69,6 @@ export const update = async (req: Request, res: Response) => {
     });
     if (!exist)
       return res.status(400).json({ message: "The student can not be found!" });
-
-    if (exist.assetUrl !== null && assetUrl !== exist.assetUrl) {
-      fileRemove(exist.assetUrl);
-    }
 
     const hasPassword = await bcrypt.hash(password, 10);
 
