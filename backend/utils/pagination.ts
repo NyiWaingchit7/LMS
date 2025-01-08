@@ -35,8 +35,11 @@ export const usePagination = (
     },
   ];
 
+  const has_more_pages = page < totalPages;
+
   return {
     data,
     links,
+    has_more_pages,
   };
 };

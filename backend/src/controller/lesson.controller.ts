@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/db";
 import { usePagination } from "../../utils/pagination";
-import { fileRemove } from "../../utils/fileUpload";
 
 export const index = async (req: Request, res: Response) => {
   const searchKey = (req.query.searchKey as string) || "";
@@ -65,9 +64,6 @@ export const update = async (req: Request, res: Response) => {
     });
     if (!exist)
       return res.status(400).json({ message: "The lesson can not be found!" });
-    if (exist.assetImage !== null && assetImage !== exist.assetImage) {
-      fileRemove(exist.assetImage);
-    }
 
     const lesson = await prisma.lesson.update({
       where: { id },

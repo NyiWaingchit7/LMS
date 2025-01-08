@@ -3,6 +3,8 @@ import * as yup from "yup";
 
 export const schema = yup.object().shape({
   title: yup.string().required("The title field is required."),
+  assetUrl: yup.string().required("The image field is required."),
+
   categories: yup.array().min(1, "The category field is required."),
   description: yup.string().required("The description field is required."),
   discount_price: yup
