@@ -3,7 +3,7 @@ import { prisma } from "../../utils/db";
 import { usePagination } from "../../utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
-  const { searchKey, isPremium } = req.query as any;
+  const { searchKey, isPremium, categoryId } = req.query as any;
   console.log(isPremium);
 
   const lectureData = await prisma.lecture.findMany({
@@ -17,6 +17,9 @@ export const index = async (req: Request, res: Response) => {
       }),
       ...(isPremium && {
         isPremium: isPremium === "true",
+      }),
+      ...(categoryId && {
+        categoryId,
       }),
     },
 
