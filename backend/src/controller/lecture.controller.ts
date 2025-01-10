@@ -19,14 +19,17 @@ export const index = async (req: Request, res: Response) => {
         isPremium: isPremium === "true",
       }),
       ...(categoryId && {
-        categoryId,
+        LectureonCategory: {
+          some: {
+            categoryId: Number(categoryId),
+          },
+        },
       }),
     },
 
     orderBy: { id: "desc" },
     include: {
       LectureonCategory: { include: { category: true } },
-      Lesson: { where: { deleted: false } },
     },
   });
   const lectures = lectureData.map((lecture) => ({

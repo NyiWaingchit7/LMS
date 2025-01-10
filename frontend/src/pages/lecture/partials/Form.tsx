@@ -89,6 +89,8 @@ export const Form = ({ lecture, categories }: Props) => {
   useEffect(() => {
     if (lecture) {
       setForm(lecture);
+      setImgUrl(lecture.assetUrl as string);
+
       setSelectedIds(
         (lecture.categories as Category[]).map((d) => d.id) as number[]
       );
