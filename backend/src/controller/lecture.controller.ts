@@ -53,10 +53,23 @@ export const show = async (req: Request, res: Response) => {
     if (!data) {
       return res.status(404).json({ message: "The lecture can not be found!" });
     }
+
     const lecture = {
       ...data,
       categories: data.LectureonCategory.map((lc) => lc.category),
     };
+    if (lecture.isPremium) {
+      lecture.Lesson = data.Lesson.map((lesson, index) => {
+        if (index >= 1) {
+          return {
+            ...lesson,
+            assetVideo: null,
+          };
+        }
+        return lesson;
+      });
+    }
+
     return res.status(200).json({ lecture });
   } catch (error) {
     res.status(500).json({ error });
