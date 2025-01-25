@@ -1,16 +1,16 @@
 import { Button, Paper, TextField } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
+import { InputLabel } from "@/component/InputLabel";
 import { useEffect, useState } from "react";
-import { Category } from "../../../types/category";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { Category } from "@/types/category";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   handleCreateCategory,
   handleUpdateCategory,
   setCategoryError,
-} from "../../../store/slice/categorySlice";
+} from "@/store/slice/categorySlice";
 import { useNavigate } from "react-router-dom";
-import { FileUpload } from "../../../component/FileUpload";
-import { Error } from "../../../component/Error";
+import { FileUpload } from "@/component/FileUpload";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
 
 interface Props {

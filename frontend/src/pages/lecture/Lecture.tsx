@@ -1,11 +1,11 @@
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
-import { ListTable } from "./partials/ListTable";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { SearchButton } from "@/component/SearchButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { handleGetLecture } from "@/store/slice/lectureSlice";
+import { usePage } from "@/utils/getPage";
 import { useEffect } from "react";
-import { handleGetLecture } from "../../store/slice/lectureSlice";
-import { usePage } from "../../utils/getPage";
-import { SearchButton } from "../../component/SearchButton";
+import { ListTable } from "./partials/ListTable";
 
 export const Lecture = () => {
   const dispatch = useAppDispatch();

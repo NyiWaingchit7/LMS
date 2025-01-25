@@ -1,18 +1,18 @@
-import { Button, Paper, TextField } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
-import { useEffect, useState } from "react";
-import { Category } from "../../../types/category";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { useNavigate } from "react-router-dom";
-import { PaymentBank } from "../../../types/payment_bank";
+import { Error } from "@/component/Error";
+import { FileUpload } from "@/component/FileUpload";
+import { InputLabel } from "@/component/InputLabel";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   handleCreatePaymentBank,
   handleUpdatePaymentBank,
   setPaymentBankError,
-} from "../../../store/slice/payment_bankSlice";
-import { FileUpload } from "../../../component/FileUpload";
-import { Error } from "../../../component/Error";
+} from "@/store/slice/payment_bankSlice";
+import { Category } from "@/types/category";
+import { PaymentBank } from "@/types/payment_bank";
+import { Paper, TextField, Button } from "@mui/material";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   paymentBank?: PaymentBank;

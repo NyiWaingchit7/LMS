@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Lecture, lectureData } from "../../../types/lecture";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { Lecture, lectureData } from "@/types/lecture";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   Autocomplete,
@@ -9,16 +9,16 @@ import {
   Paper,
   TextField,
 } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
-import { Lesson } from "../../../types/lesson";
+import { InputLabel } from "@/component/InputLabel";
+import { Lesson } from "@/types/lesson";
 import {
   handleCreateLesson,
   handleUpdateLesson,
   setLessonError,
-} from "../../../store/slice/lessonSlice";
-import { FileUpload } from "../../../component/FileUpload";
-import { Editor } from "../../../component/Editor";
-import { Error } from "../../../component/Error";
+} from "@/store/slice/lessonSlice";
+import { FileUpload } from "@/component/FileUpload";
+import { Editor } from "@/component/Editor";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
 
 interface Props {

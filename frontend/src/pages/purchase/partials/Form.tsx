@@ -1,19 +1,20 @@
 import { Button, FormControl, MenuItem, Paper, Select } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+
 import { useNavigate } from "react-router-dom";
 
-import { Lecture } from "../../../types/lecture";
-import { Student } from "../../../types/student";
-import { Purchase } from "../../../types/purchase";
+import { Lecture } from "@/types/lecture";
+import { Student } from "@/types/student";
+import { Purchase } from "@/types/purchase";
 import {
   handleCreatePurchase,
   setPurchaseError,
-} from "../../../store/slice/purchaseSlice";
-import { InputLabel } from "../../../component/InputLabel";
-import { FileUpload } from "../../../component/FileUpload";
-import { Error } from "../../../component/Error";
+} from "@/store/slice/purchaseSlice";
+import { InputLabel } from "@/component/InputLabel";
+import { FileUpload } from "@/component/FileUpload";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 interface Props {
   students: Student[];

@@ -7,20 +7,17 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import toast from "react-hot-toast";
 
 import { useEffect } from "react";
-import { Pagination } from "../../../component/Pagination";
-import { usePage } from "../../../utils/getPage";
-import { Page } from "../../../types/page";
-import {
-  handleDeletePage,
-  handleGetPage,
-} from "../../../store/slice/pageSlice";
-import { setLectureLink } from "../../../store/slice/lectureSlice";
+import { Pagination } from "@/component/Pagination";
+import { usePage } from "@/utils/getPage";
+import { Page } from "@/types/page";
+import { handleDeletePage, handleGetPage } from "@/store/slice/pageSlice";
+import { setLectureLink } from "@/store/slice/lectureSlice";
 
 interface Props {
   data: Page[];
@@ -38,7 +35,7 @@ export const ListTable = ({ data }: Props) => {
         onSuccess: () => {
           toast.success("Page is deleted successfully.");
 
-          dispatch(handleGetPage({page}));
+          dispatch(handleGetPage({ page }));
         },
       })
     );
@@ -49,11 +46,7 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table
-          sx={{ minWidth: 650 }}
-          stickyHeader
-          aria-label="sticky table"
-        >
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               {/* <TableCell>Image</TableCell> */}

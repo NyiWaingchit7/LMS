@@ -1,26 +1,25 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-
-import { Image } from "../../../component/Image";
-import { PaymentBank } from "../../../types/payment_bank";
+import { Image } from "@/component/Image";
+import { Pagination } from "@/component/Pagination";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   handleDeletPaymentBank,
   handleGetPaymentBank,
   setPaymentBankLink,
-} from "../../../store/slice/payment_bankSlice";
-import toast from "react-hot-toast";
-import { Pagination } from "../../../component/Pagination";
+} from "@/store/slice/payment_bankSlice";
+import { PaymentBank } from "@/types/payment_bank";
+import { usePage } from "@/utils/getPage";
+import {
+  TableContainer,
+  Paper,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Table,
+} from "@mui/material";
 import { useEffect } from "react";
-import { usePage } from "../../../utils/getPage";
+import toast from "react-hot-toast";
 
 interface Props {
   data: PaymentBank[];
@@ -37,7 +36,7 @@ export const ListTable = ({ data }: Props) => {
         onSuccess: () => {
           toast.success("Payment Bank is deleted successfully.");
 
-          dispatch(handleGetPaymentBank({page}));
+          dispatch(handleGetPaymentBank({ page }));
         },
       })
     );

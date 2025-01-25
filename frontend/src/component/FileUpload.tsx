@@ -5,9 +5,9 @@ import "filepond/dist/filepond.min.css";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { useEffect, useState } from "react";
-import { config } from "../utils/config";
+import { config } from "@/utils/config";
 import { Button } from "@mui/material";
-import { headerOptions } from "../utils/requestOption";
+import { headerOptions } from "@/utils/requestOption";
 import toast from "react-hot-toast";
 
 registerPlugin(FilePondPluginImagePreview);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -9,15 +9,15 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
-import { PaymentAccount } from "../../../types/payment_account";
-import { PaymentBank, paymentBankData } from "../../../types/payment_bank";
+import { InputLabel } from "@/component/InputLabel";
+import { PaymentAccount } from "@/types/payment_account";
+import { PaymentBank, paymentBankData } from "@/types/payment_bank";
 import {
   handleCreatePaymentAccount,
   handleUpdatePaymentAccount,
   setPaymentAccountError,
-} from "../../../store/slice/payment_accountSlice";
-import { Error } from "../../../component/Error";
+} from "@/store/slice/payment_accountSlice";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
 
 interface Props {

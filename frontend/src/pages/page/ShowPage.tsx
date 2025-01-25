@@ -1,12 +1,12 @@
 import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { DetailButton } from "../../component/DetailButton";
-import { Page, pageData } from "../../types/page";
-import { handleShowPage, setPageData } from "../../store/slice/pageSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { DetailButton } from "@/component/DetailButton";
+import { Page, pageData } from "@/types/page";
+import { handleShowPage, setPageData } from "@/store/slice/pageSlice";
 
 export const ShowPage = () => {
   const id = Number(useParams().id);

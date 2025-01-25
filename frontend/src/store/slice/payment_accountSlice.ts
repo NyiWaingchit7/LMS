@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
 import {
   CreatePaymentAccount,
   DeletePaymentAccount,
   payment_accountData,
   PaymentAccountSlice,
   UpdatePaymentAccount,
-} from "../../types/payment_account";
+} from "@/types/payment_account";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
+import { errorHelper } from "@/utils/errorHelper";
 
 const initialState: PaymentAccountSlice = {
   items: [],

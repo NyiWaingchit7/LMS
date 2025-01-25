@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleGetLectureinLesson } from "../../store/slice/lessonSlice";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { handleGetLectureinLesson } from "@/store/slice/lessonSlice";
 
 export const CreateLesson = () => {
   const lectures = useAppSelector((store) => store.lesson.lectures);

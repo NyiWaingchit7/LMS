@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import {
   CreatePurchase,
   DeletePurchase,
   purchaseData,
   PurchaseSlice,
   UpdatePurchase,
-} from "../../types/purchase";
+} from "@/types/purchase";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: PurchaseSlice = {
   items: [],
   links: [],

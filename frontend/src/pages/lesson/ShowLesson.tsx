@@ -1,13 +1,13 @@
 import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleShowLesson, setLessonData } from "../../store/slice/lessonSlice";
-import { Lesson, lessonData } from "../../types/lesson";
-import { Image } from "../../component/Image";
-import { DetailButton } from "../../component/DetailButton";
+import { DetailButton } from "@/component/DetailButton";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { handleShowLesson, setLessonData } from "@/store/slice/lessonSlice";
+import { Lesson, lessonData } from "@/types/lesson";
+import { Image } from "@/component/Image";
 
 export const ShowLesson = () => {
   const id = Number(useParams().id);

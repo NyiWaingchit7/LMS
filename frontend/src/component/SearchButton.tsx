@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
-import useDebounce from "../utils/useDebounce";
+import useDebounce from "@/utils/useDebounce";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 export const SearchButton = ({ path }: Props) => {
   const [searchKey, setSearchKey] = useState<string>("");
 
- useDebounce(searchKey, path);
+  useDebounce(searchKey, path);
 
   useEffect(() => {
     return () => {

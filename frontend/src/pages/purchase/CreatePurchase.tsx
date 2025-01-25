@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handlGetCreatePurchase } from "../../store/slice/purchaseSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { handlGetCreatePurchase } from "@/store/slice/purchaseSlice";
 
 export const CreatePurchase = () => {
   const students = useAppSelector((store) => store.purchase.students);

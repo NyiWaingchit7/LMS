@@ -7,19 +7,19 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import toast from "react-hot-toast";
-import { Pagination } from "../../../component/Pagination";
+import { Pagination } from "@/component/Pagination";
 import { useEffect } from "react";
-import { usePage } from "../../../utils/getPage";
-import { TagLine } from "../../../types/tagline";
+import { usePage } from "@/utils/getPage";
+import { TagLine } from "@/types/tagline";
 import {
   handleDeletTagLine,
   handleGetTagLine,
   setLinks,
-} from "../../../store/slice/taglinSlice";
+} from "@/store/slice/taglinSlice";
 
 interface Props {
   data: TagLine[];

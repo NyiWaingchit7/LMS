@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
 import {
   handleGetCategoryinLecture,
   handleShowLecture,
   setLectureData,
-} from "../../store/slice/lectureSlice";
-import { Lecture, lectureData } from "../../types/lecture";
+} from "@/store/slice/lectureSlice";
+import { Lecture, lectureData } from "@/types/lecture";
 
 export const EditLecture = () => {
   const id = Number(useParams().id);

@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleGetCreateAccount } from "../../store/slice/payment_accountSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { handleGetCreateAccount } from "@/store/slice/payment_accountSlice";
 
 export const CreatePaymentAccount = () => {
   const paymentBanks = useAppSelector((store) => store.paymentAccount.banks);

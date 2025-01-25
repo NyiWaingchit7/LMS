@@ -1,16 +1,15 @@
 import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { Image } from "../../component/Image";
-import { Student, studentData } from "../../types/student";
-import { handleShowStudent, setStudent } from "../../store/slice/studentSlice";
-import { DetailButton } from "../../component/DetailButton";
+import { handleShowStudent, setStudent } from "@/store/slice/studentSlice";
+import { DetailButton } from "@/component/DetailButton";
 import { PurchaseTable } from "./partials/PurchaseTable";
-import { Purchase } from "../../types/purchase";
+import { Purchase } from "@/types/purchase";
+import { Layout } from "@/component/layout/Layout";
+import { Student, studentData } from "@/types/student";
 
 export const ShowStudent = () => {
   const id = Number(useParams().id);
@@ -66,13 +65,13 @@ export const ShowStudent = () => {
                 {student?.phone || "-"}
               </td>
             </tr>
-            <tr>
+            {/* <tr>
               <th className="px-2 py-3 ">Image</th>
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
                 <Image src={student?.assetUrl || "./../test.jpg"} />
               </td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </Paper>

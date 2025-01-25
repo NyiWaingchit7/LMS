@@ -1,18 +1,15 @@
 import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  payment_accountData,
-  PaymentAccount,
-} from "../../types/payment_account";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { payment_accountData, PaymentAccount } from "@/types/payment_account";
 import {
   handleShowPaymentAccount,
   setPaymentAccountData,
-} from "../../store/slice/payment_accountSlice";
-import { DetailButton } from "../../component/DetailButton";
+} from "@/store/slice/payment_accountSlice";
+import { DetailButton } from "@/component/DetailButton";
 
 export const ShowPaymentAccount = () => {
   const id = Number(useParams().id);

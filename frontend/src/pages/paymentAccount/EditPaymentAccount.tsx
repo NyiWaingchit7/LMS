@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import { PaymentAccount } from "../../types/payment_account";
+import { PaymentAccount } from "@/types/payment_account";
 import {
   handleGetCreateAccount,
   handleShowPaymentAccount,
-} from "../../store/slice/payment_accountSlice";
+} from "@/store/slice/payment_accountSlice";
 
 export const EditPaymentAccount = () => {
   const id = Number(useParams().id);

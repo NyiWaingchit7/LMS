@@ -8,24 +8,23 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { TableAction } from "@/component/TableAction";
 
-import { Image } from "../../../component/Image";
-
-import { Purchase } from "../../../types/purchase";
-import { getChipColor } from "../../../utils/statusColor";
+import { getChipColor } from "@/utils/statusColor";
 import toast from "react-hot-toast";
 import {
   handleDeletPurchase,
   handleGetPurchase,
   setPurchaseLink,
-} from "../../../store/slice/purchaseSlice";
+} from "@/store/slice/purchaseSlice";
 
 import { useEffect } from "react";
-import { Pagination } from "../../../component/Pagination";
-import { usePage } from "../../../utils/getPage";
-import {  useNavigate } from "react-router-dom";
+import { Pagination } from "@/component/Pagination";
+import { usePage } from "@/utils/getPage";
+import { useNavigate } from "react-router-dom";
+import { Purchase } from "@/types/purchase";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { Image } from "@/component/Image";
 
 interface Props {
   data: Purchase[];
@@ -58,11 +57,7 @@ export const ListTable = ({ data, homeTable = true }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table
-          sx={{ minWidth: 650 }}
-          stickyHeader
-          aria-label="sticky table"
-        >
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell>Payment Screenshot</TableCell>

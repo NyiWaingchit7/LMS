@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import toast from "react-hot-toast";
 import {
   CreatePage,
@@ -8,9 +8,9 @@ import {
   pageData,
   PageSlice,
   UpdatePage,
-} from "../../types/page";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+} from "@/types/page";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: PageSlice = {
   items: [],
   links: [],

@@ -1,11 +1,11 @@
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { SearchButton } from "@/component/SearchButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { handleGetPaymentAccount } from "@/store/slice/payment_accountSlice";
+import { usePage } from "@/utils/getPage";
 import { ListTable } from "./partials/ListTable";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
-import { handleGetPaymentAccount } from "../../store/slice/payment_accountSlice";
-import { usePage } from "../../utils/getPage";
-import { SearchButton } from "../../component/SearchButton";
 
 export const PaymentAccount = () => {
   const dispatch = useAppDispatch();

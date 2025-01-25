@@ -1,9 +1,9 @@
 import { Box, Button, TextField } from "@mui/material";
 import { InputLabel } from "./InputLabel";
 import { useState } from "react";
-import { useAppDispatch } from "../store/hooks";
-import { handleLogin } from "../store/slice/authSlice";
-import { errorHelper } from "../utils/errorHelper";
+import { useAppDispatch } from "@/store/hooks";
+import { handleLogin } from "@/store/slice/authSlice";
+import { errorHelper } from "@/utils/errorHelper";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 interface DefaultForm {

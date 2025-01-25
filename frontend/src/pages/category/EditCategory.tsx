@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
 import {
   handleShowCategory,
   setCategoryData,
-} from "../../store/slice/categorySlice";
-import { Category, categoryData } from "../../types/category";
+} from "@/store/slice/categorySlice";
+import { Category, categoryData } from "@/types/category";
 
 export const EditCategory = () => {
   const id = Number(useParams().id);

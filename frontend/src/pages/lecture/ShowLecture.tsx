@@ -1,15 +1,12 @@
 import { Button, Chip, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Lecture, lectureData } from "../../types/lecture";
-import {
-  handleShowLecture,
-  setLectureData,
-} from "../../store/slice/lectureSlice";
-import { DetailButton } from "../../component/DetailButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { Lecture, lectureData } from "@/types/lecture";
+import { handleShowLecture, setLectureData } from "@/store/slice/lectureSlice";
+import { DetailButton } from "@/component/DetailButton";
 
 export const ShowLecture = () => {
   const id = Number(useParams().id);

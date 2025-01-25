@@ -8,10 +8,10 @@ import {
   Chip,
   Table,
 } from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { getChipColor } from "../../../utils/statusColor";
-import { Purchase } from "../../../types/purchase";
-import { Image } from "../../../component/Image";
+import { TableAction } from "@/component/TableAction";
+import { getChipColor } from "@/utils/statusColor";
+import { Purchase } from "@/types/purchase";
+import { Image } from "@/component/Image";
 import { useNavigate } from "react-router-dom";
 interface Props {
   data: Purchase[];

@@ -7,19 +7,20 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { PaymentAccount } from "../../../types/payment_account";
+import { PaymentAccount } from "@/types/payment_account";
+
+import toast from "react-hot-toast";
+import { useEffect } from "react";
+import { usePage } from "@/utils/getPage";
 import {
   handleDeletePaymentAccount,
   handleGetPaymentAccount,
   setPaymentAccountLinks,
-} from "../../../store/slice/payment_accountSlice";
-import toast from "react-hot-toast";
-import { Pagination } from "../../../component/Pagination";
-import { useEffect } from "react";
-import { usePage } from "../../../utils/getPage";
+} from "@/store/slice/payment_accountSlice";
+import { Pagination } from "@/component/Pagination";
 
 interface Props {
   data: PaymentAccount[];
@@ -35,7 +36,7 @@ export const ListTable = ({ data }: Props) => {
         id,
         onSuccess: () => {
           toast.success("Payment account is deleted successfully.");
-          dispatch(handleGetPaymentAccount({page}));
+          dispatch(handleGetPaymentAccount({ page }));
         },
       })
     );
@@ -48,11 +49,7 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table
-          sx={{ minWidth: 650 }}
-          stickyHeader
-          aria-label="sticky table"
-        >
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>

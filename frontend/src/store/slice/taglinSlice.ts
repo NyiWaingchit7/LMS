@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 import {
   CreateTagLine,
   DeleteTagLine,
   tagLineData,
   TagLineSlice,
   UpdateTagLine,
-} from "../../types/tagline";
+} from "@/types/tagline";
 const initialState: TagLineSlice = {
   items: [],
   links: [],

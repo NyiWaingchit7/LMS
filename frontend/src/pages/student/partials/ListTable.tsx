@@ -7,20 +7,20 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { Image } from "../../../component/Image";
-import { Student } from "../../../types/student";
+import { Image } from "@/component/Image";
+import { Student } from "@/types/student";
 import toast from "react-hot-toast";
 import {
   handleDeletStudent,
   handleGetStudent,
   setStudentLink,
-} from "../../../store/slice/studentSlice";
+} from "@/store/slice/studentSlice";
 import { useEffect } from "react";
-import { Pagination } from "../../../component/Pagination";
-import { usePage } from "../../../utils/getPage";
+import { Pagination } from "@/component/Pagination";
+import { usePage } from "@/utils/getPage";
 
 interface Props {
   data: Student[];

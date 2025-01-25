@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Paper,
-  TextField,
-} from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
-import { Error } from "../../../component/Error";
+import { Button, Paper, TextField } from "@mui/material";
+import { InputLabel } from "@/component/InputLabel";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
-import { Page } from "../../../types/page";
+import { Page } from "@/types/page";
 import {
   handleCreatePage,
   handleUpdatePage,
   setPageError,
-} from "../../../store/slice/pageSlice";
-import { Editor } from "../../../component/Editor";
+} from "@/store/slice/pageSlice";
+import { Editor } from "@/component/Editor";
 
 interface Props {
   page?: Page;

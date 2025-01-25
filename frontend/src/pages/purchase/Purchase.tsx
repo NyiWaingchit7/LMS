@@ -1,11 +1,11 @@
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { SearchButton } from "@/component/SearchButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { handleGetPurchase } from "@/store/slice/purchaseSlice";
+import { usePage } from "@/utils/getPage";
 import { ListTable } from "./partials/ListTable";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleGetPurchase } from "../../store/slice/purchaseSlice";
-import { usePage } from "../../utils/getPage";
-import { SearchButton } from "../../component/SearchButton";
 
 export const Purchase = () => {
   const dispatch = useAppDispatch();

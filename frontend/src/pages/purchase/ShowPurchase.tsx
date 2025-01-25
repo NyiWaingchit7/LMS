@@ -1,19 +1,19 @@
 import { Button, Chip, Menu, MenuItem, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { Image } from "../../component/Image";
+import { Image } from "@/component/Image";
 
-import {  Purchase, purchaseData } from "../../types/purchase";
+import { Purchase, purchaseData } from "@/types/purchase";
 import {
   handleShowPurchase,
   handleUpdatePurchase,
   setPurchaseData,
-} from "../../store/slice/purchaseSlice";
-import { getChipColor } from "../../utils/statusColor";
+} from "@/store/slice/purchaseSlice";
+import { getChipColor } from "@/utils/statusColor";
 import toast from "react-hot-toast";
 
 const statusOptions = [

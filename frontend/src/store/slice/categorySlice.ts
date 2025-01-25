@@ -5,11 +5,11 @@ import {
   CreateCategory,
   DeleteCategory,
   UpdateCategory,
-} from "../../types/category";
-import { errorHelper } from "../../utils/errorHelper";
+} from "@/types/category";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
+import { errorHelper } from "@/utils/errorHelper";
 const initialState: CategorySlice = {
   items: [],
   links: [],
