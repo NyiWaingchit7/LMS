@@ -91,6 +91,11 @@ export const sidebrItems = [
     path: "lectures",
   },
   {
+    name: "Popular Lectures",
+    icon: <SchoolIcon />,
+    path: "popular-lectures",
+  },
+  {
     name: "Lessons",
     icon: <PlayLessonIcon />,
     path: "lessons",

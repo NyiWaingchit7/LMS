@@ -11,6 +11,7 @@ import pageReducer from "./slice/pageSlice";
 import homeReducer from "./slice/homeSlice";
 import settingReducer from "./slice/settingSlice";
 import tagLineReducer from "./slice/taglinSlice";
+import popularLectureReducer from "./slice/popular_lectureSlice";
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     home: homeReducer,
     setting: settingReducer,
     tagLine: tagLineReducer,
+    popularLecture: popularLectureReducer,
   },
 });
 

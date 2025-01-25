@@ -39,6 +39,9 @@ import { TagLine } from "@/pages/tagLine/TagLine";
 import { ShowTagLine } from "@/pages/tagLine/ShowTagLine";
 import { CreateTagLine } from "@/pages/tagLine/CreateTagLine";
 import { EditTagLine } from "@/pages/tagLine/EditTagLine";
+import { PopularLecture } from "@/pages/popularLecture/PopularLecture";
+import { CreatePopularLecture } from "@/pages/popularLecture/CreatePopularLecture";
+import { EditPopuarLecture } from "@/pages/popularLecture/EditPopularLecture";
 
 export const Router = () => {
   return (
@@ -55,6 +58,15 @@ export const Router = () => {
           <Route path="/lectures/:id" Component={ShowLecture} />
           <Route path="/lectures/create" Component={CreateLecture} />
           <Route path="/lectures/:id/edit" Component={EditLecture} />
+          <Route path="/popular-lectures" Component={PopularLecture} />
+          <Route
+            path="/popular-lectures/create"
+            Component={CreatePopularLecture}
+          />
+          <Route
+            path="/popular-lectures/:id/edit"
+            Component={EditPopuarLecture}
+          />
           <Route path="/lessons" Component={Lesson} />
           <Route path="/lessons/:id" Component={ShowLesson} />
           <Route path="/lessons/create" Component={CreateLesson} />

@@ -29,6 +29,7 @@ import { userSettingRouter } from "@/routes/user/setting.route";
 import { userTagLineRouter } from "@/routes/user/tagLine.route";
 import { checkauth } from "@/utils/auth";
 import { fileUpload, fileDelete } from "@/utils/fileUpload";
+import { popularLectureRouter } from "@/routes/popular_lecture.route";
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use("/api/v1/admin/pages", pageRouter);
 app.use("/api/v1/admin/home", homeRouter);
 app.use("/api/v1/admin/settings", settingRouter);
 app.use("/api/v1/admin/tag-lines", tagLineRouter);
+app.use("/api/v1/admin/popular-lectures", popularLectureRouter);
 
 // user
 app.use("/api/v1/categories", userCategoryRouter);
@@ -61,6 +63,7 @@ app.use("/api/v1/lessons", userLessonRouter);
 app.use("/api/v1/payments", userPaymentRouter);
 app.use("/api/v1/tag-lines", userTagLineRouter);
 app.use("/api/v1/settings", userSettingRouter);
+app.use("/api/v1/popular-lectures", popularLectureRouter);
 
 app.use("/api/v1/auth", userAuthRouter);
 
