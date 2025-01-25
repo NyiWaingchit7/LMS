@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { prisma } from "../../../utils/db";
+import { prisma } from "@/utils/db";
 import jwt from "jsonwebtoken";
-import { config } from "../../../utils/config";
+import { config } from "@/utils/config";
 import NodeCache from "node-cache";
-import { getUserFromToken } from "../../../utils/auth";
+import { getUserFromToken } from "@/utils/auth";
 
 const cache = new NodeCache({ stdTTL: 660 });
 

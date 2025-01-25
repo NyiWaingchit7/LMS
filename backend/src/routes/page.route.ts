@@ -1,23 +1,24 @@
 import express from "express";
 
-import { checkauth } from "../../utils/auth";
+import { checkauth } from "@/utils/auth";
 import {
   destroy,
   index,
   show,
   store,
   update,
-} from "../controller/page.controller";
-import { pageValidation } from "../validator/page.validator";
+} from "@/controller/page.controller";
+import { pageValidation } from "@/validator/page.validator";
 
 export const pageRouter = express.Router();
+pageRouter.use(checkauth);
 
-pageRouter.get("/", checkauth, index);
+pageRouter.get("/", index);
 
-pageRouter.get("/:id", checkauth, show);
+pageRouter.get("/:id", show);
 
-pageRouter.post("/", checkauth, pageValidation, store);
+pageRouter.post("/", pageValidation, store);
 
-pageRouter.put("/:id", checkauth, pageValidation, update);
+pageRouter.put("/:id", pageValidation, update);
 
-pageRouter.delete("/:id", checkauth, destroy);
+pageRouter.delete("/:id", destroy);

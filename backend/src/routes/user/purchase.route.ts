@@ -1,14 +1,9 @@
 import express from "express";
 
-import { usercheckauth } from "../../../utils/auth";
-import {
-  destroy,
-  index,
-  show,
-  update,
-} from "../../controller/purchase.controller";
-import { store } from "../../controller/user/purchase.controller";
-import { purchaseValidation } from "../../validator/user/purchase.validator";
+import { usercheckauth } from "@/utils/auth";
+import { destroy, index, show, update } from "@/controller/purchase.controller";
+import { store } from "@/controller/user/purchase.controller";
+import { purchaseValidation } from "@/validator/user/purchase.validator";
 
 export const userPurchaseRouter = express.Router();
 

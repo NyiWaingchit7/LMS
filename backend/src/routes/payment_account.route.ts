@@ -1,5 +1,5 @@
 import express from "express";
-import { checkauth } from "../../utils/auth";
+import { checkauth } from "@/utils/auth";
 import {
   create,
   destroy,
@@ -7,18 +7,19 @@ import {
   show,
   store,
   update,
-} from "../controller/payment_account.controller";
-import { paymentAccountValidation } from "../validator/payment_account.validator";
+} from "@/controller/payment_account.controller";
+import { paymentAccountValidation } from "@/validator/payment_account.validator";
 
 export const paymentAccountRouter = express.Router();
+paymentAccountRouter.use(checkauth);
 
-paymentAccountRouter.get("/", checkauth, index);
-paymentAccountRouter.get("/create", checkauth, create);
+paymentAccountRouter.get("/", index);
+paymentAccountRouter.get("/create", create);
 
-paymentAccountRouter.get("/:id", checkauth, show);
+paymentAccountRouter.get("/:id", show);
 
-paymentAccountRouter.post("/", checkauth, paymentAccountValidation, store);
+paymentAccountRouter.post("/", paymentAccountValidation, store);
 
-paymentAccountRouter.put("/:id", checkauth, paymentAccountValidation, update);
+paymentAccountRouter.put("/:id", paymentAccountValidation, update);
 
-paymentAccountRouter.delete("/:id", checkauth, destroy);
+paymentAccountRouter.delete("/:id", destroy);

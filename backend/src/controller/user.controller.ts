@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "../../utils/db";
+import { prisma } from "@/utils/db";
 import bcrypt from "bcrypt";
 
 export const index = async (req: Request, res: Response) => {

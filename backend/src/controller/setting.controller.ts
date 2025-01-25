@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "../../utils/db";
+import { prisma } from "@/utils/db";
 import { settings } from "firebase/analytics";
 
 export const index = async (req: Request, res: Response) => {

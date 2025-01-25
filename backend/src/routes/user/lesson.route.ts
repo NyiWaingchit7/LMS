@@ -1,5 +1,5 @@
 import express from "express";
-import { index, show } from "../../controller/lesson.controller";
+import { index, show } from "@/controller/lesson.controller";
 
 export const userLessonRouter = express.Router();
 

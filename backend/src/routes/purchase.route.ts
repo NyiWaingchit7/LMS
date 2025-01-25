@@ -1,6 +1,6 @@
 import express from "express";
 
-import { checkauth } from "../../utils/auth";
+import { checkauth } from "@/utils/auth";
 import {
   create,
   destroy,
@@ -8,18 +8,19 @@ import {
   show,
   store,
   update,
-} from "../controller/purchase.controller";
-import { purchaseValidation } from "../validator/purchase.validator";
+} from "@/controller/purchase.controller";
+import { purchaseValidation } from "@/validator/purchase.validator";
 
 export const pruchaseRouter = express.Router();
+pruchaseRouter.use(checkauth);
 
-pruchaseRouter.get("/", checkauth, index);
-pruchaseRouter.get("/create", checkauth, create);
+pruchaseRouter.get("/", index);
+pruchaseRouter.get("/create", create);
 
-pruchaseRouter.get("/:id", checkauth, show);
+pruchaseRouter.get("/:id", show);
 
-pruchaseRouter.post("/", checkauth, purchaseValidation, store);
+pruchaseRouter.post("/", purchaseValidation, store);
 
-pruchaseRouter.put("/:id", checkauth, update);
+pruchaseRouter.put("/:id", update);
 
-pruchaseRouter.delete("/:id", checkauth, destroy);
+pruchaseRouter.delete("/:id", destroy);

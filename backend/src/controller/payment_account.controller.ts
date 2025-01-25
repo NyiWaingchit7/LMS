@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { prisma } from "../../utils/db";
+import { prisma } from "@/utils/db";
 import bcrypt from "bcrypt";
-import { usePagination } from "../../utils/pagination";
+import { usePagination } from "@/utils/pagination";
 
 export const index = async (req: Request, res: Response) => {
   const searchKey = (req.query.searchKey as string) || "";

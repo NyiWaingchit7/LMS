@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { getUserFromToken } from "../../../utils/auth";
-import { prisma } from "../../../utils/db";
-import { mailSend } from "../../../utils/mailer";
+import { getUserFromToken } from "@/utils/auth";
+import { prisma } from "@/utils/db";
+import { mailSend } from "@/utils/mailer";
 
 export const store = async (req: Request, res: Response) => {
   try {

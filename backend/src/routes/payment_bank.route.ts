@@ -1,22 +1,23 @@
 import express from "express";
-import { checkauth } from "../../utils/auth";
+import { checkauth } from "@/utils/auth";
 import {
   destroy,
   index,
   show,
   store,
   update,
-} from "../controller/payment_bank.controller";
-import { paymentBankValidation } from "../validator/payment_bank.validator";
+} from "@/controller/payment_bank.controller";
+import { paymentBankValidation } from "@/validator/payment_bank.validator";
 
 export const paymentBankRouter = express.Router();
+paymentBankRouter.use(checkauth);
 
-paymentBankRouter.get("/", checkauth, index);
+paymentBankRouter.get("/", index);
 
-paymentBankRouter.get("/:id", checkauth, show);
+paymentBankRouter.get("/:id", show);
 
-paymentBankRouter.post("/", checkauth, paymentBankValidation, store);
+paymentBankRouter.post("/", paymentBankValidation, store);
 
-paymentBankRouter.put("/:id", checkauth, paymentBankValidation, update);
+paymentBankRouter.put("/:id", paymentBankValidation, update);
 
-paymentBankRouter.delete("/:id", checkauth, destroy);
+paymentBankRouter.delete("/:id", destroy);

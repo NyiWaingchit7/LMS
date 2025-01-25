@@ -9,11 +9,11 @@ import {
   profileDelete,
   register,
   verify,
-} from "../../controller/user/auth.controller";
-import { show, update } from "../../controller/student.controller";
-import { usercheckauth } from "../../../utils/auth";
-import { forgetPasswordValidation } from "../../validator/user/forget_password.validator";
-import { changePasswordValidation } from "../../validator/user/change_password.validator";
+} from "@/controller/user/auth.controller";
+import { show, update } from "@/controller/student.controller";
+import { usercheckauth } from "@/utils/auth";
+import { forgetPasswordValidation } from "@/validator/user/forget_password.validator";
+import { changePasswordValidation } from "@/validator/user/change_password.validator";
 export const userAuthRouter = express.Router();
 
 userAuthRouter.post("/register", register);
