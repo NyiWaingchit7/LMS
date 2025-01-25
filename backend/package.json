@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev server.ts",
+    "start": "ts-node-dev -r tsconfig-paths/register server.ts",
     "seed": "ts-node-dev utils/seeder.ts",
     "build": "tsc  && npx prisma generate",
     "vercel-build": "tsc && prisma generate"
@@ -42,6 +42,7 @@
     "@types/nodemailer": "^6.4.16",
     "@types/uuid": "^10.0.0",
     "prisma": "^5.19.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.3"
   }
 }
