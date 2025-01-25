@@ -149,8 +149,11 @@ export const forgetVerify = async (req: Request, res: Response) => {
 
 export const forgetPasswordChange = async (req: Request, res: Response) => {
   try {
-    const { new_password, confirm_password } = req.body;
-    const user = getUserFromToken(req, res) as any;
+    const { new_password, confirm_password, email } = req.body;
+    // const user = getUserFromToken(req, res) as any;
+    const user = await prisma.student.findFirst({ where: { email } });
+    if (!user)
+      return res.status(404).json({ message: "NO user with this crdential" });
     const hashPassword = await bcrypt.hash(new_password, 10);
 
     const data = await prisma.student.update({
