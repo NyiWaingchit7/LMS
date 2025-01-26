@@ -32,40 +32,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.lectureValidation = exports.schema = void 0;
+exports.settingValidation = exports.schema = void 0;
 const yup = __importStar(require("yup"));
 exports.schema = yup.object().shape({
-    title: yup.string().required("The title field is required."),
-    assetUrl: yup.string().required("The image field is required."),
-    categories: yup.array().min(1, "The category field is required."),
-    description: yup.string().required("The description field is required."),
-    discount_price: yup
-        .number()
-        .min(0, "The discount price must be a positive number."),
-    price: yup.number().when("$isPremium", {
-        is: true,
-        then: (yup) => yup
-            .required("The price field is required for premium lectures.")
-            .min(0, "The price must be a positive number.")
-            .test("is-greater-than-discount", "The price must be greater than the discount price.", function (value) {
-            return value > this.parent.discount_price;
-        }),
-        otherwise: (yup) => yup.nullable().notRequired(),
-    }),
+    email: yup.string().email(),
 });
-const lectureValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const settingValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const isPremium = req.body.isPremium;
-        yield exports.schema.validate(req.body, {
-            abortEarly: false,
-            context: { isPremium },
-        });
+        yield exports.schema.validate(req.body, { abortEarly: false });
         next();
     }
     catch (err) {
         const errors = {};
         if (err.inner) {
-            err.inner.forEach((error) => {
+            err.inner.map((error) => {
                 if (error.path) {
                     errors[error.path] = error.message;
                 }
@@ -74,4 +54,4 @@ const lectureValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         return res.status(400).json({ errors });
     }
 });
-exports.lectureValidation = lectureValidation;
+exports.settingValidation = settingValidation;
