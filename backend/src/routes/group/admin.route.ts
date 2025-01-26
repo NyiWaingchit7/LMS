@@ -36,20 +36,12 @@ adminRouterGroup.use("/home", homeRouter);
 adminRouterGroup.use("/settings", settingRouter);
 adminRouterGroup.use("/tag-lines", tagLineRouter);
 adminRouterGroup.post(
-  "/api/v1/admin/file-upload",
+  "/file-upload",
   checkauth,
   upload.array("files"),
   fileUpload
 );
-adminRouterGroup.delete("/api/v1/admin/file-delete", checkauth, fileDelete);
-adminRouterGroup.get("/api/v1/admin/get-lectures", checkauth, searchLecture);
-adminRouterGroup.get(
-  "/api/v1/admin/get-paymentbanks",
-  checkauth,
-  getPaymentBanks
-);
-adminRouterGroup.get(
-  "/api/v1/admin/create-purchase",
-  checkauth,
-  createPurchase
-);
+adminRouterGroup.delete("/file-delete", checkauth, fileDelete);
+adminRouterGroup.get("/get-lectures", checkauth, searchLecture);
+adminRouterGroup.get("/get-paymentbanks", checkauth, getPaymentBanks);
+adminRouterGroup.get("/create-purchase", checkauth, createPurchase);
