@@ -6,13 +6,15 @@ import { userLessonRouter } from "../user/lesson.route";
 import { userPaymentRouter } from "../user/payment.route";
 import { userSettingRouter } from "../user/setting.route";
 import { userTagLineRouter } from "../user/tagLine.route";
+import { userPopularLectureRouter } from "../user/popular_lecture.route";
 
 export const userRouterGroup = express.Router();
-userRouterGroup.use("/api/v1/categories", userCategoryRouter);
-userRouterGroup.use("/api/v1/lectures", userLectureRouter);
-userRouterGroup.use("/api/v1/lessons", userLessonRouter);
-userRouterGroup.use("/api/v1/payments", userPaymentRouter);
-userRouterGroup.use("/api/v1/tag-lines", userTagLineRouter);
-userRouterGroup.use("/api/v1/settings", userSettingRouter);
+userRouterGroup.use("/categories", userCategoryRouter);
+userRouterGroup.use("/lectures", userLectureRouter);
+userRouterGroup.use("/lessons", userLessonRouter);
+userRouterGroup.use("/payments", userPaymentRouter);
+userRouterGroup.use("/tag-lines", userTagLineRouter);
+userRouterGroup.use("/settings", userSettingRouter);
+userRouterGroup.use("/popular-lectures", userPopularLectureRouter);
 
-userRouterGroup.use("/api/v1/auth", userAuthRouter);
+userRouterGroup.use("/auth", userAuthRouter);

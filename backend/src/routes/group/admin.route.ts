@@ -18,6 +18,7 @@ import { fileDelete, fileUpload } from "../../../utils/fileUpload";
 import { searchLecture } from "../../controller/lecture.controller";
 import { getPaymentBanks } from "../../controller/payment_bank.controller";
 import { createPurchase } from "../../controller/purchase.controller";
+import { popularLectureRouter } from "../admin/popular_lecture.route";
 const upload = multer({ storage: multer.memoryStorage() });
 
 export const adminRouterGroup = express.Router();
@@ -30,6 +31,8 @@ adminRouterGroup.use("/lessons", lessonRouter);
 adminRouterGroup.use("/students", studentRouter);
 adminRouterGroup.use("/payment-banks", paymentBankRouter);
 adminRouterGroup.use("/payment-accounts", paymentAccountRouter);
+adminRouterGroup.use("/popular-lectures", popularLectureRouter);
+
 adminRouterGroup.use("/purchases", pruchaseRouter);
 adminRouterGroup.use("/pages", pageRouter);
 adminRouterGroup.use("/home", homeRouter);
