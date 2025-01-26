@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userRouterGroup = void 0;
+const express_1 = __importDefault(require("express"));
+const auth_route_1 = require("../user/auth.route");
+const category_route_1 = require("../user/category.route");
+const lecture_route_1 = require("../user/lecture.route");
+const lesson_route_1 = require("../user/lesson.route");
+const payment_route_1 = require("../user/payment.route");
+const setting_route_1 = require("../user/setting.route");
+const tagLine_route_1 = require("../user/tagLine.route");
+exports.userRouterGroup = express_1.default.Router();
+exports.userRouterGroup.use("/api/v1/categories", category_route_1.userCategoryRouter);
+exports.userRouterGroup.use("/api/v1/lectures", lecture_route_1.userLectureRouter);
+exports.userRouterGroup.use("/api/v1/lessons", lesson_route_1.userLessonRouter);
+exports.userRouterGroup.use("/api/v1/payments", payment_route_1.userPaymentRouter);
+exports.userRouterGroup.use("/api/v1/tag-lines", tagLine_route_1.userTagLineRouter);
+exports.userRouterGroup.use("/api/v1/settings", setting_route_1.userSettingRouter);
+exports.userRouterGroup.use("/api/v1/auth", auth_route_1.userAuthRouter);
