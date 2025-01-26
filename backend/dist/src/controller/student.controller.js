@@ -16,7 +16,6 @@ exports.destroy = exports.update = exports.store = exports.show = exports.index 
 const db_1 = require("../../utils/db");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const pagination_1 = require("../../utils/pagination");
-const fileUpload_1 = require("../../utils/fileUpload");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const searchKey = req.query.searchKey || "";
     const students = yield db_1.prisma.student.findMany({
@@ -80,9 +79,6 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         if (!exist)
             return res.status(400).json({ message: "The student can not be found!" });
-        if (exist.assetUrl !== null && assetUrl !== exist.assetUrl) {
-            (0, fileUpload_1.fileRemove)(exist.assetUrl);
-        }
         const hasPassword = yield bcrypt_1.default.hash(password, 10);
         const student = yield db_1.prisma.student.update({
             where: { id },

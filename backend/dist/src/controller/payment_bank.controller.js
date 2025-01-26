@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPaymentBanks = exports.destroy = exports.update = exports.store = exports.show = exports.index = void 0;
 const db_1 = require("../../utils/db");
 const pagination_1 = require("../../utils/pagination");
-const fileUpload_1 = require("../../utils/fileUpload");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const searchKey = req.query.searchKey || "";
     const paymentBanks = yield db_1.prisma.paymentBank.findMany({
@@ -70,9 +69,6 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res
                 .status(400)
                 .json({ message: "The paymentBank can not be found!" });
-        if (exist.assetUrl !== null && assetUrl !== exist.assetUrl) {
-            (0, fileUpload_1.fileRemove)(exist.assetUrl);
-        }
         if (!name)
             return res.status(400).json({ message: "All fields are required!" });
         const paymentBank = yield db_1.prisma.paymentBank.update({

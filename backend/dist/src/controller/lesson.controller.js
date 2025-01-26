@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.destroy = exports.update = exports.store = exports.create = exports.show = exports.index = void 0;
 const db_1 = require("../../utils/db");
 const pagination_1 = require("../../utils/pagination");
-const fileUpload_1 = require("../../utils/fileUpload");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const searchKey = req.query.searchKey || "";
     const lessons = yield db_1.prisma.lesson.findMany({
@@ -76,9 +75,6 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         if (!exist)
             return res.status(400).json({ message: "The lesson can not be found!" });
-        if (exist.assetImage !== null && assetImage !== exist.assetImage) {
-            (0, fileUpload_1.fileRemove)(exist.assetImage);
-        }
         const lesson = yield db_1.prisma.lesson.update({
             where: { id },
             data: { title, description, content, assetImage, assetVideo, lectureId },
