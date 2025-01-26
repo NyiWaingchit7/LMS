@@ -12,6 +12,11 @@
       "@/*": ["*"]
     }
   },
-  "include": ["server.ts", "src/utils/**/*.ts", "src/**/*.ts"],
+  "include": [
+    "server.ts",
+    "src/utils/**/*.ts",
+    "src/**/*.ts",
+    "prisma/schema.prisma"
+  ],
   "exclude": ["node_modules", "dist"]
 }
