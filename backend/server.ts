@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { adminRouterGroup } from "./src/routes/group/admin.route";
-import { userRouterGroup } from "./src/routes/group/user.rout";
+import { userRouterGroup } from "./src/routes/group/user.route";
 
 const app = express();
 
