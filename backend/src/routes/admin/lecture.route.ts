@@ -7,9 +7,9 @@ import {
   show,
   store,
   update,
-} from "../controller/lecture.controller";
-import { checkauth } from "../../utils/auth";
-import { lectureValidation } from "../validator/lecture.validator";
+} from "../../controller/lecture.controller";
+import { checkauth } from "../../../utils/auth";
+import { lectureValidation } from "../../validator/lecture.validator";
 
 export const lectureRouter = express.Router();
 

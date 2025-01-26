@@ -1,14 +1,14 @@
 import express from "express";
 
-import { checkauth } from "../../utils/auth";
+import { checkauth } from "../../../utils/auth";
 import {
   destroy,
   index,
   show,
   store,
   update,
-} from "../controller/page.controller";
-import { pageValidation } from "../validator/page.validator";
+} from "../../controller/page.controller";
+import { pageValidation } from "../../validator/page.validator";
 
 export const pageRouter = express.Router();
 
