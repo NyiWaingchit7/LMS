@@ -7,7 +7,7 @@
     "start": "ts-node-dev -r tsconfig-paths/register server.ts",
     "seed": "ts-node-dev utils/seeder.ts",
     "build": "tsc  && npx prisma generate",
-    "vercel-build": "tsc && npx prisma generate && tsconfig-paths",
+    "vercel-build": "tsc && npx prisma generate && node -r tsconfig-paths/register dist/server.js",
     "postinstall": "prisma generate"
   },
   "keywords": [],
