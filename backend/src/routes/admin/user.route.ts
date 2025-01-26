@@ -5,8 +5,8 @@ import {
   show,
   store,
   update,
-} from "../controller/user.controller";
-import { checkauth } from "../../utils/auth";
+} from "../../controller/user.controller";
+import { checkauth } from "../../../utils/auth";
 
 export const userRouter = express.Router();
 

@@ -6,9 +6,9 @@ import {
   show,
   store,
   update,
-} from "../controller/lesson.controller";
-import { checkauth } from "../../utils/auth";
-import { lessonValidation } from "../validator/lesson.validator";
+} from "../../controller/lesson.controller";
+import { checkauth } from "../../../utils/auth";
+import { lessonValidation } from "../../validator/lesson.validator";
 
 export const lessonRouter = express.Router();
 

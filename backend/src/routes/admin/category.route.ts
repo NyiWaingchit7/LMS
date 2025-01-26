@@ -5,9 +5,9 @@ import {
   show,
   store,
   update,
-} from "../controller/category.controller";
-import { checkauth } from "../../utils/auth";
-import { categoryValidation } from "../validator/category.validator";
+} from "../../controller/category.controller";
+import { checkauth } from "../../../utils/auth";
+import { categoryValidation } from "../../validator/category.validator";
 
 export const categoryRouter = express.Router();
 

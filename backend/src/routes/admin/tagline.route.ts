@@ -1,13 +1,13 @@
 import express from "express";
-import { checkauth } from "../../utils/auth";
+import { checkauth } from "../../../utils/auth";
 import {
   destroy,
   index,
   show,
   store,
   update,
-} from "../controller/tagline.controller";
-import { tagLineValidation } from "../validator/tagline.validator";
+} from "../../controller/tagline.controller";
+import { tagLineValidation } from "../../validator/tagline.validator";
 
 export const tagLineRouter = express.Router();
 

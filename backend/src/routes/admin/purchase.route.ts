@@ -1,6 +1,6 @@
 import express from "express";
 
-import { checkauth } from "../../utils/auth";
+import { checkauth } from "../../../utils/auth";
 import {
   create,
   destroy,
@@ -8,8 +8,8 @@ import {
   show,
   store,
   update,
-} from "../controller/purchase.controller";
-import { purchaseValidation } from "../validator/purchase.validator";
+} from "../../controller/purchase.controller";
+import { purchaseValidation } from "../../validator/purchase.validator";
 
 export const pruchaseRouter = express.Router();
 
