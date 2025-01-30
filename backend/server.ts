@@ -1,9 +1,10 @@
 import express, { Request, Response } from "express";
+import "tsconfig-paths/register";
+
 import cors from "cors";
 import dotenv from "dotenv";
 import { adminRouterGroup } from "@/routes/group/admin.rout";
 import { userRouterGroup } from "@/routes/group/user.route";
-import "tsconfig-paths/register";
 dotenv.config();
 
 const app = express();
