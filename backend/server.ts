@@ -16,7 +16,7 @@ const port = 4000;
 //admin
 app.use("/api/v1/admin", adminRouterGroup);
 //user
-app.use("api/v1", userRouterGroup);
+app.use("/api/v1", userRouterGroup);
 //default
 app.get("/", (req: Request, res: Response) => {
   res.send("hello");
