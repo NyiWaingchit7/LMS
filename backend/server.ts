@@ -1,5 +1,5 @@
-import express, { Request, Response } from "express";
 import "tsconfig-paths/register";
+import express, { Request, Response } from "express";
 
 import cors from "cors";
 import dotenv from "dotenv";
