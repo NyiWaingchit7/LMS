@@ -22,6 +22,7 @@ import { popularLectureRouter } from "../admin/popular_lecture.route";
 const upload = multer({ storage: multer.memoryStorage() });
 
 export const adminRouterGroup = express.Router();
+adminRouterGroup.use(checkauth);
 adminRouterGroup.use(verifyApiToken);
 adminRouterGroup.use("/auth", appRouter);
 adminRouterGroup.use("/users", userRouter);

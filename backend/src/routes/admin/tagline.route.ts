@@ -1,5 +1,4 @@
 import express from "express";
-import { checkauth } from "../../../utils/auth";
 import {
   destroy,
   index,
@@ -11,12 +10,12 @@ import { tagLineValidation } from "../../validator/tagline.validator";
 
 export const tagLineRouter = express.Router();
 
-tagLineRouter.get("/", checkauth, index);
+tagLineRouter.get("/", index);
 
-tagLineRouter.get("/:id", checkauth, show);
+tagLineRouter.get("/:id", show);
 
-tagLineRouter.post("/", checkauth, tagLineValidation, store);
+tagLineRouter.post("/", tagLineValidation, store);
 
-tagLineRouter.put("/:id", checkauth, tagLineValidation, update);
+tagLineRouter.put("/:id", tagLineValidation, update);
 
-tagLineRouter.delete("/:id", checkauth, destroy);
+tagLineRouter.delete("/:id", destroy);

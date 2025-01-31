@@ -1,6 +1,5 @@
 import express from "express";
 
-import { checkauth } from "../../../utils/auth";
 import {
   destroy,
   index,
@@ -12,12 +11,12 @@ import { pageValidation } from "../../validator/page.validator";
 
 export const pageRouter = express.Router();
 
-pageRouter.get("/", checkauth, index);
+pageRouter.get("/", index);
 
-pageRouter.get("/:id", checkauth, show);
+pageRouter.get("/:id", show);
 
-pageRouter.post("/", checkauth, pageValidation, store);
+pageRouter.post("/", pageValidation, store);
 
-pageRouter.put("/:id", checkauth, pageValidation, update);
+pageRouter.put("/:id", pageValidation, update);
 
-pageRouter.delete("/:id", checkauth, destroy);
+pageRouter.delete("/:id", destroy);

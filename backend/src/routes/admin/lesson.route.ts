@@ -7,18 +7,17 @@ import {
   store,
   update,
 } from "../../controller/lesson.controller";
-import { checkauth } from "../../../utils/auth";
 import { lessonValidation } from "../../validator/lesson.validator";
 
 export const lessonRouter = express.Router();
 
-lessonRouter.get("/", checkauth, index);
-lessonRouter.get("/create", checkauth, create);
+lessonRouter.get("/", index);
+lessonRouter.get("/create", create);
 
-lessonRouter.get("/:id", checkauth, show);
+lessonRouter.get("/:id", show);
 
-lessonRouter.post("/", checkauth, lessonValidation, store);
+lessonRouter.post("/", lessonValidation, store);
 
-lessonRouter.put("/:id", checkauth, lessonValidation, update);
+lessonRouter.put("/:id", lessonValidation, update);
 
-lessonRouter.delete("/:id", checkauth, destroy);
+lessonRouter.delete("/:id", destroy);

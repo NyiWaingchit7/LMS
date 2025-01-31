@@ -58,7 +58,7 @@ export const verifyApiToken = (
   const header = req.headers;
   const authorization = header.api_token as any;
   if (!authorization)
-    return res.status(401).json({ message: "Invalid or expired token!" });
+    return res.status(403).json({ message: "Invalid or expired token!" });
 
   const token = authorization.split(" ")[1];
 

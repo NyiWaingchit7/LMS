@@ -1,6 +1,5 @@
 import express from "express";
 
-import { checkauth } from "../../../utils/auth";
 import {
   destroy,
   index,
@@ -12,12 +11,12 @@ import { studentValidation } from "../../validator/student.validator";
 
 export const studentRouter = express.Router();
 
-studentRouter.get("/", checkauth, index);
+studentRouter.get("/", index);
 
-studentRouter.get("/:id", checkauth, show);
+studentRouter.get("/:id", show);
 
-studentRouter.post("/", checkauth, studentValidation, store);
+studentRouter.post("/", studentValidation, store);
 
-studentRouter.put("/:id", checkauth, studentValidation, update);
+studentRouter.put("/:id", studentValidation, update);
 
-studentRouter.delete("/:id", checkauth, destroy);
+studentRouter.delete("/:id", destroy);

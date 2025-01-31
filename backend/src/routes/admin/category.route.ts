@@ -6,17 +6,16 @@ import {
   store,
   update,
 } from "../../controller/category.controller";
-import { checkauth } from "../../../utils/auth";
 import { categoryValidation } from "../../validator/category.validator";
 
 export const categoryRouter = express.Router();
 
-categoryRouter.get("/", checkauth, index);
+categoryRouter.get("/", index);
 
-categoryRouter.get("/:id", checkauth, show);
+categoryRouter.get("/:id", show);
 
-categoryRouter.post("/", checkauth, categoryValidation, store);
+categoryRouter.post("/", categoryValidation, store);
 
-categoryRouter.put("/:id", checkauth, categoryValidation, update);
+categoryRouter.put("/:id", categoryValidation, update);
 
-categoryRouter.delete("/:id", checkauth, destroy);
+categoryRouter.delete("/:id", destroy);

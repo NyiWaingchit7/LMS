@@ -1,6 +1,5 @@
 import express from "express";
 
-import { checkauth } from "../../../utils/auth";
 import { popularLectureValidation } from "../../validator/popular_lecture.validator";
 import {
   create,
@@ -12,7 +11,6 @@ import {
 } from "../../controller/popular-lecture.controller";
 
 export const popularLectureRouter = express.Router();
-popularLectureRouter.use(checkauth);
 
 popularLectureRouter.get("/", index);
 popularLectureRouter.get("/create", create);

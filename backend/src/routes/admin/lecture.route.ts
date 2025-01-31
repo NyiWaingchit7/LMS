@@ -8,18 +8,17 @@ import {
   store,
   update,
 } from "../../controller/lecture.controller";
-import { checkauth } from "../../../utils/auth";
 import { lectureValidation } from "../../validator/lecture.validator";
 
 export const lectureRouter = express.Router();
 
-lectureRouter.get("/", checkauth, index);
-lectureRouter.get("/create", checkauth, create);
+lectureRouter.get("/", index);
+lectureRouter.get("/create", create);
 
-lectureRouter.get("/:id", checkauth, show);
+lectureRouter.get("/:id", show);
 
-lectureRouter.post("/", checkauth, lectureValidation, store);
+lectureRouter.post("/", lectureValidation, store);
 
-lectureRouter.put("/:id", checkauth, lectureValidation, update);
+lectureRouter.put("/:id", lectureValidation, update);
 
-lectureRouter.delete("/:id", checkauth, destroy);
+lectureRouter.delete("/:id", destroy);
