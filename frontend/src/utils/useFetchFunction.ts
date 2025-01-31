@@ -14,7 +14,7 @@ export const fetchFunction = async ({
   try {
     const response = await fetch(`${config.apiUrl}/${url}`, {
       method,
-      headers: headerOptions(),
+      headers: await headerOptions(),
       body,
     });
     const data = await response.json();

@@ -6,6 +6,8 @@ interface Config {
   username: string;
   email: string;
   password: string;
+  apiSecret: string;
+  apiId: string;
 }
 
 export const config: Config = {
@@ -14,4 +16,6 @@ export const config: Config = {
   username: process.env.USERNAME_SEEDER || "",
   email: process.env.EMAIL_SEEDER || "",
   password: process.env.PASSWORD_SEEDER || "",
+  apiSecret: process.env.API_SECERE_KEY || "",
+  apiId: process.env.API_ID || "",
 };

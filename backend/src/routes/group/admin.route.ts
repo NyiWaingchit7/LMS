@@ -12,7 +12,7 @@ import { studentRouter } from "../admin/student.route";
 import { tagLineRouter } from "../admin/tagline.route";
 import { userRouter } from "../admin/user.route";
 import { appRouter } from "../admin/app.route";
-import { checkauth } from "../../../utils/auth";
+import { checkauth, verifyApiToken } from "../../../utils/auth";
 import multer from "multer";
 import { fileDelete, fileUpload } from "../../../utils/fileUpload";
 import { searchLecture } from "../../controller/lecture.controller";
@@ -22,7 +22,7 @@ import { popularLectureRouter } from "../admin/popular_lecture.route";
 const upload = multer({ storage: multer.memoryStorage() });
 
 export const adminRouterGroup = express.Router();
-
+adminRouterGroup.use(verifyApiToken);
 adminRouterGroup.use("/auth", appRouter);
 adminRouterGroup.use("/users", userRouter);
 adminRouterGroup.use("/categories", categoryRouter);

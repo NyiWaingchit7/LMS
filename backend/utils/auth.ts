@@ -49,3 +49,27 @@ export const getUserFromToken = (req: Request, res: Response) => {
     return res.status(500).json({ error });
   }
 };
+
+export const verifyApiToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const header = req.headers;
+  const authorization = header.api_token as any;
+  if (!authorization)
+    return res.status(401).json({ message: "Invalid or expired token!" });
+
+  const token = authorization.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, config.apiSecret) as any;
+
+    if (decoded?.app !== config.apiId) {
+      return res.status(403).json({ error: "Forbidden: Invalid app" });
+    }
+    next();
+  } catch (err) {
+    return res.status(403).json({ error: "Invalid or expired token" });
+  }
+};
