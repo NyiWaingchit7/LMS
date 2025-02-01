@@ -30,6 +30,7 @@ export const index = async (req: Request, res: Response) => {
     orderBy: { id: "desc" },
     include: {
       LectureonCategory: { include: { category: true } },
+      Lesson: { where: { deleted: false }, select: { title: true } },
     },
   });
   const lectures = lectureData.map((lecture) => ({

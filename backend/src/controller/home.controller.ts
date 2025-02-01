@@ -4,9 +4,15 @@ import { Purchase, Status } from "@prisma/client";
 
 export const home = async (req: Request, res: Response) => {
   try {
-    const totalStudent = await prisma.student.count();
-    const totalLesson = await prisma.lesson.count();
-    const totalLecture = await prisma.lecture.count();
+    const totalStudent = await prisma.student.count({
+      where: { deleted: false },
+    });
+    const totalLesson = await prisma.lesson.count({
+      where: { deleted: false },
+    });
+    const totalLecture = await prisma.lecture.count({
+      where: { deleted: false },
+    });
     const totalPurchase = await prisma.purchase.count({
       where: { payment_status: "CONFIRMED" },
     });
