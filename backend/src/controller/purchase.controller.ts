@@ -100,8 +100,9 @@ export const update = async (req: Request, res: Response) => {
     }
 
     const student = await prisma.student.findFirst({
-      where: { id: studentId },
+      where: { id: purchase.studentId },
     });
+
     if (student) {
       mailSend(student?.email);
     }
