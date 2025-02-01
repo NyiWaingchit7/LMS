@@ -10,7 +10,12 @@ export const store = async (req: Request, res: Response) => {
     const purchase = await prisma.purchase.create({
       data: { lectureId, studentId: user.id, payment_assetUrl, total_price },
     });
-    mailSend();
+    const student = await prisma.student.findFirst({
+      where: { id: user?.id },
+    });
+    if (student) {
+      mailSend(student?.email);
+    }
     return res.status(200).json({ purchase });
   } catch (error) {
     return res.status(500).json({ error });

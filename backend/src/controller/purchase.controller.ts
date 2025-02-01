@@ -57,7 +57,12 @@ export const store = async (req: Request, res: Response) => {
     const purchase = await prisma.purchase.create({
       data: { lectureId, studentId, payment_assetUrl, total_price },
     });
-    mailSend();
+    const student = await prisma.student.findFirst({
+      where: { id: studentId },
+    });
+    if (student) {
+      mailSend(student?.email);
+    }
     return res.status(200).json({ purchase });
   } catch (error) {
     return res.status(500).json({ error });
@@ -94,7 +99,12 @@ export const update = async (req: Request, res: Response) => {
       }
     }
 
-    mailSend();
+    const student = await prisma.student.findFirst({
+      where: { id: studentId },
+    });
+    if (student) {
+      mailSend(student?.email);
+    }
 
     return res.status(200).json({ purchase });
   } catch (error) {

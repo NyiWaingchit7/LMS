@@ -8,6 +8,8 @@ interface Config {
   password: string;
   apiSecret: string;
   apiId: string;
+  mailSender: string;
+  mailPassword: string;
 }
 
 export const config: Config = {
@@ -18,4 +20,6 @@ export const config: Config = {
   password: process.env.PASSWORD_SEEDER || "",
   apiSecret: process.env.API_SECERE_KEY || "",
   apiId: process.env.API_ID || "",
+  mailPassword: process.env.MAIL_APP_PASSWORD || "",
+  mailSender: process.env.MAIL_SENDER || "",
 };
