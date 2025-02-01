@@ -8,6 +8,7 @@ import { userSettingRouter } from "../user/setting.route";
 import { userTagLineRouter } from "../user/tagLine.route";
 import { userPopularLectureRouter } from "../user/popular_lecture.route";
 import { verifyApiToken } from "../../../utils/auth";
+import { index } from "../../controller/user/home.controller";
 
 export const userRouterGroup = express.Router();
 userRouterGroup.use(verifyApiToken);
@@ -21,3 +22,4 @@ userRouterGroup.use("/settings", userSettingRouter);
 userRouterGroup.use("/popular-lectures", userPopularLectureRouter);
 
 userRouterGroup.use("/auth", userAuthRouter);
+userRouterGroup.get("/home", index);
