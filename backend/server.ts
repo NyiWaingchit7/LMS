@@ -36,13 +36,13 @@ app.get(
   "/api/v1/auth/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
-    console.log(config.frontenUrl);
+    console.log(config.frontendUrl);
 
     if (req.user) {
       const { student, token } = req.user as any;
       return res.send(`
         <script>
-          window.opener.postMessage({ token: "${token}" },"${config.frontenUrl}");
+          window.opener.postMessage({ token: "${token}" },"${config.frontendUrl}");
           window.close();
         </script>
       `);

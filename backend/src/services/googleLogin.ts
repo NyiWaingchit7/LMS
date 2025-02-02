@@ -3,13 +3,14 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { prisma } from "../utils/db";
 import { config } from "../utils/config";
+console.log("Google Redirect URI:", config.callbackUrl);
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: config.clientID as string,
       clientSecret: config.clientSecret as string,
-      callbackURL: "/api/v1/auth/google/callback",
+      callbackURL: config.callbackUrl as string,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
