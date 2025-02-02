@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.store = void 0;
 const auth_1 = require("../../utils/auth");
 const db_1 = require("../../utils/db");
-const mailer_1 = require("../../utils/mailer");
+const purchaseEmailService_1 = require("../../services/mail/purchaseEmailService");
 const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { lectureId, payment_assetUrl, total_price } = req.body;
@@ -24,7 +24,10 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             where: { id: user === null || user === void 0 ? void 0 : user.id },
         });
         if (student) {
-            (0, mailer_1.mailSend)(student === null || student === void 0 ? void 0 : student.email);
+            (0, purchaseEmailService_1.sendpurchaseEmail)({
+                receiver: student === null || student === void 0 ? void 0 : student.email,
+                templateName: "purchaseEmailTemplate",
+            });
         }
         return res.status(200).json({ purchase });
     }

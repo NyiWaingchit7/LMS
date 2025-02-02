@@ -17,10 +17,12 @@ const passport_1 = __importDefault(require("passport"));
 const passport_google_oauth20_1 = require("passport-google-oauth20");
 const db_1 = require("../utils/db");
 const config_1 = require("../utils/config");
+console.log("Google Redirect URI:", config_1.config.callbackUrl);
 passport_1.default.use(new passport_google_oauth20_1.Strategy({
     clientID: config_1.config.clientID,
     clientSecret: config_1.config.clientSecret,
-    callbackURL: "/api/v1/auth/google/callback",
+    callbackURL: config_1.config.callbackUrl,
+    scope: ["profile", "email"],
 }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d;
     try {

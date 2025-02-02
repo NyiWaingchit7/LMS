@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPurchase = exports.destroy = exports.update = exports.store = exports.create = exports.show = exports.index = void 0;
 const db_1 = require("../utils/db");
 const pagination_1 = require("../utils/pagination");
-const mailer_1 = require("../utils/mailer");
+const purchaseEmailService_1 = require("../services/mail/purchaseEmailService");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const searchKey = req.query.searchKey || "";
     const purchases = yield db_1.prisma.purchase.findMany({
@@ -68,7 +68,10 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             where: { id: studentId },
         });
         if (student) {
-            (0, mailer_1.mailSend)(student === null || student === void 0 ? void 0 : student.email);
+            (0, purchaseEmailService_1.sendpurchaseEmail)({
+                receiver: student === null || student === void 0 ? void 0 : student.email,
+                templateName: "purchaseEmailTemplate",
+            });
         }
         return res.status(200).json({ purchase });
     }
@@ -109,7 +112,10 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             where: { id: purchase.studentId },
         });
         if (student) {
-            (0, mailer_1.mailSend)(student === null || student === void 0 ? void 0 : student.email);
+            (0, purchaseEmailService_1.sendpurchaseEmail)({
+                receiver: student === null || student === void 0 ? void 0 : student.email,
+                templateName: "purchaseEmailTemplate",
+            });
         }
         return res.status(200).json({ purchase });
     }

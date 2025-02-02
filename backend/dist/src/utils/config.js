@@ -18,5 +18,6 @@ exports.config = {
     mailSender: process.env.MAIL_SENDER || "",
     clientID: process.env.GOOGLE_CLIENT_ID || "",
     clientSecret: process.env.GOOGLE_CLENT_SECRET || "",
-    frontenUrl: process.env.FRONT_END_URL || "",
+    frontendUrl: process.env.FRONT_END_URL || "",
+    callbackUrl: process.env.CALLBACK_URL || "",
 };
