@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.store = exports.index = void 0;
-const db_1 = require("../../utils/db");
+const db_1 = require("../utils/db");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield db_1.prisma.setting.findMany();

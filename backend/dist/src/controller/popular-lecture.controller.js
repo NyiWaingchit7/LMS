@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.detail = exports.destroy = exports.update = exports.store = exports.create = exports.show = exports.index = void 0;
-const db_1 = require("../../utils/db");
-const pagination_1 = require("../../utils/pagination");
+const db_1 = require("../utils/db");
+const pagination_1 = require("../utils/pagination");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { searchKey } = req.query;
     const lectureData = yield db_1.prisma.popularLecture.findMany({

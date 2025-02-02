@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.destroy = exports.update = exports.store = exports.show = exports.index = void 0;
-const db_1 = require("../../utils/db");
+const db_1 = require("../utils/db");
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const pagination_1 = require("../../utils/pagination");
+const pagination_1 = require("../utils/pagination");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const searchKey = req.query.searchKey || "";
     const students = yield db_1.prisma.student.findMany({

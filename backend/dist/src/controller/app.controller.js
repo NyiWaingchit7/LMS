@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = exports.index = void 0;
-const db_1 = require("../../utils/db");
+const db_1 = require("../utils/db");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const config_1 = require("../../utils/config");
+const config_1 = require("../utils/config");
 const index = (req, res) => {
     console.log("hello");
     return res.send("hello");

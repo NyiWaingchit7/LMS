@@ -8,6 +8,7 @@ dotenv.config();
 import { adminRouterGroup } from "./src/routes/group/admin.route";
 import { userRouterGroup } from "./src/routes/group/user.route";
 import { verifyApiToken } from "./src/utils/auth";
+import { config } from "./src/utils/config";
 
 const app = express();
 
@@ -35,11 +36,13 @@ app.get(
   "/api/v1/auth/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
+    console.log(config.frontenUrl);
+
     if (req.user) {
       const { student, token } = req.user as any;
       return res.send(`
         <script>
-          window.opener.postMessage({ token: "${token}" },"http://localhost:5173");
+          window.opener.postMessage({ token: "${token}" },"${config.frontenUrl}");
           window.close();
         </script>
       `);

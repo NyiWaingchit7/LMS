@@ -10,9 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPurchase = exports.destroy = exports.update = exports.store = exports.create = exports.show = exports.index = void 0;
-const db_1 = require("../../utils/db");
-const pagination_1 = require("../../utils/pagination");
-const mailer_1 = require("../../utils/mailer");
+const db_1 = require("../utils/db");
+const pagination_1 = require("../utils/pagination");
+const mailer_1 = require("../utils/mailer");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const searchKey = req.query.searchKey || "";
     const purchases = yield db_1.prisma.purchase.findMany({
@@ -64,7 +64,12 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const purchase = yield db_1.prisma.purchase.create({
             data: { lectureId, studentId, payment_assetUrl, total_price },
         });
-        (0, mailer_1.mailSend)();
+        const student = yield db_1.prisma.student.findFirst({
+            where: { id: studentId },
+        });
+        if (student) {
+            (0, mailer_1.mailSend)(student === null || student === void 0 ? void 0 : student.email);
+        }
         return res.status(200).json({ purchase });
     }
     catch (error) {
@@ -100,7 +105,12 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 });
             }
         }
-        (0, mailer_1.mailSend)();
+        const student = yield db_1.prisma.student.findFirst({
+            where: { id: purchase.studentId },
+        });
+        if (student) {
+            (0, mailer_1.mailSend)(student === null || student === void 0 ? void 0 : student.email);
+        }
         return res.status(200).json({ purchase });
     }
     catch (error) {

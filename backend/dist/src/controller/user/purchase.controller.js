@@ -10,9 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.store = void 0;
-const auth_1 = require("../../../utils/auth");
-const db_1 = require("../../../utils/db");
-const mailer_1 = require("../../../utils/mailer");
+const auth_1 = require("../../utils/auth");
+const db_1 = require("../../utils/db");
+const mailer_1 = require("../../utils/mailer");
 const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { lectureId, payment_assetUrl, total_price } = req.body;
@@ -20,7 +20,12 @@ const store = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const purchase = yield db_1.prisma.purchase.create({
             data: { lectureId, studentId: user.id, payment_assetUrl, total_price },
         });
-        (0, mailer_1.mailSend)();
+        const student = yield db_1.prisma.student.findFirst({
+            where: { id: user === null || user === void 0 ? void 0 : user.id },
+        });
+        if (student) {
+            (0, mailer_1.mailSend)(student === null || student === void 0 ? void 0 : student.email);
+        }
         return res.status(200).json({ purchase });
     }
     catch (error) {

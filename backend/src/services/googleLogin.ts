@@ -7,8 +7,8 @@ import { config } from "../utils/config";
 passport.use(
   new GoogleStrategy(
     {
-      clientID: config.clientID,
-      clientSecret: config.clientSecret,
+      clientID: config.clientID as string,
+      clientSecret: config.clientSecret as string,
       callbackURL: "/api/v1/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {

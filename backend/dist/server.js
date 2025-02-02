@@ -6,18 +6,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const express_session_1 = __importDefault(require("express-session"));
+const googleLogin_1 = __importDefault(require("./src/services/googleLogin"));
 dotenv_1.default.config();
 const admin_route_1 = require("./src/routes/group/admin.route");
-const user_rout_1 = require("./src/routes/group/user.rout");
+const user_route_1 = require("./src/routes/group/user.route");
+const auth_1 = require("./src/utils/auth");
+const config_1 = require("./src/utils/config");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use((0, express_session_1.default)({
+    secret: process.env.SESSION_SECRET || "mysecret",
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(googleLogin_1.default.initialize());
+app.use(googleLogin_1.default.session());
 const port = 4000;
+app.get("/api/v1/auth/google", auth_1.verifyApiToken, googleLogin_1.default.authenticate("google", { scope: ["profile", "email"] }));
+app.get("/api/v1/auth/google/callback", googleLogin_1.default.authenticate("google", { session: false }), (req, res) => {
+    console.log(config_1.config.frontenUrl);
+    if (req.user) {
+        const { student, token } = req.user;
+        return res.send(`
+        <script>
+          window.opener.postMessage({ token: "${token}" },"${config_1.config.frontenUrl}");
+          window.close();
+        </script>
+      `);
+    }
+    return res.status(401).json({ message: "Google login failed" });
+});
 //admin
 app.use("/api/v1/admin", admin_route_1.adminRouterGroup);
 //user
-app.use("api/v1", user_rout_1.userRouterGroup);
+app.use("/api/v1", user_route_1.userRouterGroup);
 //default
 app.get("/", (req, res) => {
     res.send("hello");

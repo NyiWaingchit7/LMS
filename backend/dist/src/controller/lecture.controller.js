@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.searchLecture = exports.destroy = exports.update = exports.store = exports.create = exports.show = exports.index = void 0;
-const db_1 = require("../../utils/db");
-const pagination_1 = require("../../utils/pagination");
+const db_1 = require("../utils/db");
+const pagination_1 = require("../utils/pagination");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { searchKey, isPremium, categoryId } = req.query;
     console.log(isPremium);
@@ -33,6 +33,7 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         orderBy: { id: "desc" },
         include: {
             LectureonCategory: { include: { category: true } },
+            Lesson: { where: { deleted: false }, select: { title: true } },
         },
     });
     const lectures = lectureData.map((lecture) => (Object.assign(Object.assign({}, lecture), { categories: lecture.LectureonCategory.map((lc) => lc.category) })));

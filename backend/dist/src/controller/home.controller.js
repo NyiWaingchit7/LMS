@@ -10,13 +10,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.home = void 0;
-const db_1 = require("../../utils/db");
+const db_1 = require("../utils/db");
 const client_1 = require("@prisma/client");
 const home = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const totalStudent = yield db_1.prisma.student.count();
-        const totalLesson = yield db_1.prisma.lesson.count();
-        const totalLecture = yield db_1.prisma.lecture.count();
+        const totalStudent = yield db_1.prisma.student.count({
+            where: { deleted: false },
+        });
+        const totalLesson = yield db_1.prisma.lesson.count({
+            where: { deleted: false },
+        });
+        const totalLecture = yield db_1.prisma.lecture.count({
+            where: { deleted: false },
+        });
         const totalPurchase = yield db_1.prisma.purchase.count({
             where: { payment_status: "CONFIRMED" },
         });

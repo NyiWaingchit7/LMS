@@ -12,13 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateRandomCode = exports.changePassword = exports.forgetPasswordChange = exports.forgetVerify = exports.forgetPassword = exports.profileDelete = exports.myProfile = exports.verify = exports.login = exports.register = void 0;
+exports.changePassword = exports.forgetPasswordChange = exports.forgetVerify = exports.forgetPassword = exports.profileDelete = exports.myProfile = exports.verify = exports.login = exports.register = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const db_1 = require("../../../utils/db");
+const db_1 = require("../../utils/db");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const config_1 = require("../../../utils/config");
+const config_1 = require("../../utils/config");
 const node_cache_1 = __importDefault(require("node-cache"));
-const auth_1 = require("../../../utils/auth");
+const auth_1 = require("../../utils/auth");
+const generateOtpCode_1 = require("../../helper/generateOtpCode");
 const cache = new node_cache_1.default({ stdTTL: 660 });
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password, phone, assetUrl } = req.body;
@@ -26,7 +27,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const isvalid = name && email && password;
         if (!isvalid)
             return res.status(400).json({ message: "All fields are required!" });
-        const code = (0, exports.generateRandomCode)();
+        const code = (0, generateOtpCode_1.generateRandomCode)();
         cache.set(email, code);
         return res.status(200).json({ code });
     }
@@ -42,11 +43,12 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!isvalid)
             return res.status(400).json({ message: "All fields are required" });
         const student = yield db_1.prisma.student.findFirst({ where: { email } });
-        if (!student)
+        if (!student) {
             return res
                 .status(404)
                 .json({ message: "There is no user with this email" });
-        const passwordValidate = yield bcrypt_1.default.compare(password, student.password);
+        }
+        const passwordValidate = yield bcrypt_1.default.compare(password, student === null || student === void 0 ? void 0 : student.password);
         if (!passwordValidate) {
             return res.status(400).json({ message: "Wrong password" });
         }
@@ -134,7 +136,7 @@ const forgetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
             return res
                 .status(404)
                 .json({ message: "There is no user with this Email." });
-        const code = (0, exports.generateRandomCode)();
+        const code = (0, generateOtpCode_1.generateRandomCode)();
         cache.set(email, code);
         return res.status(200).json({ code });
     }
@@ -205,9 +207,3 @@ const changePassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.changePassword = changePassword;
-const generateRandomCode = (length = 6) => {
-    const min = Math.pow(10, length - 1);
-    const max = Math.pow(10, length) - 1;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-exports.generateRandomCode = generateRandomCode;

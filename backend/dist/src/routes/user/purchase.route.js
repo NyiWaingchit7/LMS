@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userPurchaseRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const auth_1 = require("../../../utils/auth");
+const auth_1 = require("../../utils/auth");
 const purchase_controller_1 = require("../../controller/purchase.controller");
 const purchase_controller_2 = require("../../controller/user/purchase.controller");
 const purchase_validator_1 = require("../../validator/user/purchase.validator");
