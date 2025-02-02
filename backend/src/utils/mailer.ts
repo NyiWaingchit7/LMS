@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { config } from "./config";
+import { loadEmailTemplate } from "../helper/loadEmailTemplate";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -9,13 +10,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const mailSend = async (receiver: string) => {
+export const mailSend = async (receiver: string, body: any) => {
   const info = await transporter.sendMail({
     from: config.mailSender,
     to: receiver,
-    subject: "Hello ✔",
-    text: "Hello world?",
-    html: "<b>Hello world?</b>",
+    subject: "Email Confirmation",
+    html: body,
   });
 
   console.log("Message sent: %s", info.accepted);

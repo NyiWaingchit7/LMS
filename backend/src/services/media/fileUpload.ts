@@ -5,7 +5,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { storage } from "./firebaseConfig";
+import { storage } from "../../utils/firebaseConfig";
 import { v4 } from "uuid";
 import { Multer } from "multer";
 export const fileUpload = async (req: Request, res: Response) => {
