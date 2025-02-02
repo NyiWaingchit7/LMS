@@ -37,6 +37,7 @@ app.get(
   passport.authenticate("google", { session: false }),
   (req, res) => {
     console.log(config.frontendUrl);
+    console.log("ehllo");
 
     if (req.user) {
       const { student, token } = req.user as any;

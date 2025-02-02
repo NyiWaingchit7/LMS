@@ -10,10 +10,12 @@ passport.use(
     {
       clientID: config.clientID as string,
       clientSecret: config.clientSecret as string,
-      callbackURL: config.callbackUrl as string,
+      callbackURL: "/api/v1/auth/google/callback",
+      scope: ["profile", "email"],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        console.log("Google OAuth Profile:", profile);
         let student = await prisma.student.findFirst({
           where: { email: profile.emails?.[0]?.value },
         });
