@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { prisma } from "../../utils/db";
+import { prisma } from "../utils/db";
 import { Status } from "@prisma/client";
-import { usePagination } from "../../utils/pagination";
-import { mailSend } from "../../utils/mailer";
+import { usePagination } from "../utils/pagination";
+import { mailSend } from "../utils/mailer";
 
 export const index = async (req: Request, res: Response) => {
   const searchKey = (req.query.searchKey as string) || "";

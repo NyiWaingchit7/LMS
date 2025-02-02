@@ -10,7 +10,7 @@
   },
   "include": [
     "server.ts",
-    "utils/**/*.ts",
+    "src/utils/**/*.ts",
     "src/**/*.ts",
     "prisma/schema.prisma"
   ],

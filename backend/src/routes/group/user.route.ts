@@ -7,10 +7,11 @@ import { userPaymentRouter } from "../user/payment.route";
 import { userSettingRouter } from "../user/setting.route";
 import { userTagLineRouter } from "../user/tagLine.route";
 import { userPopularLectureRouter } from "../user/popular_lecture.route";
-import { verifyApiToken } from "../../../utils/auth";
+import { verifyApiToken } from "../../utils/auth";
 import { index } from "../../controller/user/home.controller";
 
 export const userRouterGroup = express.Router();
+
 userRouterGroup.use(verifyApiToken);
 
 userRouterGroup.use("/categories", userCategoryRouter);

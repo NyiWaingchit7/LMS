@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "../../../utils/db";
+import { prisma } from "../../utils/db";
 export const index = async (req: Request, res: Response) => {
   const all_course = await prisma.lecture.count({ where: { deleted: false } });
   const free_course = await prisma.lecture.count({

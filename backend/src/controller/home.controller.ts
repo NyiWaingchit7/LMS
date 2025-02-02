@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "../../utils/db";
+import { prisma } from "../utils/db";
 import { Purchase, Status } from "@prisma/client";
 
 export const home = async (req: Request, res: Response) => {

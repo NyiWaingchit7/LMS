@@ -10,6 +10,8 @@ interface Config {
   apiId: string;
   mailSender: string;
   mailPassword: string;
+  clientID: string;
+  clientSecret: string;
 }
 
 export const config: Config = {
@@ -22,4 +24,6 @@ export const config: Config = {
   apiId: process.env.API_ID || "",
   mailPassword: process.env.MAIL_APP_PASSWORD || "",
   mailSender: process.env.MAIL_SENDER || "",
+  clientID: process.env.GOOGLE_CLIENT_ID || "",
+  clientSecret: process.env.GOOGLE_CLENT_SECRET || "",
 };

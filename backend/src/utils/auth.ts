@@ -56,11 +56,12 @@ export const verifyApiToken = (
   next: NextFunction
 ) => {
   const header = req.headers;
+  const oauthToken = req.query.api_token;
   const authorization = header.api_token as any;
-  if (!authorization)
+  if (!authorization && !oauthToken)
     return res.status(403).json({ message: "Invalid or expired token!" });
 
-  const token = authorization.split(" ")[1];
+  const token = authorization?.split(" ")[1] || oauthToken;
 
   try {
     const decoded = jwt.verify(token, config.apiSecret) as any;

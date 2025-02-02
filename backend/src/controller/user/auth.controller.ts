@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { prisma } from "../../../utils/db";
+import { prisma } from "../../utils/db";
 import jwt from "jsonwebtoken";
-import { config } from "../../../utils/config";
+import { config } from "../../utils/config";
 import NodeCache from "node-cache";
-import { getUserFromToken } from "../../../utils/auth";
+import { getUserFromToken } from "../../utils/auth";
+import { generateRandomCode } from "../../helper/generateOtpCode";
 
 const cache = new NodeCache({ stdTTL: 660 });
 
@@ -31,12 +32,16 @@ export const login = async (req: Request, res: Response) => {
     if (!isvalid)
       return res.status(400).json({ message: "All fields are required" });
     const student = await prisma.student.findFirst({ where: { email } });
-    if (!student)
+    if (!student) {
       return res
         .status(404)
         .json({ message: "There is no user with this email" });
+    }
 
-    const passwordValidate = await bcrypt.compare(password, student.password);
+    const passwordValidate = await bcrypt.compare(
+      password,
+      student?.password as string
+    );
 
     if (!passwordValidate) {
       return res.status(400).json({ message: "Wrong password" });
@@ -193,9 +198,4 @@ export const changePassword = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ error });
   }
-};
-export const generateRandomCode = (length = 6) => {
-  const min = Math.pow(10, length - 1);
-  const max = Math.pow(10, length) - 1;
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 };

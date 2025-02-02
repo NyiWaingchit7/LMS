@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { prisma } from "../../utils/db";
+import { prisma } from "../utils/db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { config } from "../../utils/config";
+import { config } from "../utils/config";
 
 export const index = (req: Request, res: Response) => {
   console.log("hello");

@@ -1,6 +1,6 @@
 import express from "express";
 
-import { usercheckauth } from "../../../utils/auth";
+import { usercheckauth } from "../../utils/auth";
 import {
   destroy,
   index,
