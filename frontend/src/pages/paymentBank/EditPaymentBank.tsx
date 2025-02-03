@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import { PaymentBank, paymentBankData } from "../../types/payment_bank";
+import { PaymentBank, paymentBankData } from "@/types/payment_bank";
 import {
-  handleShowPaymentBank,
   setPaymentBankData,
-} from "../../store/slice/payment_bankSlice";
+  showPaymentBank,
+} from "@/store/slice/payment_bankSlice";
 
 export const EditPaymentBank = () => {
   const id = Number(useParams().id);
@@ -18,7 +18,7 @@ export const EditPaymentBank = () => {
   ) as PaymentBank;
 
   useEffect(() => {
-    dispatch(handleShowPaymentBank(id));
+    dispatch(showPaymentBank(id));
     return () => {
       dispatch(setPaymentBankData(paymentBankData));
     };

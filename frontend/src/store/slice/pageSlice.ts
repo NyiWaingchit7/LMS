@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import toast from "react-hot-toast";
 import {
   CreatePage,
@@ -8,9 +8,9 @@ import {
   pageData,
   PageSlice,
   UpdatePage,
-} from "../../types/page";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+} from "@/types/page";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: PageSlice = {
   items: [],
   links: [],
@@ -19,7 +19,7 @@ const initialState: PageSlice = {
   error: null,
 };
 
-export const handleGetPage = createAsyncThunk(
+export const getPage = createAsyncThunk(
   "get/page",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -42,7 +42,7 @@ export const handleGetPage = createAsyncThunk(
     }
   }
 );
-export const handleShowPage = createAsyncThunk(
+export const showPage = createAsyncThunk(
   "show/page",
   async (id: number, thunkApi) => {
     try {
@@ -60,7 +60,7 @@ export const handleShowPage = createAsyncThunk(
     }
   }
 );
-export const handleCreatePage = createAsyncThunk(
+export const storePage = createAsyncThunk(
   "creat/page",
   async (option: CreatePage, thunkApi) => {
     const { title, content, onSuccess } = option;
@@ -86,7 +86,7 @@ export const handleCreatePage = createAsyncThunk(
   }
 );
 
-export const handleUpdatePage = createAsyncThunk(
+export const updatePage = createAsyncThunk(
   "update/page",
   async (option: UpdatePage, thunkApi) => {
     const { id, title, content, onSuccess } = option;
@@ -111,7 +111,7 @@ export const handleUpdatePage = createAsyncThunk(
   }
 );
 
-export const handleDeletePage = createAsyncThunk(
+export const deletePage = createAsyncThunk(
   "delete/page",
   async (option: DeletePage) => {
     const { id, onSuccess } = option;

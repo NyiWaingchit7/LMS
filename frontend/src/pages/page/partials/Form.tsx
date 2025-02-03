@@ -1,22 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Paper,
-  TextField,
-} from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
-import { Error } from "../../../component/Error";
+import { Button, Paper, TextField } from "@mui/material";
+import { InputLabel } from "@/component/InputLabel";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
-import { Page } from "../../../types/page";
-import {
-  handleCreatePage,
-  handleUpdatePage,
-  setPageError,
-} from "../../../store/slice/pageSlice";
-import { Editor } from "../../../component/Editor";
+import { Page } from "@/types/page";
+import { setPageError, storePage, updatePage } from "@/store/slice/pageSlice";
+import { Editor } from "@/component/Editor";
 
 interface Props {
   page?: Page;
@@ -33,7 +25,6 @@ export const Form = ({ page }: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const errors = useAppSelector((store) => store.page.error);
-  const [content, setContent] = useState("");
 
   const onSuccess = () => {
     toast.success("Page is created successfully.");
@@ -42,15 +33,14 @@ export const Form = ({ page }: Props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(handleCreatePage({ ...sumbitForm, content, onSuccess }));
+    dispatch(storePage({ ...sumbitForm, onSuccess }));
   };
 
   const handleUpdate = () => {
     dispatch(
-      handleUpdatePage({
+      updatePage({
         id: page?.id as number,
         ...sumbitForm,
-        content,
         onSuccess: () => {
           toast.success("Page is updated successfully.");
         },
@@ -59,7 +49,7 @@ export const Form = ({ page }: Props) => {
   };
   useEffect(() => {
     if (page) {
-      setForm(page);
+      setForm({ ...page });
     }
     return () => {
       dispatch(setPageError(null));
@@ -76,16 +66,19 @@ export const Form = ({ page }: Props) => {
           fullWidth
           required
           autoComplete="off"
-          value={sumbitForm.title}
+          value={sumbitForm.title || ""}
           onChange={(e) => setForm({ ...sumbitForm, title: e.target.value })}
         />
+        <div>{sumbitForm.title}</div>
         <Error message={errors?.title || ""} />
       </div>
       <div>
         <InputLabel label="content" />
         <Editor
-          setContent={setContent}
-          content={content || sumbitForm.content}
+          onChange={(value: string) => {
+            setForm((prev) => ({ ...prev, content: value }));
+          }}
+          content={sumbitForm.content || ""}
         />
         <Error message={errors?.content || ""} />
       </div>

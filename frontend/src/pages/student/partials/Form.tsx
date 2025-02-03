@@ -1,16 +1,16 @@
 import { Button, Paper, TextField } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
+import { InputLabel } from "@/component/InputLabel";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import { useNavigate } from "react-router-dom";
-import { CreateStudent, Student } from "../../../types/student";
+import { CreateStudent, Student } from "@/types/student";
 import {
-  handleCreateStudent,
-  handleUpdateStudent,
   setStudentError,
-} from "../../../store/slice/studentSlice";
-import { Error } from "../../../component/Error";
+  storeStudent,
+  updateStudent,
+} from "@/store/slice/studentSlice";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
 
 interface Props {
@@ -37,14 +37,12 @@ export const Form = ({ student }: Props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(
-      handleCreateStudent({ ...(sumbitForm as CreateStudent), onSuccess })
-    );
+    dispatch(storeStudent({ ...(sumbitForm as CreateStudent), onSuccess }));
   };
 
   const handleUpdate = () => {
     dispatch(
-      handleUpdateStudent({
+      updateStudent({
         id: student?.id as number,
         ...sumbitForm,
         onSuccess: () => {

@@ -1,16 +1,13 @@
 import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  handleShowCategory,
-  setCategoryData,
-} from "../../store/slice/categorySlice";
-import { Image } from "../../component/Image";
-import { Category, categoryData } from "../../types/category";
-import { DetailButton } from "../../component/DetailButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setCategoryData, showCategory } from "@/store/slice/categorySlice";
+import { Image } from "@/component/Image";
+import { Category, categoryData } from "@/types/category";
+import { DetailButton } from "@/component/DetailButton";
 
 export const ShowCategory = () => {
   const id = Number(useParams().id);
@@ -19,7 +16,7 @@ export const ShowCategory = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(handleShowCategory(id));
+    dispatch(showCategory(id));
     return () => {
       dispatch(setCategoryData(categoryData));
     };
@@ -49,7 +46,7 @@ export const ShowCategory = () => {
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
                 {category?.assetUrl && (
-                  <Image src={category?.assetUrl || "./../test.jpg"} />
+                  <Image src={category?.assetUrl || "/test.jpg"} />
                 )}
               </td>
             </tr>

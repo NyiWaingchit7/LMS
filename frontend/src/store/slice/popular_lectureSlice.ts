@@ -6,10 +6,10 @@ import {
   DeletePopularLecture,
   PopularLectureSlice,
   UpdatePopularLecture,
-} from "../../types/popular_lecture";
-import { fetchFunction } from "../../utils/useFetchFunction";
-import { Payload } from "../../types/auth";
-import { errorHelper } from "../../utils/errorHelper";
+} from "@/types/popular_lecture";
+import { fetchFunction } from "@/utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { errorHelper } from "@/utils/errorHelper";
 const initialState: PopularLectureSlice = {
   items: [],
   links: [],
@@ -19,7 +19,7 @@ const initialState: PopularLectureSlice = {
   popularLecture: null,
 };
 
-export const getlCreateLectures = createAsyncThunk(
+export const createPopularLecture = createAsyncThunk(
   "get/create-lecture",
   async (_, thunkApi) => {
     try {
@@ -37,7 +37,7 @@ export const getlCreateLectures = createAsyncThunk(
   }
 );
 
-export const handleGetPopularLecture = createAsyncThunk(
+export const getPopularLecture = createAsyncThunk(
   "get/lecture",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -62,7 +62,7 @@ export const handleGetPopularLecture = createAsyncThunk(
     }
   }
 );
-export const handleShowPoppularLecture = createAsyncThunk(
+export const showPopularLecture = createAsyncThunk(
   "show/lecture",
   async (id: number, thunkApi) => {
     try {
@@ -82,7 +82,7 @@ export const handleShowPoppularLecture = createAsyncThunk(
     }
   }
 );
-export const handleCreatePopularLecture = createAsyncThunk(
+export const storePopularLecture = createAsyncThunk(
   "creat/lecture",
   async (option: CreatePopularLecture, thunkApi) => {
     const { title, lectureId, onSuccess } = option;
@@ -107,7 +107,7 @@ export const handleCreatePopularLecture = createAsyncThunk(
   }
 );
 
-export const handleUpdatePopularLecture = createAsyncThunk(
+export const updatePopularLecture = createAsyncThunk(
   "update/lecture",
   async (option: UpdatePopularLecture, thunkApi) => {
     const { id, title, lectureId, onSuccess } = option;
@@ -132,7 +132,7 @@ export const handleUpdatePopularLecture = createAsyncThunk(
   }
 );
 
-export const handleDeletePopularLecture = createAsyncThunk(
+export const deletePopularLecture = createAsyncThunk(
   "delete/lecture",
   async (option: DeletePopularLecture) => {
     const { id, onSuccess } = option;

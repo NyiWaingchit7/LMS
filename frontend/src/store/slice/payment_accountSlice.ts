@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import {
   CreatePaymentAccount,
   DeletePaymentAccount,
   payment_accountData,
   PaymentAccountSlice,
   UpdatePaymentAccount,
-} from "../../types/payment_account";
+} from "@/types/payment_account";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 
 const initialState: PaymentAccountSlice = {
   items: [],
@@ -20,7 +20,7 @@ const initialState: PaymentAccountSlice = {
   error: null,
   banks: [],
 };
-export const handleGetCreateAccount = createAsyncThunk(
+export const createPaymentAccount = createAsyncThunk(
   "get/account-banks",
   async (_, thunkApi) => {
     try {
@@ -36,7 +36,7 @@ export const handleGetCreateAccount = createAsyncThunk(
     }
   }
 );
-export const handleGetPaymentAccount = createAsyncThunk(
+export const getPaymentAccount = createAsyncThunk(
   "get/payment-account",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -59,7 +59,7 @@ export const handleGetPaymentAccount = createAsyncThunk(
     }
   }
 );
-export const handleShowPaymentAccount = createAsyncThunk(
+export const showPaymentAccount = createAsyncThunk(
   "show/payment-account",
   async (id: number, thunkApi) => {
     try {
@@ -79,7 +79,7 @@ export const handleShowPaymentAccount = createAsyncThunk(
     }
   }
 );
-export const handleCreatePaymentAccount = createAsyncThunk(
+export const storePaymentAccount = createAsyncThunk(
   "creat/payment-account",
   async (option: CreatePaymentAccount, thunkApi) => {
     const { name, phone_number, payment_bank_id, onSuccess } = option;
@@ -105,7 +105,7 @@ export const handleCreatePaymentAccount = createAsyncThunk(
   }
 );
 
-export const handleUpdatePaymentAccount = createAsyncThunk(
+export const updatePaymentAccount = createAsyncThunk(
   "update/payment-account",
   async (option: UpdatePaymentAccount, thunkApi) => {
     const { id, name, phone_number, payment_bank_id, onSuccess } = option;
@@ -131,7 +131,7 @@ export const handleUpdatePaymentAccount = createAsyncThunk(
   }
 );
 
-export const handleDeletePaymentAccount = createAsyncThunk(
+export const deletePaymentAccount = createAsyncThunk(
   "delete/payment-account",
   async (option: DeletePaymentAccount) => {
     const { id, onSuccess } = option;

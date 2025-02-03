@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import { Lesson, lessonData } from "../../types/lesson";
+import { Lesson, lessonData } from "@/types/lesson";
 import {
-  handleGetLectureinLesson,
-  handleShowLesson,
+  createLesson,
   setLessonData,
-} from "../../store/slice/lessonSlice";
+  showLesson,
+} from "@/store/slice/lessonSlice";
 
 export const EditLesson = () => {
   const id = Number(useParams().id);
@@ -18,14 +18,13 @@ export const EditLesson = () => {
   const lectures = useAppSelector((store) => store.lesson.lectures);
 
   useEffect(() => {
-    dispatch(handleShowLesson(id));
-    dispatch(handleGetLectureinLesson());
+    dispatch(showLesson(id));
+    dispatch(createLesson());
 
     return () => {
       dispatch(setLessonData(lessonData));
     };
   }, [id]);
-  if (!lesson) return null;
   return (
     <Layout title="Edit Lesson">
       <HeadLine header="Edit Lesson" />

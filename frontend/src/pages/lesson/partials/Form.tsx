@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
-import { Lecture, lectureData } from "../../../types/lecture";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { Lecture, lectureData } from "@/types/lecture";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   Autocomplete,
   Button,
   FormControl,
+  MenuItem,
   Paper,
+  Select,
   TextField,
 } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
-import { Lesson } from "../../../types/lesson";
+import { InputLabel } from "@/component/InputLabel";
+import { Lesson } from "@/types/lesson";
 import {
-  handleCreateLesson,
-  handleUpdateLesson,
   setLessonError,
-} from "../../../store/slice/lessonSlice";
-import { FileUpload } from "../../../component/FileUpload";
-import { Editor } from "../../../component/Editor";
-import { Error } from "../../../component/Error";
+  storeLesson,
+  updateLesson,
+} from "@/store/slice/lessonSlice";
+import { FileUpload } from "@/component/FileUpload";
+import { Editor } from "@/component/Editor";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
 
 interface Props {
@@ -37,26 +39,25 @@ const defaultForm = {
 };
 
 export const Form = ({ lectures, lesson }: Props) => {
-  const [sumbitForm, setForm] = useState<Lesson>(defaultForm);
+  const [submitForm, setForm] = useState<Lesson>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number | null>(null);
   const [imgUrl, setImgUrl] = useState("");
-  const [content, setContent] = useState("");
   const errors = useAppSelector((store) => store.lesson.error);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  console.log(submitForm);
 
   const onSuccess = () => {
     toast.success("Lesson is created successfully.");
     navigate("/lessons");
   };
 
-  const handleSubmit = () => {
+  const handlesubmitForm = () => {
     dispatch(
-      handleCreateLesson({
-        ...sumbitForm,
+      storeLesson({
+        ...submitForm,
         lectureId: selectedIds as number,
-        content,
         assetImage: imgUrl,
         onSuccess,
       })
@@ -65,10 +66,9 @@ export const Form = ({ lectures, lesson }: Props) => {
 
   const handleUpdate = () => {
     dispatch(
-      handleUpdateLesson({
+      updateLesson({
         id: lesson?.id as number,
-        ...sumbitForm,
-        content,
+        ...submitForm,
         assetImage: imgUrl,
         lectureId: selectedIds as number,
         onSuccess: () => {
@@ -81,7 +81,6 @@ export const Form = ({ lectures, lesson }: Props) => {
     if (lesson) {
       setForm(lesson);
       setSelectedIds(lesson.lectureId as number);
-      setContent(lesson.content);
     }
     return () => {
       dispatch(setLessonError(null));
@@ -98,8 +97,8 @@ export const Form = ({ lectures, lesson }: Props) => {
           fullWidth
           required
           autoComplete="off"
-          value={sumbitForm.title}
-          onChange={(e) => setForm({ ...sumbitForm, title: e.target.value })}
+          value={submitForm.title}
+          onChange={(e) => setForm({ ...submitForm, title: e.target.value })}
         />
         <Error message={errors?.title || ""} />
       </div>
@@ -113,9 +112,9 @@ export const Form = ({ lectures, lesson }: Props) => {
           fullWidth
           required
           autoComplete="off"
-          value={sumbitForm.description}
+          value={submitForm.description}
           onChange={(e) =>
-            setForm({ ...sumbitForm, description: e.target.value })
+            setForm({ ...submitForm, description: e.target.value })
           }
         />
         <Error message={errors?.description || ""} />
@@ -123,8 +122,10 @@ export const Form = ({ lectures, lesson }: Props) => {
       <div className="mt-5">
         <InputLabel label="content" />
         <Editor
-          setContent={setContent}
-          content={content || sumbitForm.content}
+          content={submitForm.content || ""}
+          onChange={(value: string) => {
+            setForm((prev) => ({ ...prev, content: value }));
+          }}
         />
         {/* <TextField
           id="content"
@@ -133,10 +134,10 @@ export const Form = ({ lectures, lesson }: Props) => {
           fullWidth
           required
           autoComplete="off"
-          value={sumbitForm.content}
+          value={submitForm.content}
           onChange={(e) => {
             setForm({
-              ...sumbitForm,
+              ...submitForm,
               content: e.target.value,
             });
           }}
@@ -146,7 +147,7 @@ export const Form = ({ lectures, lesson }: Props) => {
       <div className="mt-5">
         <FormControl fullWidth>
           <InputLabel label="lectures" />
-          {/* <Select
+          <Select
             id="lectures"
             size="small"
             value={selectedIds || ""}
@@ -159,8 +160,8 @@ export const Form = ({ lectures, lesson }: Props) => {
                 {d.title}
               </MenuItem>
             ))}
-          </Select> */}
-          <Autocomplete
+          </Select>
+          {/* <Autocomplete
             id="lectures"
             disableClearable
             options={lectures}
@@ -188,13 +189,13 @@ export const Form = ({ lectures, lesson }: Props) => {
                 }}
               />
             )}
-          />
+          /> */}
         </FormControl>
         <Error message={errors?.lectureId || ""} />
       </div>
       <div className="mt-5">
         <InputLabel label="image" />
-        <FileUpload setImgUrl={setImgUrl} editImg={sumbitForm.assetImage} />
+        <FileUpload setImgUrl={setImgUrl} editImg={submitForm.assetImage} />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button
@@ -211,10 +212,10 @@ export const Form = ({ lectures, lesson }: Props) => {
           size="small"
           variant="contained"
           onClick={() => {
-            lesson ? handleUpdate() : handleSubmit();
+            lesson ? handleUpdate() : handlesubmitForm();
           }}
         >
-          {lesson ? "Update" : "Submit"}
+          {lesson ? "Update" : "submitForm"}
         </Button>
       </div>
     </Paper>

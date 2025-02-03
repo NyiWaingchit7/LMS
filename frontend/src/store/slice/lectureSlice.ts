@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import {
   CreateLecture,
   DeleteLecture,
   lectureData,
   LectureSlice,
   UpdateLecture,
-} from "../../types/lecture";
+} from "@/types/lecture";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: LectureSlice = {
   items: [],
   links: [],
@@ -20,7 +20,7 @@ const initialState: LectureSlice = {
   categories: [],
 };
 
-export const handleGetCategoryinLecture = createAsyncThunk(
+export const createLecture = createAsyncThunk(
   "get/create-lecture",
   async (_, thunkApi) => {
     try {
@@ -38,7 +38,7 @@ export const handleGetCategoryinLecture = createAsyncThunk(
   }
 );
 
-export const handleGetLecture = createAsyncThunk(
+export const getLecture = createAsyncThunk(
   "get/lecture",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -63,7 +63,7 @@ export const handleGetLecture = createAsyncThunk(
     }
   }
 );
-export const handleShowLecture = createAsyncThunk(
+export const showLecture = createAsyncThunk(
   "show/lecture",
   async (id: number, thunkApi) => {
     try {
@@ -81,7 +81,7 @@ export const handleShowLecture = createAsyncThunk(
     }
   }
 );
-export const handleCreateLecture = createAsyncThunk(
+export const storeLecture = createAsyncThunk(
   "creat/lecture",
   async (option: CreateLecture, thunkApi) => {
     const {
@@ -120,7 +120,7 @@ export const handleCreateLecture = createAsyncThunk(
   }
 );
 
-export const handleUpdateLecture = createAsyncThunk(
+export const updateLecture = createAsyncThunk(
   "update/lecture",
   async (option: UpdateLecture, thunkApi) => {
     const {
@@ -160,7 +160,7 @@ export const handleUpdateLecture = createAsyncThunk(
   }
 );
 
-export const handleDeleteLecture = createAsyncThunk(
+export const deleteLecture = createAsyncThunk(
   "delete/lecture",
   async (option: DeleteLecture) => {
     const { id, onSuccess } = option;

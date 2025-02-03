@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import {
   CreatePurchase,
   DeletePurchase,
   purchaseData,
   PurchaseSlice,
   UpdatePurchase,
-} from "../../types/purchase";
+} from "@/types/purchase";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: PurchaseSlice = {
   items: [],
   links: [],
@@ -20,7 +20,7 @@ const initialState: PurchaseSlice = {
   students: [],
   lectures: [],
 };
-export const handlGetCreatePurchase = createAsyncThunk(
+export const createPurchase = createAsyncThunk(
   "get/create-purchase",
   async (_, thunkApi) => {
     try {
@@ -37,7 +37,7 @@ export const handlGetCreatePurchase = createAsyncThunk(
     }
   }
 );
-export const handleGetPurchase = createAsyncThunk(
+export const getPurchase = createAsyncThunk(
   "get/purchase",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -60,7 +60,7 @@ export const handleGetPurchase = createAsyncThunk(
     }
   }
 );
-export const handleShowPurchase = createAsyncThunk(
+export const showPurchase = createAsyncThunk(
   "show/purchase",
   async (id: number, thunkApi) => {
     try {
@@ -80,7 +80,7 @@ export const handleShowPurchase = createAsyncThunk(
     }
   }
 );
-export const handleCreatePurchase = createAsyncThunk(
+export const storePurchase = createAsyncThunk(
   "creat/purchase",
   async (option: CreatePurchase, thunkApi) => {
     const { studentId, lectureId, payment_assetUrl, onSuccess, total_price } =
@@ -108,7 +108,7 @@ export const handleCreatePurchase = createAsyncThunk(
   }
 );
 
-export const handleUpdatePurchase = createAsyncThunk(
+export const updatePurchase = createAsyncThunk(
   "update/purchase",
   async (option: UpdatePurchase) => {
     const { id, payment_status, onSuccess } = option;
@@ -132,7 +132,7 @@ export const handleUpdatePurchase = createAsyncThunk(
   }
 );
 
-export const handleDeletPurchase = createAsyncThunk(
+export const deletPurchase = createAsyncThunk(
   "delete/purchase",
   async (option: DeletePurchase) => {
     const { id, onSuccess } = option;

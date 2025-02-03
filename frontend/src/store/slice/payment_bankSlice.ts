@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import {
   CreatePaymentBank,
   DeletePaymentBank,
   paymentBankData,
   PaymentBankSlice,
   UpdatePaymentBank,
-} from "../../types/payment_bank";
+} from "@/types/payment_bank";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: PaymentBankSlice = {
   items: [],
   links: [],
@@ -19,7 +19,7 @@ const initialState: PaymentBankSlice = {
   error: null,
 };
 
-export const handleGetPaymentBank = createAsyncThunk(
+export const getPaymentBank = createAsyncThunk(
   "get/payment-bank",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -43,7 +43,7 @@ export const handleGetPaymentBank = createAsyncThunk(
     }
   }
 );
-export const handleShowPaymentBank = createAsyncThunk(
+export const showPaymentBank = createAsyncThunk(
   "show/payment-bank",
   async (id: number, thunkApi) => {
     try {
@@ -63,7 +63,7 @@ export const handleShowPaymentBank = createAsyncThunk(
     }
   }
 );
-export const handleCreatePaymentBank = createAsyncThunk(
+export const storePaymentBank = createAsyncThunk(
   "creat/payment-bank",
   async (option: CreatePaymentBank, thunkApi) => {
     const { name, assetUrl, onSuccess } = option;
@@ -85,7 +85,7 @@ export const handleCreatePaymentBank = createAsyncThunk(
   }
 );
 
-export const handleUpdatePaymentBank = createAsyncThunk(
+export const updatePaymentBank = createAsyncThunk(
   "update/payment-bank",
   async (option: UpdatePaymentBank, thunkApi) => {
     const { id, name, assetUrl, onSuccess } = option;
@@ -108,7 +108,7 @@ export const handleUpdatePaymentBank = createAsyncThunk(
   }
 );
 
-export const handleDeletPaymentBank = createAsyncThunk(
+export const deletePaymentBank = createAsyncThunk(
   "delete/payment-bank",
   async (option: DeletePaymentBank) => {
     const { id, onSuccess } = option;

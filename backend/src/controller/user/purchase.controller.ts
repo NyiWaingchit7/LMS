@@ -16,8 +16,9 @@ export const store = async (req: Request, res: Response) => {
     });
     if (student) {
       sendpurchaseEmail({
-        receiver: student?.email,
+        user: student?.email,
         templateName: "purchaseEmailTemplate",
+        data: student,
       });
     }
     return res.status(200).json({ purchase });

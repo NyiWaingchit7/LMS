@@ -2,11 +2,15 @@ import { mailSend } from "../../utils/mailer";
 import { loadEmailTemplate } from "../../helper/loadEmailTemplate";
 interface Props {
   user: string;
-  data?: any;
+  code?: any;
   templateName: string;
 }
-export const sendpurchaseEmail = ({ user, templateName, data }: Props) => {
-  let emailContent = loadEmailTemplate(templateName, data, "purchase");
+export const sendOtpEmail = ({
+  user,
+  templateName = "otpTemplate",
+  code,
+}: Props) => {
+  let emailContent = loadEmailTemplate(templateName, code, "otp");
   if (!emailContent) {
     emailContent = "<b>there is no template</b>";
     return;

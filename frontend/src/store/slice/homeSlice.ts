@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
-import { HomeSlice } from "../../types/home";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { errorHelper } from "@/utils/errorHelper";
+import { HomeSlice } from "@/types/home";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: HomeSlice = {
   isLoading: false,
   homeData: null,

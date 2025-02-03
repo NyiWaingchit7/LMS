@@ -25,7 +25,7 @@ export const Image = ({ src }: Props) => {
       >
         <DialogTitle></DialogTitle>
         <DialogContent>
-          <img src={src} className="max-w-44 h-fit" />
+          <img src={src} className="w-56" />
         </DialogContent>
       </Dialog>
     </div>

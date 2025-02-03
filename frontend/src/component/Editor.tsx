@@ -20,15 +20,16 @@ import {
 import "ckeditor5/ckeditor5.css";
 
 interface Props {
-  setContent: (data?: any) => void;
   content: string;
+  onChange: (data?: any) => void;
 }
 
-export const Editor = ({ setContent, content }: Props) => {
+export const Editor = ({ content, onChange }: Props) => {
   return (
     <CKEditor
       onChange={(e, data) => {
-        setContent(data.getData());
+        const newValue = data.getData();
+        onChange(newValue);
         console.log(e);
       }}
       editor={ClassicEditor}

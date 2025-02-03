@@ -1,16 +1,13 @@
 import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { DetailButton } from "../../component/DetailButton";
-import { TagLine, tagLineData } from "../../types/tagline";
-import {
-  handleShowTagLine,
-  setTagLineData,
-} from "../../store/slice/taglinSlice";
+import { DetailButton } from "@/component/DetailButton";
+import { TagLine, tagLineData } from "@/types/tagline";
+import { setTagLineData, showTagLine } from "@/store/slice/taglinSlice";
 
 export const ShowTagLine = () => {
   const id = Number(useParams().id);
@@ -19,7 +16,7 @@ export const ShowTagLine = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(handleShowTagLine(id));
+    dispatch(showTagLine(id));
     return () => {
       dispatch(setTagLineData(tagLineData));
     };

@@ -7,18 +7,18 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { Pagination } from "../../../component/Pagination";
+import { Pagination } from "@/component/Pagination";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  handleDeletePopularLecture,
-  handleGetPopularLecture,
+  deletePopularLecture,
+  getPopularLecture,
   setPopularLectureLink,
-} from "../../../store/slice/popular_lectureSlice";
-import { PopularLecture } from "../../../types/popular_lecture";
-import { usePage } from "../../../utils/getPage";
+} from "@/store/slice/popular_lectureSlice";
+import { PopularLecture } from "@/types/popular_lecture";
+import { usePage } from "@/utils/getPage";
 
 interface Props {
   data: PopularLecture[];
@@ -31,12 +31,12 @@ export const ListTable = ({ data }: Props) => {
 
   const handleDelete = (id: number) => {
     dispatch(
-      handleDeletePopularLecture({
+      deletePopularLecture({
         id,
         onSuccess: () => {
           toast.success("Lecture is deleted successfully.");
 
-          dispatch(handleGetPopularLecture({ page }));
+          dispatch(getPopularLecture({ page }));
         },
       })
     );

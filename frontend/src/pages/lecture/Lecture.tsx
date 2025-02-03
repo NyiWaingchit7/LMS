@@ -1,11 +1,11 @@
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { ListTable } from "./partials/ListTable";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import { handleGetLecture } from "../../store/slice/lectureSlice";
-import { usePage } from "../../utils/getPage";
-import { SearchButton } from "../../component/SearchButton";
+import { getLecture } from "@/store/slice/lectureSlice";
+import { usePage } from "@/utils/getPage";
+import { SearchButton } from "@/component/SearchButton";
 
 export const Lecture = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export const Lecture = () => {
   const { page, searchKey } = usePage();
 
   useEffect(() => {
-    dispatch(handleGetLecture({ page, searchKey }));
+    dispatch(getLecture({ page, searchKey }));
   }, [page, searchKey]);
   return (
     <Layout title="Lectures">

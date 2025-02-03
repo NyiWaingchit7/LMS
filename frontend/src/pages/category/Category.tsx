@@ -1,11 +1,11 @@
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { ListTable } from "./partials/ListTable";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleGetCategory } from "../../store/slice/categorySlice";
-import { usePage } from "../../utils/getPage";
-import { SearchButton } from "../../component/SearchButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { usePage } from "@/utils/getPage";
+import { SearchButton } from "@/component/SearchButton";
+import { getCategory } from "@/store/slice/categorySlice";
 
 export const Category = () => {
   const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ export const Category = () => {
   useEffect(() => {
     console.log(page, searchKey);
 
-    dispatch(handleGetCategory({ page, searchKey }));
+    dispatch(getCategory({ page, searchKey }));
   }, [page, searchKey]);
 
   return (

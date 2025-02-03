@@ -9,7 +9,6 @@ import { adminRouterGroup } from "./src/routes/group/admin.route";
 import { userRouterGroup } from "./src/routes/group/user.route";
 import { verifyApiToken } from "./src/utils/auth";
 import { config } from "./src/utils/config";
-import ejs from "ejs";
 import path from "path";
 import { loadEmailTemplate } from "./src/helper/loadEmailTemplate";
 
@@ -18,6 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src", "views"));
 app.use(
@@ -63,7 +63,11 @@ app.get("/preview-email", (req, res) => {
     message: "Welcome to our platform!",
   };
 
-  const emailContent = loadEmailTemplate("purchaseEmailTemplate", userData);
+  const emailContent = loadEmailTemplate(
+    "purchaseEmailTemplate",
+    { userData },
+    "purchase"
+  );
   if (!emailContent) {
     return res.status(404).send("Template not found.");
   }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import {
-  handleCreateLecture,
-  handleUpdateLecture,
   setLectureError,
-} from "../../../store/slice/lectureSlice";
-import { Lecture } from "../../../types/lecture";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+  storeLecture,
+  updateLecture,
+} from "@/store/slice/lectureSlice";
+import { Lecture } from "@/types/lecture";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -17,11 +17,11 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
-import { Category } from "../../../types/category";
-import { Error } from "../../../component/Error";
+import { InputLabel } from "@/component/InputLabel";
+import { Category } from "@/types/category";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
-import { FileUpload } from "../../../component/FileUpload";
+import { FileUpload } from "@/component/FileUpload";
 
 interface Props {
   lecture?: Lecture;
@@ -64,7 +64,7 @@ export const Form = ({ lecture, categories }: Props) => {
 
   const handleSubmit = () => {
     dispatch(
-      handleCreateLecture({
+      storeLecture({
         ...sumbitForm,
         assetUrl: imgUrl,
         categories: selectedIds,
@@ -75,7 +75,7 @@ export const Form = ({ lecture, categories }: Props) => {
 
   const handleUpdate = () => {
     dispatch(
-      handleUpdateLecture({
+      updateLecture({
         id: lecture?.id as number,
         ...sumbitForm,
         categories: selectedIds,
