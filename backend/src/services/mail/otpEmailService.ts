@@ -2,8 +2,8 @@ import { mailSend } from "../../utils/mailer";
 import { loadEmailTemplate } from "../../helper/loadEmailTemplate";
 interface Props {
   user: string;
-  code?: any;
-  templateName: string;
+  code: any;
+  templateName?: string;
 }
 export const sendOtpEmail = ({
   user,
@@ -15,5 +15,5 @@ export const sendOtpEmail = ({
     emailContent = "<b>there is no template</b>";
     return;
   }
-  mailSend(user, emailContent);
+  mailSend(user, emailContent, "OTP");
 };

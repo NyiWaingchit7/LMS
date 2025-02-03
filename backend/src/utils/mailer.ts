@@ -10,11 +10,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const mailSend = async (receiver: string, body: any) => {
+export const mailSend = async (
+  receiver: string,
+  body: any,
+  subject: string
+) => {
   const info = await transporter.sendMail({
     from: config.mailSender,
     to: receiver,
-    subject: "Email Confirmation",
+    subject,
     html: body,
   });
 

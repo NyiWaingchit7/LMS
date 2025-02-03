@@ -6,6 +6,7 @@ import { config } from "../../utils/config";
 import NodeCache from "node-cache";
 import { getUserFromToken } from "../../utils/auth";
 import { generateRandomCode } from "../../helper/generateOtpCode";
+import { sendOtpEmail } from "../../services/mail/otpEmailService";
 
 const cache = new NodeCache({ stdTTL: 660 });
 
@@ -18,8 +19,8 @@ export const register = async (req: Request, res: Response) => {
 
     const code = generateRandomCode();
     cache.set(email, code);
-
-    return res.status(200).json({ code });
+    sendOtpEmail({ user: email, code });
+    return res.status(200).json({ message: "Otp code is sent to your email." });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -130,8 +131,8 @@ export const forgetPassword = async (req: Request, res: Response) => {
         .json({ message: "There is no user with this Email." });
     const code = generateRandomCode();
     cache.set(email, code);
-
-    return res.status(200).json({ code });
+    sendOtpEmail({ user: email, code });
+    return res.status(200).json({ message: "Otp code is sent to your email." });
   } catch (error) {
     return res.status(500).json({ error });
   }

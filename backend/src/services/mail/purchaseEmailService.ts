@@ -11,5 +11,5 @@ export const sendpurchaseEmail = ({ user, templateName, data }: Props) => {
     emailContent = "<b>there is no template</b>";
     return;
   }
-  mailSend(user, emailContent);
+  mailSend(user, emailContent, "Purchase Confirmation");
 };
