@@ -3,7 +3,6 @@ import { Lecture, lectureData } from "@/types/lecture";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
 import {
-  Autocomplete,
   Button,
   FormControl,
   MenuItem,
