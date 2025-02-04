@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Lecture } from "../../../types/lecture";
+import { Lecture } from "@/types/lecture";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -10,15 +10,15 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
+import { InputLabel } from "@/component/InputLabel";
 import toast from "react-hot-toast";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  handleCreatePopularLecture,
-  handleUpdatePopularLecture,
   setPopularLectureError,
-} from "../../../store/slice/popular_lectureSlice";
-import { Error } from "../../../component/Error";
+  storePopularLecture,
+  updatePopularLecture,
+} from "@/store/slice/popular_lectureSlice";
+import { Error } from "@/component/Error";
 
 interface Props {
   lecture?: any;
@@ -46,7 +46,7 @@ export const Form = ({ lecture, lectures }: Props) => {
 
   const handleSubmit = () => {
     dispatch(
-      handleCreatePopularLecture({
+      storePopularLecture({
         ...sumbitForm,
         lectureId: selectedIds as number,
         onSuccess,
@@ -56,7 +56,7 @@ export const Form = ({ lecture, lectures }: Props) => {
 
   const handleUpdate = () => {
     dispatch(
-      handleUpdatePopularLecture({
+      updatePopularLecture({
         id: lecture?.id as number,
         ...sumbitForm,
         lectureId: selectedIds as number,

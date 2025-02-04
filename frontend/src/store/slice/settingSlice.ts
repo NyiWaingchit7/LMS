@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CreateSetting, SettingSlice } from "../../types/setting";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { CreateSetting, SettingSlice } from "@/types/setting";
+import { fetchFunction } from "@/utils/useFetchFunction";
 import toast from "react-hot-toast";
 const initialState: SettingSlice = {
   data: null,

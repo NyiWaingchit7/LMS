@@ -5,11 +5,11 @@ import {
   CreateCategory,
   DeleteCategory,
   UpdateCategory,
-} from "../../types/category";
-import { errorHelper } from "../../utils/errorHelper";
+} from "@/types/category";
+import { errorHelper } from "@/utils/errorHelper";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: CategorySlice = {
   items: [],
   links: [],
@@ -18,7 +18,7 @@ const initialState: CategorySlice = {
   error: null,
 };
 
-export const handleGetCategory = createAsyncThunk(
+export const getCategory = createAsyncThunk(
   "get/category",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -43,7 +43,7 @@ export const handleGetCategory = createAsyncThunk(
     }
   }
 );
-export const handleShowCategory = createAsyncThunk(
+export const showCategory = createAsyncThunk(
   "show/category",
   async (id: number, thunkApi) => {
     try {
@@ -63,7 +63,7 @@ export const handleShowCategory = createAsyncThunk(
     }
   }
 );
-export const handleCreateCategory = createAsyncThunk(
+export const storeCategory = createAsyncThunk(
   "creat/category",
   async (option: CreateCategory, thunkApi) => {
     const { name, assetUrl, onSuccess } = option;
@@ -85,7 +85,7 @@ export const handleCreateCategory = createAsyncThunk(
   }
 );
 
-export const handleUpdateCategory = createAsyncThunk(
+export const updateCategory = createAsyncThunk(
   "update/category",
   async (option: UpdateCategory, thunkApi) => {
     const { id, name, assetUrl, onSuccess } = option;
@@ -108,7 +108,7 @@ export const handleUpdateCategory = createAsyncThunk(
   }
 );
 
-export const handleDeletCategory = createAsyncThunk(
+export const deletCategory = createAsyncThunk(
   "delete/category",
   async (option: DeleteCategory) => {
     const { id, onSuccess } = option;

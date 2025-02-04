@@ -1,11 +1,11 @@
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { ListTable } from "./partials/ListTable";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import { handleGetLesson } from "../../store/slice/lessonSlice";
-import { usePage } from "../../utils/getPage";
-import { SearchButton } from "../../component/SearchButton";
+import { usePage } from "@/utils/getPage";
+import { SearchButton } from "@/component/SearchButton";
+import { getLesson } from "@/store/slice/lessonSlice";
 
 export const Lesson = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export const Lesson = () => {
   const { page, searchKey } = usePage();
 
   useEffect(() => {
-    dispatch(handleGetLesson({ page, searchKey }));
+    dispatch(getLesson({ page, searchKey }));
   }, [page, searchKey]);
   return (
     <Layout title="Lessons">

@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import {
   CreateLesson,
   DeleteLesson,
   lessonData,
   LessonSlice,
   UpdateLesson,
-} from "../../types/lesson";
+} from "@/types/lesson";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 
 const initialState: LessonSlice = {
   items: [],
@@ -21,7 +21,7 @@ const initialState: LessonSlice = {
   lectures: [],
 };
 
-export const handleGetLectureinLesson = createAsyncThunk(
+export const createLesson = createAsyncThunk(
   "get/create-lesson",
   async (_, thunkApi) => {
     try {
@@ -36,7 +36,7 @@ export const handleGetLectureinLesson = createAsyncThunk(
   }
 );
 
-export const handleGetLesson = createAsyncThunk(
+export const getLesson = createAsyncThunk(
   "get/lesson",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -59,7 +59,7 @@ export const handleGetLesson = createAsyncThunk(
     }
   }
 );
-export const handleShowLesson = createAsyncThunk(
+export const showLesson = createAsyncThunk(
   "show/lesson",
   async (id: number, thunkApi) => {
     try {
@@ -77,7 +77,7 @@ export const handleShowLesson = createAsyncThunk(
     }
   }
 );
-export const handleCreateLesson = createAsyncThunk(
+export const storeLesson = createAsyncThunk(
   "creat/lesson",
   async (option: CreateLesson, thunkApi) => {
     const {
@@ -115,7 +115,7 @@ export const handleCreateLesson = createAsyncThunk(
   }
 );
 
-export const handleUpdateLesson = createAsyncThunk(
+export const updateLesson = createAsyncThunk(
   "update/lesson",
   async (option: UpdateLesson, thunkApi) => {
     const {
@@ -154,7 +154,7 @@ export const handleUpdateLesson = createAsyncThunk(
   }
 );
 
-export const handleDeleteLesson = createAsyncThunk(
+export const deleteLesson = createAsyncThunk(
   "delete/lesson",
   async (option: DeleteLesson) => {
     const { id, onSuccess } = option;

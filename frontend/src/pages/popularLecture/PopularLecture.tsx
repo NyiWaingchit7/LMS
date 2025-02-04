@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
-import { SearchButton } from "../../component/SearchButton";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleGetPopularLecture } from "../../store/slice/popular_lectureSlice";
-import { usePage } from "../../utils/getPage";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { SearchButton } from "@/component/SearchButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { usePage } from "@/utils/getPage";
 import { ListTable } from "./partials/ListTable";
+import { getPopularLecture } from "@/store/slice/popular_lectureSlice";
 
 export const PopularLecture = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export const PopularLecture = () => {
   const { page, searchKey } = usePage();
 
   useEffect(() => {
-    dispatch(handleGetPopularLecture({ page, searchKey }));
+    dispatch(getPopularLecture({ page, searchKey }));
   }, [page, searchKey]);
   return (
     <Layout title="Poppular Lectures">

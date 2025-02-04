@@ -7,19 +7,15 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import toast from "react-hot-toast";
-import { Pagination } from "../../../component/Pagination";
+import { Pagination } from "@/component/Pagination";
 import { useEffect } from "react";
-import { usePage } from "../../../utils/getPage";
-import { TagLine } from "../../../types/tagline";
-import {
-  handleDeletTagLine,
-  handleGetTagLine,
-  setLinks,
-} from "../../../store/slice/taglinSlice";
+import { usePage } from "@/utils/getPage";
+import { TagLine } from "@/types/tagline";
+import { deletTagLine, getTagLine, setLinks } from "@/store/slice/taglinSlice";
 
 interface Props {
   data: TagLine[];
@@ -30,11 +26,11 @@ export const ListTable = ({ data }: Props) => {
   const { page, searchKey } = usePage();
   const handleDelete = (id: number) => {
     dispatch(
-      handleDeletTagLine({
+      deletTagLine({
         id,
         onSuccess: () => {
           toast.success("TagLine is deleted successfully");
-          dispatch(handleGetTagLine({ page, searchKey }));
+          dispatch(getTagLine({ page, searchKey }));
         },
       })
     );

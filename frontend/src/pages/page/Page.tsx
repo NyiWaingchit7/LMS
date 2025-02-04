@@ -1,11 +1,11 @@
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { ListTable } from "./partials/ListTable";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { usePage } from "../../utils/getPage";
-import { handleGetPage } from "../../store/slice/pageSlice";
-import { SearchButton } from "../../component/SearchButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { usePage } from "@/utils/getPage";
+import { SearchButton } from "@/component/SearchButton";
+import { getPage } from "@/store/slice/pageSlice";
 
 export const Page = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export const Page = () => {
   const { page, searchKey } = usePage();
 
   useEffect(() => {
-    dispatch(handleGetPage({ page, searchKey }));
+    dispatch(getPage({ page, searchKey }));
   }, [page, searchKey]);
   return (
     <Layout title="Pages">

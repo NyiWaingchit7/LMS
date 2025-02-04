@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import {
   CreateStudent,
   DeletStudent,
   studentData,
   StudentSlice,
   UpdateStudent,
-} from "../../types/student";
+} from "@/types/student";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 const initialState: StudentSlice = {
   items: [],
   links: [],
@@ -18,7 +18,7 @@ const initialState: StudentSlice = {
   error: null,
 };
 
-export const handleGetStudent = createAsyncThunk(
+export const getStudent = createAsyncThunk(
   "get/student",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -41,7 +41,7 @@ export const handleGetStudent = createAsyncThunk(
     }
   }
 );
-export const handleShowStudent = createAsyncThunk(
+export const showStudent = createAsyncThunk(
   "show/student",
   async (id: number, thunkApi) => {
     try {
@@ -59,7 +59,7 @@ export const handleShowStudent = createAsyncThunk(
     }
   }
 );
-export const handleCreateStudent = createAsyncThunk(
+export const storeStudent = createAsyncThunk(
   "creat/category",
   async (option: CreateStudent, thunkApi) => {
     const { name, email, password, phone, assetUrl, onSuccess } = option;
@@ -81,7 +81,7 @@ export const handleCreateStudent = createAsyncThunk(
   }
 );
 
-export const handleUpdateStudent = createAsyncThunk(
+export const updateStudent = createAsyncThunk(
   "update/category",
   async (option: UpdateStudent, thunkApi) => {
     const { id, name, email, password, phone, assetUrl, onSuccess } = option;
@@ -106,7 +106,7 @@ export const handleUpdateStudent = createAsyncThunk(
   }
 );
 
-export const handleDeletStudent = createAsyncThunk(
+export const deletStudent = createAsyncThunk(
   "delete/student",
   async (option: DeletStudent) => {
     const { id, onSuccess } = option;

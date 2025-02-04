@@ -7,20 +7,20 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { Image } from "../../../component/Image";
-import { PaymentBank } from "../../../types/payment_bank";
+import { Image } from "@/component/Image";
+import { PaymentBank } from "@/types/payment_bank";
 import {
-  handleDeletPaymentBank,
-  handleGetPaymentBank,
+  deletePaymentBank,
+  getPaymentBank,
   setPaymentBankLink,
-} from "../../../store/slice/payment_bankSlice";
+} from "@/store/slice/payment_bankSlice";
 import toast from "react-hot-toast";
-import { Pagination } from "../../../component/Pagination";
+import { Pagination } from "@/component/Pagination";
 import { useEffect } from "react";
-import { usePage } from "../../../utils/getPage";
+import { usePage } from "@/utils/getPage";
 
 interface Props {
   data: PaymentBank[];
@@ -32,12 +32,12 @@ export const ListTable = ({ data }: Props) => {
 
   const handleDelete = (id: number) => {
     dispatch(
-      handleDeletPaymentBank({
+      deletePaymentBank({
         id,
         onSuccess: () => {
           toast.success("Payment Bank is deleted successfully.");
 
-          dispatch(handleGetPaymentBank({page}));
+          dispatch(getPaymentBank({ page }));
         },
       })
     );

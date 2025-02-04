@@ -1,13 +1,13 @@
 import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { handleShowLesson, setLessonData } from "../../store/slice/lessonSlice";
-import { Lesson, lessonData } from "../../types/lesson";
-import { Image } from "../../component/Image";
-import { DetailButton } from "../../component/DetailButton";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setLessonData, showLesson } from "@/store/slice/lessonSlice";
+import { Lesson, lessonData } from "@/types/lesson";
+import { Image } from "@/component/Image";
+import { DetailButton } from "@/component/DetailButton";
 
 export const ShowLesson = () => {
   const id = Number(useParams().id);
@@ -16,7 +16,7 @@ export const ShowLesson = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(handleShowLesson(id));
+    dispatch(showLesson(id));
     return () => {
       dispatch(setLessonData(lessonData));
     };
@@ -78,7 +78,7 @@ export const ShowLesson = () => {
               <th className="px-2 py-3 ">Image</th>
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
-                <Image src={lesson?.assetImage || "../test.jpg"} />
+                <Image src={lesson?.assetImage || "/test.jpg"} />
               </td>
             </tr>
           </tbody>

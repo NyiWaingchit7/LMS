@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { errorHelper } from "../../utils/errorHelper";
+import { errorHelper } from "@/utils/errorHelper";
 import toast from "react-hot-toast";
-import { Payload } from "../../types/auth";
-import { fetchFunction } from "../../utils/useFetchFunction";
+import { Payload } from "@/types/auth";
+import { fetchFunction } from "@/utils/useFetchFunction";
 import {
   CreateTagLine,
   DeleteTagLine,
   tagLineData,
   TagLineSlice,
   UpdateTagLine,
-} from "../../types/tagline";
+} from "@/types/tagline";
 const initialState: TagLineSlice = {
   items: [],
   links: [],
@@ -19,7 +19,7 @@ const initialState: TagLineSlice = {
   error: null,
 };
 
-export const handleGetTagLine = createAsyncThunk(
+export const getTagLine = createAsyncThunk(
   "get/category",
   async ({ page = 1, searchKey = "" }: Payload, thunkApi) => {
     try {
@@ -44,7 +44,7 @@ export const handleGetTagLine = createAsyncThunk(
     }
   }
 );
-export const handleShowTagLine = createAsyncThunk(
+export const showTagLine = createAsyncThunk(
   "show/tagline",
   async (id: number, thunkApi) => {
     try {
@@ -64,7 +64,7 @@ export const handleShowTagLine = createAsyncThunk(
     }
   }
 );
-export const handleCreateTagLine = createAsyncThunk(
+export const storeTagLine = createAsyncThunk(
   "creat/tagline",
   async (option: CreateTagLine, thunkApi) => {
     const { title, description, onSuccess } = option;
@@ -86,7 +86,7 @@ export const handleCreateTagLine = createAsyncThunk(
   }
 );
 
-export const handleUpdateTagLine = createAsyncThunk(
+export const updateTagLine = createAsyncThunk(
   "update/TagLine",
   async (option: UpdateTagLine, thunkApi) => {
     const { id, title, description, onSuccess } = option;
@@ -109,7 +109,7 @@ export const handleUpdateTagLine = createAsyncThunk(
   }
 );
 
-export const handleDeletTagLine = createAsyncThunk(
+export const deletTagLine = createAsyncThunk(
   "delete/tagline",
   async (option: DeleteTagLine) => {
     const { id, onSuccess } = option;

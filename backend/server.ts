@@ -9,13 +9,17 @@ import { adminRouterGroup } from "./src/routes/group/admin.route";
 import { userRouterGroup } from "./src/routes/group/user.route";
 import { verifyApiToken } from "./src/utils/auth";
 import { config } from "./src/utils/config";
+import path from "path";
+import { loadEmailTemplate } from "./src/helper/loadEmailTemplate";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src", "views"));
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "mysecret",
@@ -51,6 +55,25 @@ app.get(
     return res.status(401).json({ message: "Google login failed" });
   }
 );
+
+app.get("/preview-email", (req, res) => {
+  const userData = {
+    name: "John Doe",
+    email: "john@example.com",
+    message: "Welcome to our platform!",
+  };
+
+  const emailContent = loadEmailTemplate(
+    "purchaseEmailTemplate",
+    { userData },
+    "purchase"
+  );
+  if (!emailContent) {
+    return res.status(404).send("Template not found.");
+  }
+
+  res.send(emailContent); // Render template as HTML in browser
+});
 //admin
 app.use("/api/v1/admin", adminRouterGroup);
 //user

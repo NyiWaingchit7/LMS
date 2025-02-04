@@ -13,10 +13,14 @@ const admin_route_1 = require("./src/routes/group/admin.route");
 const user_route_1 = require("./src/routes/group/user.route");
 const auth_1 = require("./src/utils/auth");
 const config_1 = require("./src/utils/config");
+const path_1 = __importDefault(require("path"));
+const loadEmailTemplate_1 = require("./src/helper/loadEmailTemplate");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.set("views", path_1.default.join(__dirname, "src", "views"));
 app.use((0, express_session_1.default)({
     secret: process.env.SESSION_SECRET || "mysecret",
     resave: false,
@@ -27,17 +31,30 @@ app.use(googleLogin_1.default.session());
 const port = 4000;
 app.get("/api/v1/auth/google", auth_1.verifyApiToken, googleLogin_1.default.authenticate("google", { scope: ["profile", "email"] }));
 app.get("/api/v1/auth/google/callback", googleLogin_1.default.authenticate("google", { session: false }), (req, res) => {
-    console.log(config_1.config.frontenUrl);
+    console.log(config_1.config.frontendUrl);
+    console.log("ehllo");
     if (req.user) {
         const { student, token } = req.user;
         return res.send(`
         <script>
-          window.opener.postMessage({ token: "${token}" },"${config_1.config.frontenUrl}");
+          window.opener.postMessage({ token: "${token}" },"${config_1.config.frontendUrl}");
           window.close();
         </script>
       `);
     }
     return res.status(401).json({ message: "Google login failed" });
+});
+app.get("/preview-email", (req, res) => {
+    const userData = {
+        name: "John Doe",
+        email: "john@example.com",
+        message: "Welcome to our platform!",
+    };
+    const emailContent = (0, loadEmailTemplate_1.loadEmailTemplate)("purchaseEmailTemplate", userData);
+    if (!emailContent) {
+        return res.status(404).send("Template not found.");
+    }
+    res.send(emailContent); // Render template as HTML in browser
 });
 //admin
 app.use("/api/v1/admin", admin_route_1.adminRouterGroup);

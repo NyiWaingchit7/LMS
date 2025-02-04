@@ -1,18 +1,15 @@
 import { Button, FormControl, MenuItem, Paper, Select } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
 
-import { Lecture } from "../../../types/lecture";
-import { Student } from "../../../types/student";
-import { Purchase } from "../../../types/purchase";
-import {
-  handleCreatePurchase,
-  setPurchaseError,
-} from "../../../store/slice/purchaseSlice";
-import { InputLabel } from "../../../component/InputLabel";
-import { FileUpload } from "../../../component/FileUpload";
-import { Error } from "../../../component/Error";
+import { Lecture } from "@/types/lecture";
+import { Student } from "@/types/student";
+import { Purchase } from "@/types/purchase";
+import { setPurchaseError, storePurchase } from "@/store/slice/purchaseSlice";
+import { InputLabel } from "@/component/InputLabel";
+import { FileUpload } from "@/component/FileUpload";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
 
 interface Props {
@@ -45,7 +42,7 @@ export const Form = ({ students, lectures }: Props) => {
 
   const handleSubmit = () => {
     dispatch(
-      handleCreatePurchase({
+      storePurchase({
         ...sumbitForm,
         studentId: studentId as number,
         lectureId: lectureId as number,

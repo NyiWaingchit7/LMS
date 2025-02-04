@@ -1,14 +1,11 @@
 import { useParams } from "react-router-dom";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import {
-  handleShowCategory,
-  setCategoryData,
-} from "../../store/slice/categorySlice";
-import { Category, categoryData } from "../../types/category";
+import { setCategoryData, showCategory } from "@/store/slice/categorySlice";
+import { Category, categoryData } from "@/types/category";
 
 export const EditCategory = () => {
   const id = Number(useParams().id);
@@ -16,7 +13,7 @@ export const EditCategory = () => {
   const category = useAppSelector((store) => store.category.data) as Category;
 
   useEffect(() => {
-    dispatch(handleShowCategory(id));
+    dispatch(showCategory(id));
     return () => {
       dispatch(setCategoryData(categoryData));
     };

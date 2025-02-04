@@ -22,13 +22,12 @@ const transporter = nodemailer_1.default.createTransport({
         pass: config_1.config.mailPassword,
     },
 });
-const mailSend = (receiver) => __awaiter(void 0, void 0, void 0, function* () {
+const mailSend = (receiver, body) => __awaiter(void 0, void 0, void 0, function* () {
     const info = yield transporter.sendMail({
         from: config_1.config.mailSender,
         to: receiver,
-        subject: "Hello ✔",
-        text: "Hello world?",
-        html: "<b>Hello world?</b>",
+        subject: "Email Confirmation",
+        html: body,
     });
     console.log("Message sent: %s", info.accepted);
 });

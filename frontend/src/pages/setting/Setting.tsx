@@ -1,12 +1,12 @@
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Button, Paper, TextField } from "@mui/material";
-import { InputLabel } from "../../component/InputLabel";
-import { createSetting, getSetting } from "../../store/slice/settingSlice";
+import { InputLabel } from "@/component/InputLabel";
+import { createSetting, getSetting } from "@/store/slice/settingSlice";
 import toast from "react-hot-toast";
-import { Error } from "../../component/Error";
+import { Error } from "@/component/Error";
 
 export const SettingPage = () => {
   const dispatch = useAppDispatch();

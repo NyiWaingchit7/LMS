@@ -1,17 +1,17 @@
 import { Button, Paper, TextField } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
+import { InputLabel } from "@/component/InputLabel";
 import { useEffect, useState } from "react";
-import { Category } from "../../../types/category";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { Category } from "@/types/category";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
-import { PaymentBank } from "../../../types/payment_bank";
+import { PaymentBank } from "@/types/payment_bank";
 import {
-  handleCreatePaymentBank,
-  handleUpdatePaymentBank,
   setPaymentBankError,
-} from "../../../store/slice/payment_bankSlice";
-import { FileUpload } from "../../../component/FileUpload";
-import { Error } from "../../../component/Error";
+  storePaymentBank,
+  updatePaymentBank,
+} from "@/store/slice/payment_bankSlice";
+import { FileUpload } from "@/component/FileUpload";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
 
 interface Props {
@@ -36,14 +36,12 @@ export const Form = ({ paymentBank }: Props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(
-      handleCreatePaymentBank({ ...sumbitForm, assetUrl: imgUrl, onSuccess })
-    );
+    dispatch(storePaymentBank({ ...sumbitForm, assetUrl: imgUrl, onSuccess }));
   };
 
   const handleUpdate = () => {
     dispatch(
-      handleUpdatePaymentBank({
+      updatePaymentBank({
         id: paymentBank?.id as number,
         ...sumbitForm,
         assetUrl: imgUrl,

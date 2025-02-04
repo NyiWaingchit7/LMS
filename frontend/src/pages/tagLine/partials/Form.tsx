@@ -1,16 +1,16 @@
 import { Button, Paper, TextField } from "@mui/material";
-import { InputLabel } from "../../../component/InputLabel";
+import { InputLabel } from "@/component/InputLabel";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
-import { Error } from "../../../component/Error";
+import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
-import { TagLine } from "../../../types/tagline";
+import { TagLine } from "@/types/tagline";
 import {
-  handleCreateTagLine,
-  handleUpdateTagLine,
   setTagLineError,
-} from "../../../store/slice/taglinSlice";
+  storeTagLine,
+  updateTagLine,
+} from "@/store/slice/taglinSlice";
 
 interface Props {
   tagLine?: TagLine;
@@ -34,7 +34,7 @@ export const Form = ({ tagLine }: Props) => {
 
   const handleSubmit = async () => {
     dispatch(
-      handleCreateTagLine({
+      storeTagLine({
         ...sumbitForm,
         onSuccess,
       })
@@ -43,7 +43,7 @@ export const Form = ({ tagLine }: Props) => {
 
   const handleUpdate = () => {
     dispatch(
-      handleUpdateTagLine({
+      updateTagLine({
         id: tagLine?.id as number,
         ...sumbitForm,
         onSuccess: () => {

@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  handleShowPoppularLecture,
-  getlCreateLectures,
+  createPopularLecture,
   setPopularLectureData,
-} from "../../store/slice/popular_lectureSlice";
-import { PopularLecture } from "../../types/popular_lecture";
+  showPopularLecture,
+} from "@/store/slice/popular_lectureSlice";
+import { PopularLecture } from "@/types/popular_lecture";
 import { Form } from "./partials/Form";
 
 export const EditPopuarLecture = () => {
@@ -20,8 +20,8 @@ export const EditPopuarLecture = () => {
   const lectures = useAppSelector((store) => store.popularLecture.lectures);
 
   useEffect(() => {
-    dispatch(handleShowPoppularLecture(id));
-    dispatch(getlCreateLectures());
+    dispatch(showPopularLecture(id));
+    dispatch(createPopularLecture());
     return () => {
       dispatch(setPopularLectureData(null));
     };

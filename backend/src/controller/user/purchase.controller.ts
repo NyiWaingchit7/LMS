@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getUserFromToken } from "../../utils/auth";
 import { prisma } from "../../utils/db";
 import { mailSend } from "../../utils/mailer";
+import { sendpurchaseEmail } from "../../services/mail/purchaseEmailService";
 
 export const store = async (req: Request, res: Response) => {
   try {
@@ -14,7 +15,11 @@ export const store = async (req: Request, res: Response) => {
       where: { id: user?.id },
     });
     if (student) {
-      mailSend(student?.email);
+      sendpurchaseEmail({
+        user: student?.email,
+        templateName: "purchaseEmailTemplate",
+        data: student,
+      });
     }
     return res.status(200).json({ purchase });
   } catch (error) {

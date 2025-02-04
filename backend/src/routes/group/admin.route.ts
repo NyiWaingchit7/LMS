@@ -14,7 +14,7 @@ import { userRouter } from "../admin/user.route";
 import { appRouter } from "../admin/app.route";
 import { checkauth, verifyApiToken } from "../../utils/auth";
 import multer from "multer";
-import { fileDelete, fileUpload } from "../../utils/fileUpload";
+import { fileDelete, fileUpload } from "../../services/media/fileUpload";
 import { searchLecture } from "../../controller/lecture.controller";
 import { getPaymentBanks } from "../../controller/payment_bank.controller";
 import { createPurchase } from "../../controller/purchase.controller";

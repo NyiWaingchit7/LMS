@@ -1,17 +1,17 @@
 import { Button, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../component/layout/Layout";
-import { HeadLine } from "../../component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { Image } from "../../component/Image";
-import { PaymentBank, paymentBankData } from "../../types/payment_bank";
+import { Image } from "@/component/Image";
+import { PaymentBank, paymentBankData } from "@/types/payment_bank";
 import {
-  handleShowPaymentBank,
   setPaymentBankData,
-} from "../../store/slice/payment_bankSlice";
-import { DetailButton } from "../../component/DetailButton";
+  showPaymentBank,
+} from "@/store/slice/payment_bankSlice";
+import { DetailButton } from "@/component/DetailButton";
 
 export const ShowPaymentBank = () => {
   const id = Number(useParams().id);
@@ -22,7 +22,7 @@ export const ShowPaymentBank = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(handleShowPaymentBank(id));
+    dispatch(showPaymentBank(id));
     return () => {
       dispatch(setPaymentBankData(paymentBankData));
     };
@@ -51,7 +51,7 @@ export const ShowPaymentBank = () => {
               <th className="px-2 py-3 ">Image</th>
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
-                <Image src={paymentBank?.assetUrl || "./../test.jpg"} />
+                <Image src={paymentBank?.assetUrl || "/test.jpg"} />
               </td>
             </tr>
           </tbody>

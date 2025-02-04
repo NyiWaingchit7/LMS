@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prisma } from "../utils/db";
 import { Status } from "@prisma/client";
 import { usePagination } from "../utils/pagination";
-import { mailSend } from "../utils/mailer";
+import { sendpurchaseEmail } from "../services/mail/purchaseEmailService";
 
 export const index = async (req: Request, res: Response) => {
   const searchKey = (req.query.searchKey as string) || "";
@@ -61,7 +61,11 @@ export const store = async (req: Request, res: Response) => {
       where: { id: studentId },
     });
     if (student) {
-      mailSend(student?.email);
+      sendpurchaseEmail({
+        user: student?.email,
+        templateName: "purchaseEmailTemplate",
+        data: { student },
+      });
     }
     return res.status(200).json({ purchase });
   } catch (error) {
@@ -104,7 +108,11 @@ export const update = async (req: Request, res: Response) => {
     });
 
     if (student) {
-      mailSend(student?.email);
+      sendpurchaseEmail({
+        user: student?.email,
+        templateName: "purchaseEmailTemplate",
+        data: { student },
+      });
     }
 
     return res.status(200).json({ purchase });

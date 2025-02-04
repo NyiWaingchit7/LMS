@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { LoginOption, LoginSlice } from "../../types/auth";
-import { config } from "../../utils/config";
-import { errorHelper } from "../../utils/errorHelper";
+import { LoginOption, LoginSlice } from "@/types/auth";
+import { config } from "@/utils/config";
 import toast from "react-hot-toast";
+import { errorHelper } from "@/utils/errorHelper";
 
 const initialState: LoginSlice = {
   items: [],

@@ -1,14 +1,11 @@
 import { useParams } from "react-router-dom";
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { Form } from "./partials/Form";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import { Student, studentData } from "../../types/student";
-import {
-  handleShowStudent,
-  setStudentData,
-} from "../../store/slice/studentSlice";
+import { Student, studentData } from "@/types/student";
+import { setStudentData, showStudent } from "@/store/slice/studentSlice";
 
 export const EditStudent = () => {
   const id = Number(useParams().id);
@@ -16,7 +13,7 @@ export const EditStudent = () => {
   const student = useAppSelector((store) => store.student.data) as Student;
 
   useEffect(() => {
-    dispatch(handleShowStudent(id));
+    dispatch(showStudent(id));
     return () => {
       dispatch(setStudentData(studentData));
     };

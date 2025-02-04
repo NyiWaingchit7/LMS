@@ -1,11 +1,11 @@
-import { HeadLine } from "../../component/HeadLine";
-import { Layout } from "../../component/layout/Layout";
+import { HeadLine } from "@/component/HeadLine";
+import { Layout } from "@/component/layout/Layout";
 import { ListTable } from "./partials/ListTable";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
-import { handleGetPaymentAccount } from "../../store/slice/payment_accountSlice";
-import { usePage } from "../../utils/getPage";
-import { SearchButton } from "../../component/SearchButton";
+import { usePage } from "@/utils/getPage";
+import { SearchButton } from "@/component/SearchButton";
+import { getPaymentAccount } from "@/store/slice/payment_accountSlice";
 
 export const PaymentAccount = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export const PaymentAccount = () => {
   const { page, searchKey } = usePage();
 
   useEffect(() => {
-    dispatch(handleGetPaymentAccount({ page, searchKey }));
+    dispatch(getPaymentAccount({ page, searchKey }));
   }, [page, searchKey]);
   return (
     <Layout title="Payment Accounts">

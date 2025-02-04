@@ -3,8 +3,8 @@ import { TopBar } from "./TopBar";
 import { SideBar } from "./Sidebar";
 import { Helmet } from "react-helmet";
 import { Footer } from "./Footer";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getSetting } from "../../store/slice/settingSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { getSetting } from "@/store/slice/settingSlice";
 
 interface Prop {
   children: ReactNode;

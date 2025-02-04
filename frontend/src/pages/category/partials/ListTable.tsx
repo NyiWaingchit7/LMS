@@ -7,19 +7,19 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { Category } from "../../../types/category";
-import { TableAction } from "../../../component/TableAction";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { Category } from "@/types/category";
+import { TableAction } from "@/component/TableAction";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  handleDeletCategory,
-  handleGetCategory,
+  deletCategory,
+  getCategory,
   setLinks,
-} from "../../../store/slice/categorySlice";
-import { Image } from "../../../component/Image";
+} from "@/store/slice/categorySlice";
+import { Image } from "@/component/Image";
 import toast from "react-hot-toast";
-import { Pagination } from "../../../component/Pagination";
+import { Pagination } from "@/component/Pagination";
 import { useEffect } from "react";
-import { usePage } from "../../../utils/getPage";
+import { usePage } from "@/utils/getPage";
 
 interface Props {
   data: Category[];
@@ -30,11 +30,11 @@ export const ListTable = ({ data }: Props) => {
   const { page, searchKey } = usePage();
   const handleDelete = (id: number) => {
     dispatch(
-      handleDeletCategory({
+      deletCategory({
         id,
         onSuccess: () => {
           toast.success("Category is deleted successfully");
-          dispatch(handleGetCategory({ page, searchKey }));
+          dispatch(getCategory({ page, searchKey }));
         },
       })
     );
