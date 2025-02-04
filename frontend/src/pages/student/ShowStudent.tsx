@@ -70,7 +70,7 @@ export const ShowStudent = () => {
               <th className="px-2 py-3 ">Image</th>
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
-                <Image src={student?.assetUrl || "/test.jpg"} />
+                <Image src={student?.assetUrl || ""} />
               </td>
             </tr>
           </tbody>
