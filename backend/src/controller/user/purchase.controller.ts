@@ -7,6 +7,11 @@ import { sendpurchaseEmail } from "../../services/mail/purchaseEmailService";
 export const store = async (req: Request, res: Response) => {
   try {
     const { lectureId, payment_assetUrl, total_price } = req.body;
+    if (!payment_assetUrl) {
+      return res
+        .status(400)
+        .json({ message: "Payment screenshot is required!" });
+    }
     const user = getUserFromToken(req, res) as any;
     const purchase = await prisma.purchase.create({
       data: { lectureId, studentId: user.id, payment_assetUrl, total_price },
@@ -18,7 +23,7 @@ export const store = async (req: Request, res: Response) => {
       sendpurchaseEmail({
         user: student?.email,
         templateName: "purchaseEmailTemplate",
-        data: student,
+        data: { student },
       });
     }
     return res.status(200).json({ purchase });

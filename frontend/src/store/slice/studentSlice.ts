@@ -71,6 +71,7 @@ export const storeStudent = createAsyncThunk(
       });
       if (!response.ok) {
         thunkApi.dispatch(setStudentError(data.errors));
+        data.message && toast.error(data.message);
         throw new Error(data);
       }
 

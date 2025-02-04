@@ -49,6 +49,10 @@ export const show = async (req: Request, res: Response) => {
 export const store = async (req: Request, res: Response) => {
   const { name, email, password, phone, assetUrl } = req.body;
   try {
+    const isExist = await prisma.student.findUnique({ where: { email } });
+    if (isExist) {
+      return res.status(400).json({ message: "This email is already taken" });
+    }
     const hasPassword = await bcrypt.hash(password, 10);
     const student = await prisma.student.create({
       data: { name, email, password: hasPassword, phone, assetUrl },

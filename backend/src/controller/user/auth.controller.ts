@@ -13,10 +13,10 @@ const cache = new NodeCache({ stdTTL: 660 });
 export const register = async (req: Request, res: Response) => {
   const { name, email, password, phone, assetUrl } = req.body;
   try {
-    const isvalid = name && email && password;
-    if (!isvalid)
-      return res.status(400).json({ message: "All fields are required!" });
-
+    const isExist = await prisma.student.findUnique({ where: { email } });
+    if (isExist) {
+      return res.status(400).json({ message: "This email is already taken" });
+    }
     const code = generateRandomCode();
     cache.set(email, code);
     sendOtpEmail({ user: email, code });

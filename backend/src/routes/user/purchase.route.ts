@@ -16,7 +16,7 @@ userPurchaseRouter.get("/", usercheckauth, index);
 
 userPurchaseRouter.get("/:id", usercheckauth, show);
 
-userPurchaseRouter.post("/", purchaseValidation, store);
+userPurchaseRouter.post("/", store);
 
 userPurchaseRouter.put("/:id", usercheckauth, update);
 
