@@ -56,16 +56,16 @@ app.get(
   }
 );
 
-app.get("/preview-email", (req, res) => {
-  const userData = {
+app.get("/preview-email", async (req, res) => {
+  const student = {
     name: "John Doe",
     email: "john@example.com",
     message: "Welcome to our platform!",
   };
 
-  const emailContent = loadEmailTemplate(
+  const emailContent = await loadEmailTemplate(
     "purchaseEmailTemplate",
-    { userData },
+    { student },
     "purchase"
   );
   if (!emailContent) {
