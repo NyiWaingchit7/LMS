@@ -196,7 +196,15 @@ export const SettingPage = () => {
                 label="App Logo"
                 onChange={(value) => {
                   setForm({ ...sumbitForm, app_logo: value });
-                  handleSubmit();
+                  dispatch(
+                    createSetting({
+                      settings: { app_logo: value },
+                      onSuccess: () => {
+                        toast.success("Submitted Successfully");
+                        // window.location.reload();
+                      },
+                    })
+                  );
                 }}
               />
             </div>
@@ -206,7 +214,15 @@ export const SettingPage = () => {
                 label="App Banner"
                 onChange={(value) => {
                   setForm({ ...sumbitForm, app_banner: value });
-                  handleSubmit();
+                  dispatch(
+                    createSetting({
+                      settings: { app_banner: value },
+                      onSuccess: () => {
+                        toast.success("Submitted Successfully");
+                        // window.location.reload();
+                      },
+                    })
+                  );
                 }}
               />
             </div>

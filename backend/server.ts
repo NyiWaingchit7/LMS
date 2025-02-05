@@ -11,6 +11,7 @@ import { verifyApiToken } from "./src/utils/auth";
 import { config } from "./src/utils/config";
 import path from "path";
 import { loadEmailTemplate } from "./src/helper/loadEmailTemplate";
+import { appRouter } from "./src/routes/admin/app.route";
 
 const app = express();
 
@@ -30,6 +31,36 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 const port = 4000;
+
+app.get("/preview-email", async (req, res) => {
+  const student = {
+    name: "John Doe",
+    email: "john@example.com",
+    message: "Welcome to our platform!",
+  };
+
+  const emailContent = await loadEmailTemplate(
+    "purchaseEmailTemplate",
+    { student },
+    "purchase"
+  );
+  if (!emailContent) {
+    return res.status(404).send("Template not found.");
+  }
+
+  res.send(emailContent); // Render template as HTML in browser
+});
+
+//admin
+app.use("/api/v1/admin", adminRouterGroup);
+
+//admin-login
+app.use("/api/v1/admin/auth", verifyApiToken, appRouter);
+
+//user
+app.use("/api/v1", userRouterGroup);
+
+//user-google login
 app.get(
   "/api/v1/auth/google",
   verifyApiToken,
@@ -55,29 +86,6 @@ app.get(
     return res.status(401).json({ message: "Google login failed" });
   }
 );
-
-app.get("/preview-email", async (req, res) => {
-  const student = {
-    name: "John Doe",
-    email: "john@example.com",
-    message: "Welcome to our platform!",
-  };
-
-  const emailContent = await loadEmailTemplate(
-    "purchaseEmailTemplate",
-    { student },
-    "purchase"
-  );
-  if (!emailContent) {
-    return res.status(404).send("Template not found.");
-  }
-
-  res.send(emailContent); // Render template as HTML in browser
-});
-//admin
-app.use("/api/v1/admin", adminRouterGroup);
-//user
-app.use("/api/v1", userRouterGroup);
 //default
 app.get("/", (req: Request, res: Response) => {
   res.send("hello");
