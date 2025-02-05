@@ -155,7 +155,7 @@ model Page {
 model Setting {
   id         Int      @id @default(autoincrement())
   key        String   @unique
-  value      String
+  value      String?
   deleted    Boolean  @default(false)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

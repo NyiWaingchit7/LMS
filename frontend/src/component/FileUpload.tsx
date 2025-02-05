@@ -6,7 +6,13 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { useEffect, useState } from "react";
 import { config } from "../utils/config";
-import { Button } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import { generateToken, headerOptions } from "../utils/requestOption";
 import toast from "react-hot-toast";
 
@@ -23,6 +29,7 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
   const [fileRev, setFileRev] = useState("");
   const accessToken = localStorage.getItem("accessToken");
   const [apitoken, setApiToken] = useState("");
+  const [open, setopen] = useState(false);
 
   const server = {
     process: {
@@ -79,35 +86,71 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
     getToken();
   }, []);
   return (
-    <div className="App">
-      {!edit && (
-        // @ts-ignore
+    <div>
+      <div className="App">
+        {!edit && (
+          // @ts-ignore
 
-        <FilePond
-          files={files}
-          onupdatefiles={setFiles}
-          onremovefile={removeFile}
-          server={server}
-          name="files"
-          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-        />
-      )}
-      {edit && (
-        <div className="flex flex-col items-center gap-3">
-          <img src={editImg} className="w-20" alt="" />
+          <FilePond
+            files={files}
+            onupdatefiles={setFiles}
+            onremovefile={removeFile}
+            server={server}
+            name="files"
+            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+          />
+        )}
+        {edit && (
+          <div className="flex flex-col items-center gap-3">
+            <div className="bg-black/5 w-full flex justify-center p-5 rounded-lg">
+              <img
+                src={editImg}
+                className="w-50 h-auto object-cover rounded-lg"
+                alt=""
+              />
+            </div>
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              onClick={() => {
+                setopen(true);
+              }}
+            >
+              Remove
+            </Button>
+          </div>
+        )}
+      </div>
+      <Dialog open={open} className=" mx-auto">
+        <DialogTitle className="text-green !font-bold !text-xl">
+          Confirmation
+        </DialogTitle>
+        <DialogContent className="w-[350px]">
+          Are you sure to remove this photo?
+        </DialogContent>
+        <DialogActions>
+          <Button
+            color="error"
+            variant="contained"
+            onClick={() => {
+              setopen(false);
+            }}
+          >
+            No
+          </Button>
           <Button
             variant="contained"
-            size="small"
-            color="secondary"
             onClick={() => {
               setEdit(false);
               setImgUrl(null);
+              setopen(false);
             }}
           >
-            Remove
+            Yes
           </Button>
-        </div>
-      )}
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

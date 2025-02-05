@@ -13,9 +13,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import StarIcon from "@mui/icons-material/Star";
+import { useAppSelector } from "@/store/hooks";
 export const SideBar = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const setting = useAppSelector((store) => store.setting.data);
 
   return (
     <div>
@@ -35,7 +37,11 @@ export const SideBar = () => {
       >
         <div className="flex items-center justify-between gap-2 px-6 pt-2 pb-0 mb-10 lg:mb-0">
           <Link to="/" className="hidden lg:block">
-            <img src="/logo.png" className="w-1/2 m-auto" alt="" />
+            <img
+              src={setting?.app_logo || "/logo.png"}
+              className="w-1/2 m-auto"
+              alt=""
+            />
           </Link>
         </div>
 

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      section {
+        padding: 0 20px;
+      }
       img {
         width: 100px;
         height: 100px;
@@ -19,35 +22,33 @@
   </head>
 
   <body>
-    <div class="container">
-      <img
-        src="https://firebasestorage.googleapis.com/v0/b/lms-p-e1b10.appspot.com/o/image%2Fdownload.jpegca39e3a1-b5cf-4a1e-93fb-77763e81d374?alt=media&token=a6a6d36b-3b82-4716-b2d7-0177479f2333"
-        alt="logo"
-      />
-    </div>
-    <div>
-      <h4>Dear <%= data.student.name %>,</h4>
-      <p>
-        Your payment is suceessful.You can see the course under the my lecture
-        and start learning.
-      </p>
-    </div>
-    <div>
-      <h4>Course Name - Javascript</h4>
-      <h4>Course outlines</h4>
-      <p>- introduction to javascript</p>
-      <p>- operators</p>
-      <p>- loop</p>
-      <p>- switch</p>
-      <p>- fetch</p>
-      <p>- Promise</p>
-      <p>- event loop</p>
-    </div>
-    <div>
-      <small
-        >Thank you for your purchasement and hope you to seize your
-        succeed.</small
-      >
-    </div>
+    <section>
+      <div class="container">
+        <img src="<%= appLogo.value %>" alt="logo" />
+      </div>
+      <div>
+        <h4>Dear <%= data.student.name %>,</h4>
+        <p>
+          Your payment is suceessful.You can see the course under the my lecture
+          and start learning.
+        </p>
+      </div>
+      <div>
+        <h4>Course Name - <%= data.lecture.title %></h4>
+        <h4>Price - <%= data.purchase.total_price.toLocaleString() %> MMK</h4>
+        <h4>Course outlines</h4>
+        <ul>
+          <% data.lecture.Lesson.map(item => { %>
+          <li><%= item.title %></li>
+          <% }) %>
+        </ul>
+      </div>
+      <div>
+        <small
+          >Thank you for your purchasement and hope you to seize your
+          succeed.</small
+        >
+      </div>
+    </section>
   </body>
 </html>

@@ -5,12 +5,12 @@ interface Props {
   code: any;
   templateName?: string;
 }
-export const sendOtpEmail = ({
+export const sendOtpEmail = async ({
   user,
   templateName = "otpTemplate",
   code,
 }: Props) => {
-  let emailContent = loadEmailTemplate(templateName, code, "otp");
+  let emailContent = await loadEmailTemplate(templateName, code, "otp");
   if (!emailContent) {
     emailContent = "<b>there is no template</b>";
     return;

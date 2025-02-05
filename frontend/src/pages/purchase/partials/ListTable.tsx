@@ -89,7 +89,7 @@ export const ListTable = ({ data, homeTable = true }: Props) => {
                       },
                     }}
                     onClick={() => {
-                      router(`/students/${row.id}`);
+                      router(`/students/${row.studentId}`);
                     }}
                   >
                     {row.student?.name || "-"}

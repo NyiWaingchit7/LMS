@@ -214,22 +214,23 @@ export const ShowPurchase = () => {
           Once you cancel , you can not undo!
         </DialogContent>
         <DialogActions>
-          <button
-            className="no-btn"
+          <Button
+            color="error"
+            variant="contained"
             onClick={() => {
               setConfirm(false);
             }}
           >
             No
-          </button>
-          <button
-            className="yes-btn"
+          </Button>
+          <Button
+            variant="contained"
             onClick={() => {
               handleChangeStatus("CANCELLED");
             }}
           >
             Yes
-          </button>
+          </Button>
         </DialogActions>
       </Dialog>
     </Layout>

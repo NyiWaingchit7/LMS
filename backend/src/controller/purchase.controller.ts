@@ -54,6 +54,10 @@ export const store = async (req: Request, res: Response) => {
   const { lectureId, studentId, payment_assetUrl, total_price } = req.body;
 
   try {
+    const lecture = await prisma.lecture.findFirst({
+      where: { id: lectureId },
+      include: { Lesson: { where: { deleted: false } } },
+    });
     const purchase = await prisma.purchase.create({
       data: { lectureId, studentId, payment_assetUrl, total_price },
     });
@@ -64,7 +68,7 @@ export const store = async (req: Request, res: Response) => {
       sendpurchaseEmail({
         user: student?.email,
         templateName: "purchaseEmailTemplate",
-        data: { student },
+        data: { student, lecture, purchase },
       });
     }
     return res.status(200).json({ purchase });
@@ -81,6 +85,7 @@ export const update = async (req: Request, res: Response) => {
     const isExist = await prisma.purchase.findFirst({
       where: { id, deleted: false },
     });
+
     if (!isExist)
       return res.status(404).json({ message: "This items is not found." });
     const purchase = await prisma.purchase.update({
@@ -106,12 +111,16 @@ export const update = async (req: Request, res: Response) => {
     const student = await prisma.student.findFirst({
       where: { id: purchase.studentId },
     });
+    const lecture = await prisma.lecture.findFirst({
+      where: { id: purchase.lectureId },
+      include: { Lesson: { where: { deleted: false } } },
+    });
 
     if (student) {
       sendpurchaseEmail({
         user: student?.email,
         templateName: "purchaseEmailTemplate",
-        data: { student },
+        data: { student, lecture, purchase },
       });
     }
 

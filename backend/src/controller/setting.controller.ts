@@ -5,9 +5,9 @@ import { settings } from "firebase/analytics";
 export const index = async (req: Request, res: Response) => {
   try {
     const data = await prisma.setting.findMany();
-    let settings: { [key: string]: string } = {};
+    let settings: { [key: string]: string | null } = {};
     data.map((item) => {
-      settings[item.key] = item.value;
+      settings[item?.key] = item.value;
     });
     return res.status(200).json({ settings });
   } catch (error) {

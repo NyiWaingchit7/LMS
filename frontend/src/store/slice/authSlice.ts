@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginOption, LoginSlice } from "@/types/auth";
-import { config } from "@/utils/config";
 import toast from "react-hot-toast";
 import { errorHelper } from "@/utils/errorHelper";
+import { fetchFunction } from "@/utils/useFetchFunction";
 
 const initialState: LoginSlice = {
   items: [],
@@ -16,13 +16,17 @@ export const handleLogin = createAsyncThunk(
   async (option: LoginOption, thunkApi) => {
     const { email, password, onSuccess } = option;
     try {
-      const response = await fetch(`${config.apiUrl}/auth/log-in`, {
+      // const response = await fetch(`${config.apiUrl}/auth/log-in`, {
+      //   method: "POST",
+      //   headers: { "content-type": "application/json" },
+      //   body: JSON.stringify({ email, password }),
+      // });
+      // const data = await response.json();
+      const { response, data } = await fetchFunction({
+        url: "auth/log-in",
         method: "POST",
-        headers: { "content-type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      const data = await response.json();
-
       if (!response.ok) {
         toast.error(data.message);
         throw new Error(data.message);
