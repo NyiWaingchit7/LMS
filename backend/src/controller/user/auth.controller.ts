@@ -7,6 +7,7 @@ import NodeCache from "node-cache";
 import { getUserFromToken } from "../../utils/auth";
 import { generateRandomCode } from "../../helper/generateOtpCode";
 import { sendOtpEmail } from "../../services/mail/otpEmailService";
+import { Status } from "@prisma/client";
 
 const cache = new NodeCache({ stdTTL: 660 });
 
@@ -97,13 +98,22 @@ export const myProfile = async (req: Request, res: Response) => {
       },
     });
     const purchase = await prisma.purchase.findMany({
-      where: { studentId: data?.id, deleted: false },
-      include: { student: true, lecture: true },
+      where: {
+        studentId: data?.id,
+        deleted: false,
+        payment_status: Status.CONFIRMED,
+      },
+      include: {
+        lecture: {
+          include: { Lesson: { where: { deleted: false } } },
+        },
+      },
     });
+    const lectures = purchase.map((data) => data.lecture);
 
     if (!data)
       return res.status(400).json({ message: "The student can not be found!" });
-    const student = { ...data, Purchase: purchase };
+    const student = { ...data, lectures };
     return res.status(200).json({ student });
   } catch (error) {
     return res.status(500).json({ error });
@@ -196,6 +206,31 @@ export const changePassword = async (req: Request, res: Response) => {
       data: { password: hashPassword },
     });
     return res.status(200).json({ message: "Password Changed Successfully." });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+
+export const accountEdit = async (req: Request, res: Response) => {
+  try {
+    const { name, phone, email, assetUrl } = req.body;
+    const user = getUserFromToken(req, res) as any;
+    const exist = await prisma.student.findFirst({ where: { id: user?.id } });
+    if (!exist) {
+      return res
+        .status(404)
+        .json({ message: "There is no user found with this email." });
+    }
+    const student = await prisma.student.update({
+      where: { id: user?.id },
+      data: {
+        name,
+        email,
+        phone,
+        assetUrl,
+      },
+    });
+    return res.status(200).json({ student });
   } catch (error) {
     return res.status(500).json({ error });
   }

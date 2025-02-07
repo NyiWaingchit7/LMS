@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  accountEdit,
   changePassword,
   forgetPassword,
   forgetPasswordChange,
@@ -41,4 +42,4 @@ userAuthRouter.post(
   changePassword
 );
 
-userAuthRouter.post("/edit-profile", usercheckauth, update);
+userAuthRouter.post("/edit-profile", accountEdit);

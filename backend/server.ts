@@ -32,6 +32,33 @@ app.use(passport.initialize());
 app.use(passport.session());
 const port = 4000;
 
+//user-google login
+app.get(
+  "/api/v1/auth/google",
+  verifyApiToken,
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+  "/api/v1/auth/google/callback",
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
+    console.log(config.frontendUrl);
+    console.log("ehllo");
+
+    if (req.user) {
+      const { student, token } = req.user as any;
+      return res.send(`
+        <script>
+          window.opener.postMessage({ token: "${token}" },"${config.frontendUrl}");
+          window.close();
+        </script>
+      `);
+    }
+    return res.status(401).json({ message: "Google login failed" });
+  }
+);
+
 app.get("/preview-email", async (req, res) => {
   const student = {
     name: "John Doe",
@@ -60,32 +87,6 @@ app.use("/api/v1/admin/auth", verifyApiToken, appRouter);
 //user
 app.use("/api/v1", userRouterGroup);
 
-//user-google login
-app.get(
-  "/api/v1/auth/google",
-  verifyApiToken,
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-app.get(
-  "/api/v1/auth/google/callback",
-  passport.authenticate("google", { session: false }),
-  (req, res) => {
-    console.log(config.frontendUrl);
-    console.log("ehllo");
-
-    if (req.user) {
-      const { student, token } = req.user as any;
-      return res.send(`
-        <script>
-          window.opener.postMessage({ token: "${token}" },"${config.frontendUrl}");
-          window.close();
-        </script>
-      `);
-    }
-    return res.status(401).json({ message: "Google login failed" });
-  }
-);
 //default
 app.get("/", (req: Request, res: Response) => {
   res.send("hello");
