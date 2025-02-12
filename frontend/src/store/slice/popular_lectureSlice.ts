@@ -55,8 +55,8 @@ export const getPopularLecture = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPopularLecture(data.data.data));
-      thunkApi.dispatch(setPopularLectureLink(data.data.links));
+      thunkApi.dispatch(setPopularLecture(data.data));
+      thunkApi.dispatch(setPopularLectureLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

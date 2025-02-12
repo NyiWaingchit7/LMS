@@ -52,8 +52,8 @@ export const getPaymentAccount = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPaymentAccount(data.data.data));
-      thunkApi.dispatch(setPaymentAccountLinks(data.data.links));
+      thunkApi.dispatch(setPaymentAccount(data.data));
+      thunkApi.dispatch(setPaymentAccountLinks(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

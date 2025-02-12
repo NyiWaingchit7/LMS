@@ -50,14 +50,12 @@ export const SideBar = () => {
             <div>
               <ul className="mb-4 flex flex-col gap-1.5">
                 {sidebrItems.map((d) => (
-                  <Link to={`/${d.path}`} key={d.name}>
+                  <Link to={`${d.path}`} key={d.name}>
                     <div
                       className={`text-[15px] flex items-center gap-2 px-2 rounded-lg
             hover:bg-primary hover:text-whiten transition-all ease-in-out duration-300 py-2
             ${
-              location.pathname.includes(`/${d.path}`)
-                ? "bg-primary text-whiten"
-                : ""
+              location.pathname === `${d.path}` ? "bg-primary text-whiten" : ""
             }`}
                     >
                       {d.icon}
@@ -79,61 +77,61 @@ export const sidebrItems = [
   {
     name: "Home",
     icon: <HomeIcon />,
-    path: "#",
+    path: "/",
   },
   {
     name: "Purchase",
     icon: <ShoppingBasketIcon />,
-    path: "purchases",
+    path: "/purchases",
   },
   {
     name: "Category",
     icon: <CategoryIcon />,
-    path: "categories",
+    path: "/categories",
   },
   {
     name: "Lectures",
     icon: <SchoolIcon />,
-    path: "lectures",
+    path: "/lectures",
   },
   {
     name: "Popular Lectures",
     icon: <SchoolIcon />,
-    path: "popular-lectures",
+    path: "/popular-lectures",
   },
   {
     name: "Lessons",
     icon: <PlayLessonIcon />,
-    path: "lessons",
+    path: "/lessons",
   },
   {
     name: "Students",
     icon: <SupervisedUserCircleIcon />,
-    path: "students",
+    path: "/students",
   },
   {
     name: "Pages",
     icon: <FileCopyIcon />,
-    path: "pages",
+    path: "/pages",
   },
   {
     name: "Payment Banks",
     icon: <AccountBalanceWalletIcon />,
-    path: "payment-banks",
+    path: "/payment-banks",
   },
   {
     name: "Payment Account",
     icon: <MonetizationOnIcon />,
-    path: "payment-accounts",
+    path: "/payment-accounts",
   },
   {
     name: "Taglines",
     icon: <StarIcon />,
-    path: "tag-lines",
+    path: "/tag-lines",
   },
   {
     name: "Settings",
     icon: <SettingsIcon />,
-    path: "settings",
+    path: "/settings",
   },
 ];

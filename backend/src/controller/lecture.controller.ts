@@ -37,7 +37,7 @@ export const index = async (req: Request, res: Response) => {
     categories: lecture.LectureonCategory.map((lc) => lc.category),
   }));
   const data = usePagination(10, lectures, req);
-  return res.status(200).json({ data });
+  return res.status(200).json({ ...data });
 };
 
 export const show = async (req: Request, res: Response) => {

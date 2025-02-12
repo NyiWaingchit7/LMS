@@ -20,7 +20,7 @@ export const index = async (req: Request, res: Response) => {
     include: { student: true, lecture: true },
   });
   const data = usePagination(10, purchases, req);
-  return res.status(200).json({ data });
+  return res.status(200).json({ ...data });
 };
 
 export const show = async (req: Request, res: Response) => {
