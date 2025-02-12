@@ -2,15 +2,16 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
+import { config } from "./config";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCX3dk3i9k3yrhAKPHVHzl30mGJgPdxRRQ",
-  authDomain: "lms-p-e1b10.firebaseapp.com",
-  projectId: "lms-p-e1b10",
-  storageBucket: "lms-p-e1b10.appspot.com",
-  messagingSenderId: "666650184296",
-  appId: "1:666650184296:web:0a68bd2eb230065a61c9dd",
-  measurementId: "G-GKQPMQ232E",
+  apiKey: config.apiKey,
+  authDomain: config.authDomain,
+  projectId: config.projectId,
+  storageBucket: config.storageBucket,
+  messagingSenderId: config.messagingSenderId,
+  appId: config.apiId,
+  measurementId: config.measurementId,
 };
 
 // Initialize Firebase

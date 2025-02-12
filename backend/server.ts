@@ -50,6 +50,8 @@ app.get(
 
     if (req.user) {
       const { student, token } = req.user as any;
+      console.log(student,token);
+      
       return res.send(`
         <script>
           window.opener.postMessage({ token: "${token}" },"${config.frontendUrl}");
