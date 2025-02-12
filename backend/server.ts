@@ -32,6 +32,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 const port = 4000;
 
+
+
 //user-google login
 app.get(
   "/api/v1/auth/google",
@@ -77,12 +79,12 @@ app.get("/preview-email", async (req, res) => {
 
   res.send(emailContent); // Render template as HTML in browser
 });
-
+//admin-login
+app.use("/api/v1/admin/auth", verifyApiToken, appRouter);
 //admin
 app.use("/api/v1/admin", adminRouterGroup);
 
-//admin-login
-app.use("/api/v1/admin/auth", verifyApiToken, appRouter);
+
 
 //user
 app.use("/api/v1", userRouterGroup);
