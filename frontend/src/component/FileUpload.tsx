@@ -64,8 +64,9 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
+      } else {
+        toast.success(data.message);
       }
-      toast.success(data.message);
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -105,7 +106,7 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
             <div className="bg-black/5 w-full flex justify-center p-5 rounded-lg">
               <img
                 src={editImg}
-                className="w-50 h-auto object-cover rounded-lg"
+                className="w-50 h-auto max-h-[300px] object-cover rounded-lg"
                 alt=""
               />
             </div>

@@ -67,7 +67,7 @@ export const store = async (req: Request, res: Response) => {
     if (student) {
       sendpurchaseEmail({
         user: student?.email,
-        templateName: "purchaseEmailTemplate",
+        templateName: purchase.payment_status,
         data: { student, lecture, purchase },
       });
     }
@@ -119,7 +119,7 @@ export const update = async (req: Request, res: Response) => {
     if (student) {
       sendpurchaseEmail({
         user: student?.email,
-        templateName: "purchaseEmailTemplate",
+        templateName: purchase.payment_status,
         data: { student, lecture, purchase },
       });
     }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      section {
+        padding: 0 20px;
+      }
+      img {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+      }
+      .container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section>
+      <div class="container">
+        <img src="<%= appLogo?.value %>" alt="logo" />
+      </div>
+      <div>
+        <h4>Dear <%= data.student.name %>,</h4>
+        <p>
+          We regret to inform you that your payment for
+          <strong><%= data.lecture.title%></strong>
+          was unsuccessful due to an issue with the payment screenshot or
+          details provided. Kindly verify and resend the correct payment proof
+          so we can proceed with your enrollment.
+        </p>
+      </div>
+
+      <div>
+        <small>If you need any assistance, feel free to reach out.</small>
+      </div>
+    </section>
+  </body>
+</html>
