@@ -40,12 +40,11 @@ const defaultForm = {
 export const Form = ({ lectures, lesson }: Props) => {
   const [submitForm, setForm] = useState<Lesson>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number | null>(null);
-  const [imgUrl, setImgUrl] = useState("");
+  const [videoUrl, setvideoUrl] = useState("");
   const errors = useAppSelector((store) => store.lesson.error);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  console.log(submitForm);
 
   const onSuccess = () => {
     toast.success("Lesson is created successfully.");
@@ -57,7 +56,7 @@ export const Form = ({ lectures, lesson }: Props) => {
       storeLesson({
         ...submitForm,
         lectureId: selectedIds as number,
-        assetImage: imgUrl,
+        assetVideo: videoUrl,
         onSuccess,
       })
     );
@@ -68,7 +67,7 @@ export const Form = ({ lectures, lesson }: Props) => {
       updateLesson({
         id: lesson?.id as number,
         ...submitForm,
-        assetImage: imgUrl,
+        assetVideo: videoUrl,
         lectureId: selectedIds as number,
         onSuccess: () => {
           toast.success("Lesson is updated successfully.");
@@ -80,6 +79,7 @@ export const Form = ({ lectures, lesson }: Props) => {
     if (lesson) {
       setForm(lesson);
       setSelectedIds(lesson.lectureId as number);
+      setvideoUrl(lesson.assetVideo as string);
     }
     return () => {
       dispatch(setLessonError(null));
@@ -193,8 +193,13 @@ export const Form = ({ lectures, lesson }: Props) => {
         <Error message={errors?.lectureId || ""} />
       </div>
       <div className="mt-5">
-        <InputLabel label="image" />
-        <FileUpload setImgUrl={setImgUrl} editImg={submitForm.assetImage} />
+        <InputLabel label="Video" />
+        <FileUpload
+          setImgUrl={setvideoUrl}
+          acceptedFileType={["video/*"]}
+          editImg={submitForm.assetVideo}
+          type="video"
+        />
       </div>
       <div className="flex justify-end mt-5 items-center gap-2">
         <Button
