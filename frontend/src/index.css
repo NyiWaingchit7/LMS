@@ -48,3 +48,7 @@ header {
 .ck-editor__editable {
   font-size: 9px !important; /* Set your default font size */
 }
+.lg-backdrop {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(3px);
+}

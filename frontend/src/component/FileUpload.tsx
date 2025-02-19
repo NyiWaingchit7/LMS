@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { generateToken, headerOptions } from "../utils/requestOption";
 import toast from "react-hot-toast";
+import { ImageGallery } from "./ImageGallery";
 
 registerPlugin(
   FilePondPluginImagePreview,
@@ -120,11 +121,9 @@ export const FileUpload = ({
           <div className="flex flex-col items-center gap-3">
             <div className="bg-black/5 w-full flex justify-center p-5 rounded-lg">
               {type === "image" ? (
-                <img
-                  src={editImg}
-                  className="w-50 h-auto max-h-[300px] object-cover rounded-lg"
-                  alt=""
-                />
+                <div className="w-50">
+                  <ImageGallery img={editImg as string} />
+                </div>
               ) : (
                 <video
                   className="w-50 h-[175px] max-h-[300px] object-cover rounded-lg"
