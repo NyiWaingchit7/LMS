@@ -6,7 +6,7 @@ interface Props {
 
 export const Image = ({ src }: Props) => {
   return (
-    <div className="w-12">
+    <div className="max-w-20">
       <ImageGallery img={src} />
     </div>
   );

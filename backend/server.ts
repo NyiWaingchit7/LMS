@@ -32,8 +32,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 const port = 4000;
 
-
-
 //user-google login
 app.get(
   "/api/v1/auth/google",
@@ -45,13 +43,9 @@ app.get(
   "/api/v1/auth/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
-    console.log(config.frontendUrl);
-    console.log("ehllo");
-
     if (req.user) {
       const { student, token } = req.user as any;
-      console.log(student,token);
-      
+
       return res.send(`
         <script>
           window.opener.postMessage({ token: "${token}" },"${config.frontendUrl}");
@@ -85,8 +79,6 @@ app.get("/preview-email", async (req, res) => {
 app.use("/api/v1/admin/auth", verifyApiToken, appRouter);
 //admin
 app.use("/api/v1/admin", adminRouterGroup);
-
-
 
 //user
 app.use("/api/v1", userRouterGroup);
