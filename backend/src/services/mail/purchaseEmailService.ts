@@ -1,5 +1,6 @@
 import { mailSend } from "../../utils/mailer";
 import { loadEmailTemplate } from "../../helper/loadEmailTemplate";
+import { getTemplateSubject } from "../../utils/getTemplateSubject";
 interface Props {
   user: string;
   data?: any;
@@ -15,5 +16,5 @@ export const sendpurchaseEmail = async ({
     emailContent = "<b>there is no template</b>";
     return;
   }
-  mailSend(user, emailContent, "Purchase Confirmation");
+  mailSend(user, emailContent, getTemplateSubject(templateName));
 };

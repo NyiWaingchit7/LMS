@@ -36,9 +36,9 @@ export const getTagLine = createAsyncThunk(
         throw new Error(data.data.message);
       }
 
-      thunkApi.dispatch(setTagLine(data.data.data));
+      thunkApi.dispatch(setTagLine(data.data));
 
-      thunkApi.dispatch(setLinks(data.data.links));
+      thunkApi.dispatch(setLinks(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

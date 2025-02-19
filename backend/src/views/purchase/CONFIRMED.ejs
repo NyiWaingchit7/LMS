@@ -24,7 +24,7 @@
   <body>
     <section>
       <div class="container">
-        <img src="<%= appLogo.value %>" alt="logo" />
+        <img src="<%= appLogo?.value %>" alt="logo" />
       </div>
       <div>
         <h4>Dear <%= data.student.name %>,</h4>
@@ -38,7 +38,7 @@
         <h4>Price - <%= data.purchase.total_price.toLocaleString() %> MMK</h4>
         <h4>Course outlines</h4>
         <ul>
-          <% data.lecture.Lesson.map(item => { %>
+          <% data.lecture?.Lesson.map(item => { %>
           <li><%= item.title %></li>
           <% }) %>
         </ul>

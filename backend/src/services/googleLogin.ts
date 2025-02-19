@@ -3,7 +3,6 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { prisma } from "../utils/db";
 import { config } from "../utils/config";
-console.log("Google Redirect URI:", config.callbackUrl);
 
 passport.use(
   new GoogleStrategy(

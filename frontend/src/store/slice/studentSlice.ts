@@ -34,8 +34,8 @@ export const getStudent = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setStudent(data.data.data));
-      thunkApi.dispatch(setStudentLink(data.data.links));
+      thunkApi.dispatch(setStudent(data.data));
+      thunkApi.dispatch(setStudentLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

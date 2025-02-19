@@ -35,9 +35,9 @@ export const getCategory = createAsyncThunk(
         throw new Error(data.data.message);
       }
 
-      thunkApi.dispatch(setCategory(data.data.data));
+      thunkApi.dispatch(setCategory(data.data));
 
-      thunkApi.dispatch(setLinks(data.data.links));
+      thunkApi.dispatch(setLinks(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

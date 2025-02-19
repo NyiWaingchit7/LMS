@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 export const mailSend = async (
   receiver: string,
   body: any,
-  subject: string
+  subject?: string
 ) => {
   const info = await transporter.sendMail({
     from: config.mailSender,
@@ -21,6 +21,4 @@ export const mailSend = async (
     subject,
     html: body,
   });
-
-  console.log("Message sent: %s", info.accepted);
 };

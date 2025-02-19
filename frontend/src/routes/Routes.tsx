@@ -42,6 +42,7 @@ import { EditTagLine } from "../pages/tagLine/EditTagLine";
 import { PopularLecture } from "../pages/popularLecture/PopularLecture";
 import { CreatePopularLecture } from "../pages/popularLecture/CreatePopularLecture";
 import { EditPopuarLecture } from "../pages/popularLecture/EditPopularLecture";
+import { Test } from "@/component/Test";
 
 export const Router = () => {
   return (
@@ -101,6 +102,7 @@ export const Router = () => {
           <Route path="/tag-lines/:id" Component={ShowTagLine} />
           <Route path="/tag-lines/create" Component={CreateTagLine} />
           <Route path="/tag-lines/:id/edit" Component={EditTagLine} />
+          <Route path="/test" Component={Test} />
         </Route>
         <Route path="/login" Component={LogIn} />
       </Routes>

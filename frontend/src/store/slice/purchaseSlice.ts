@@ -53,8 +53,8 @@ export const getPurchase = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPurchase(data.data.data));
-      thunkApi.dispatch(setPurchaseLink(data.data.links));
+      thunkApi.dispatch(setPurchase(data.data));
+      thunkApi.dispatch(setPurchaseLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

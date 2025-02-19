@@ -12,7 +12,7 @@ export const index = async (req: Request, res: Response) => {
   });
   const data = usePagination(10, taglines, req);
 
-  return res.status(200).json({ data, query: req.query });
+  return res.status(200).json({ ...data, query: req.query });
 };
 
 export const store = async (req: Request, res: Response) => {

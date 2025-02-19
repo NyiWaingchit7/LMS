@@ -3,6 +3,8 @@ import { FilePond, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
 
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginFilePoster from "filepond-plugin-file-poster";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { useEffect, useState } from "react";
 import { config } from "../utils/config";
@@ -16,14 +18,25 @@ import {
 import { generateToken, headerOptions } from "../utils/requestOption";
 import toast from "react-hot-toast";
 
-registerPlugin(FilePondPluginImagePreview);
+registerPlugin(
+  FilePondPluginImagePreview,
+  FilePondPluginFilePoster,
+  FilePondPluginFileValidateType
+);
 
 interface Props {
   setImgUrl: (data?: any) => void;
   editImg?: string;
+  acceptedFileType?: string[];
+  type?: string;
 }
 
-export const FileUpload = ({ setImgUrl, editImg }: Props) => {
+export const FileUpload = ({
+  setImgUrl,
+  editImg,
+  acceptedFileType = ["image/png", "image/jpg", "image/jpeg"],
+  type = "image",
+}: Props) => {
   const [files, setFiles] = useState<File[]>([]);
   const [edit, setEdit] = useState(false);
   const [fileRev, setFileRev] = useState("");
@@ -64,8 +77,9 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
+      } else {
+        toast.success(data.message);
       }
-      toast.success(data.message);
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -97,17 +111,27 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
             onremovefile={removeFile}
             server={server}
             name="files"
+            acceptedFileTypes={acceptedFileType}
+            allowFileTypeValidation={true}
             labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
           />
         )}
         {edit && (
           <div className="flex flex-col items-center gap-3">
             <div className="bg-black/5 w-full flex justify-center p-5 rounded-lg">
-              <img
-                src={editImg}
-                className="w-50 h-auto object-cover rounded-lg"
-                alt=""
-              />
+              {type === "image" ? (
+                <img
+                  src={editImg}
+                  className="w-50 h-auto max-h-[300px] object-cover rounded-lg"
+                  alt=""
+                />
+              ) : (
+                <video
+                  className="w-50 h-[175px] max-h-[300px] object-cover rounded-lg"
+                  src={editImg}
+                  controls
+                ></video>
+              )}
             </div>
             <Button
               variant="contained"
@@ -123,11 +147,12 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
         )}
       </div>
       <Dialog open={open} className=" mx-auto">
-        <DialogTitle className="text-green !font-bold !text-xl">
-          Confirmation
+        <DialogTitle className="text-yellow-600 !font-bold !text-xl">
+          Caution
         </DialogTitle>
-        <DialogContent className="w-[350px]">
-          Are you sure to remove this photo?
+        <DialogContent className="w-[500px]">
+          Although you confirm, the {type} is not deleted completely if you
+          don't submit!
         </DialogContent>
         <DialogActions>
           <Button
@@ -137,7 +162,7 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
               setopen(false);
             }}
           >
-            No
+            Cancel
           </Button>
           <Button
             variant="contained"
@@ -147,7 +172,7 @@ export const FileUpload = ({ setImgUrl, editImg }: Props) => {
               setopen(false);
             }}
           >
-            Yes
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>

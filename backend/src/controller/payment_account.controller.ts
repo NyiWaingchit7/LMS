@@ -14,7 +14,7 @@ export const index = async (req: Request, res: Response) => {
     include: { payment_bank: true },
   });
   const data = usePagination(10, paymentAccounts, req);
-  return res.status(200).json({ data });
+  return res.status(200).json({ ...data });
 };
 
 export const show = async (req: Request, res: Response) => {

@@ -56,8 +56,8 @@ export const getLecture = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLecture(data.data.data));
-      thunkApi.dispatch(setLectureLink(data.data.links));
+      thunkApi.dispatch(setLecture(data.data));
+      thunkApi.dispatch(setLectureLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

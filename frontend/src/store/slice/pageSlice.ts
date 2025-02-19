@@ -35,8 +35,8 @@ export const getPage = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPage(data.data.data));
-      thunkApi.dispatch(setPageLink(data.data.links));
+      thunkApi.dispatch(setPage(data.data));
+      thunkApi.dispatch(setPageLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

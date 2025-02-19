@@ -52,8 +52,8 @@ export const getLesson = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setLesson(data.data.data));
-      thunkApi.dispatch(setLessonLink(data.data.links));
+      thunkApi.dispatch(setLesson(data.data));
+      thunkApi.dispatch(setLessonLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

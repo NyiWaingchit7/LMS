@@ -20,7 +20,7 @@ export const index = async (req: Request, res: Response) => {
     include: { student: true, lecture: true },
   });
   const data = usePagination(10, purchases, req);
-  return res.status(200).json({ data });
+  return res.status(200).json({ ...data });
 };
 
 export const show = async (req: Request, res: Response) => {
@@ -67,7 +67,7 @@ export const store = async (req: Request, res: Response) => {
     if (student) {
       sendpurchaseEmail({
         user: student?.email,
-        templateName: "purchaseEmailTemplate",
+        templateName: purchase.payment_status,
         data: { student, lecture, purchase },
       });
     }
@@ -119,7 +119,7 @@ export const update = async (req: Request, res: Response) => {
     if (student) {
       sendpurchaseEmail({
         user: student?.email,
-        templateName: "purchaseEmailTemplate",
+        templateName: purchase.payment_status,
         data: { student, lecture, purchase },
       });
     }

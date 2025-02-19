@@ -36,8 +36,8 @@ export const getPaymentBank = createAsyncThunk(
         throw new Error(data.message);
       }
 
-      thunkApi.dispatch(setPaymentBank(data.data.data));
-      thunkApi.dispatch(setPaymentBankLink(data.data.links));
+      thunkApi.dispatch(setPaymentBank(data.data));
+      thunkApi.dispatch(setPaymentBankLink(data.links));
     } catch (error: any) {
       errorHelper(error.message);
     }

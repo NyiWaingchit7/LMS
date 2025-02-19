@@ -15,7 +15,7 @@ export const index = async (req: Request, res: Response) => {
     orderBy: { id: "desc" },
   });
   const data = usePagination(10, students, req);
-  return res.status(200).json({ data });
+  return res.status(200).json({ ...data });
 };
 
 export const show = async (req: Request, res: Response) => {
