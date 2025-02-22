@@ -6,8 +6,8 @@ interface Props {
 
 export const Image = ({ src }: Props) => {
   return (
-    <div className="w-12">
-      <ImageGallery img={src} />
+    <div className="w-20">
+      <ImageGallery height="45px" img={src} />
     </div>
   );
 };

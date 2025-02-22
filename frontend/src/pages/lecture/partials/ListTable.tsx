@@ -22,6 +22,7 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { Pagination } from "@/component/Pagination";
 import { usePage } from "@/utils/getPage";
+import { Image } from "@/component/Image";
 
 interface Props {
   data: Lecture[];
@@ -53,7 +54,7 @@ export const ListTable = ({ data }: Props) => {
         <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {/* <TableCell>Image</TableCell> */}
+              <TableCell>Image</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Is Premium</TableCell>
@@ -67,9 +68,9 @@ export const ListTable = ({ data }: Props) => {
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  {/* <TableCell>
-                  <Image src={row.assetUrl || "./test.jpg"} />
-                </TableCell> */}
+                  <TableCell>
+                    {row.assetUrl && <Image src={row.assetUrl} />}
+                  </TableCell>
                   <TableCell>{row.title}</TableCell>
                   <TableCell>
                     {row.discount_price ? (
@@ -104,7 +105,7 @@ export const ListTable = ({ data }: Props) => {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={3}
+                  colSpan={4}
                   sx={{ textAlign: "center", width: "100%" }}
                 >
                   No data found
