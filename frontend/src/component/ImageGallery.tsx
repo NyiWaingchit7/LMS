@@ -9,19 +9,27 @@ import lgZoom from "lightgallery/plugins/zoom";
 
 interface Props {
   img: string;
+  height?: string;
 }
 
-export const ImageGallery = ({ img }: Props) => {
+export const ImageGallery = ({ img, height = "auto" }: Props) => {
   const onInit = () => {
     console.log("lightGallery has been initialized");
   };
   return (
-    <LightGallery onInit={onInit} speed={500} plugins={[lgThumbnail, lgZoom]}>
+    <LightGallery
+      onInit={onInit}
+      speed={500}
+      plugins={[lgThumbnail, lgZoom]}
+      download={false}
+      showZoomInOutIcons={true}
+    >
       <a href={img}>
         <img
           src={img}
-          alt="img"
-          className="w-full h-auto max-h-[300px] object-cover rounded-lg"
+          alt="Image"
+          className={`w-full max-h-[300px] object-cover rounded-lg`}
+          style={{ height }}
         />
       </a>
     </LightGallery>
