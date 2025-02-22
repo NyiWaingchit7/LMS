@@ -50,12 +50,7 @@ export const ListTable = ({ data }: Props) => {
   return (
     <div>
       <TableContainer component={Paper} className="mt-5 capitalize">
-        <Table
-          sx={{ minWidth: 650 }}
-          stickyHeader
-          aria-label="sticky table"
-          size="small"
-        >
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell>Image</TableCell>

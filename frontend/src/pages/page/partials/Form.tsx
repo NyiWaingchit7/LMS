@@ -69,7 +69,6 @@ export const Form = ({ page }: Props) => {
           value={sumbitForm.title || ""}
           onChange={(e) => setForm({ ...sumbitForm, title: e.target.value })}
         />
-        <div>{sumbitForm.title}</div>
         <Error message={errors?.title || ""} />
       </div>
       <div>

@@ -73,7 +73,7 @@ export const ListTable = ({ data }: Props) => {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={3}
+                  colSpan={2}
                   sx={{ textAlign: "center", width: "100%" }}
                 >
                   No data found

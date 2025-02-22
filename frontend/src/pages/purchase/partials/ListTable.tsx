@@ -121,7 +121,7 @@ export const ListTable = ({ data, homeTable = true }: Props) => {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={3}
+                  colSpan={6}
                   sx={{ textAlign: "center", width: "100%" }}
                 >
                   No data found
