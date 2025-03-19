@@ -15,7 +15,7 @@ const initialState: CategorySlice = {
   links: [],
   data: categoryData,
   isLoading: false,
-  error: null,
+  errors: null,
 };
 
 export const getCategory = createAsyncThunk(
@@ -26,7 +26,7 @@ export const getCategory = createAsyncThunk(
         page: page.toString(),
         searchKey: searchKey || "",
       };
-      const queryString = new URLSearchParams(params).toString();
+      const queryString = new URLSearchParams(params);
       const { data, response } = await fetchFunction({
         url: `categories?${queryString}`,
       });
@@ -141,7 +141,7 @@ export const categorySlice = createSlice({
       state.data = action.payload;
     },
     setCategoryError: (state, action) => {
-      state.error = action.payload;
+      state.errors = action.payload;
     },
     setLinks: (state, action) => {
       state.links = action.payload;

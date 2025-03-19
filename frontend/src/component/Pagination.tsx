@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 interface Props {
   links: any[];
 }
 export const Pagination = ({ links }: Props) => {
+  useEffect(() => {}, [links]);
   return (
     <div className="flex gap-2 mt-5">
       {/* <Button

@@ -27,7 +27,7 @@ export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
   const { page } = usePage();
 
-  const links = useAppSelector((store) => store.lecture.links);
+  const { links } = useAppSelector((store) => store.popularLecture);
 
   const handleDelete = (id: number) => {
     dispatch(

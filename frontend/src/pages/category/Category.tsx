@@ -9,7 +9,7 @@ import { getCategory } from "@/store/slice/categorySlice";
 
 export const Category = () => {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector((store) => store.category.items);
+  const { items } = useAppSelector((store) => store.category);
   const { page, searchKey } = usePage();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const Category = () => {
       <HeadLine header="Categories" />
       <div>
         <SearchButton path="categories" />
-        <ListTable data={categories} />
+        <ListTable data={items} />
       </div>
     </Layout>
   );
