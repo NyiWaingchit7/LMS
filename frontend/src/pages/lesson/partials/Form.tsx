@@ -21,6 +21,7 @@ import { FileUpload } from "@/component/FileUpload";
 import { Editor } from "@/component/Editor";
 import { Error } from "@/component/Error";
 import toast from "react-hot-toast";
+import { LectureAutoComplete } from "@/component/LectureAutocomplete";
 
 interface Props {
   lesson?: Lesson;
@@ -146,7 +147,13 @@ export const Form = ({ lectures, lesson }: Props) => {
       <div className="mt-5">
         <FormControl fullWidth>
           <InputLabel label="lectures" />
-          <Select
+
+          <LectureAutoComplete
+            id="lectures"
+            setSelectedIds={setSelectedIds}
+            selectedIds={selectedIds}
+          />
+          {/* <Select
             id="lectures"
             size="small"
             value={selectedIds || ""}
@@ -159,7 +166,7 @@ export const Form = ({ lectures, lesson }: Props) => {
                 {d.title}
               </MenuItem>
             ))}
-          </Select>
+          </Select> */}
           {/* <Autocomplete
             id="lectures"
             disableClearable
