@@ -5,21 +5,16 @@ import { Form } from "./partials/Form";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
 import { Lesson, lessonData } from "@/types/lesson";
-import {
-  createLesson,
-  setLessonData,
-  showLesson,
-} from "@/store/slice/lessonSlice";
+import { setLessonData, showLesson } from "@/store/slice/lessonSlice";
 
 export const EditLesson = () => {
   const id = Number(useParams().id);
   const dispatch = useAppDispatch();
   const lesson = useAppSelector((store) => store.lesson.data) as Lesson;
-  const lectures = useAppSelector((store) => store.lesson.lectures);
 
   useEffect(() => {
     dispatch(showLesson(id));
-    dispatch(createLesson());
+    // dispatch(createLesson());
 
     return () => {
       dispatch(setLessonData(lessonData));
@@ -28,7 +23,7 @@ export const EditLesson = () => {
   return (
     <Layout title="Edit Lesson">
       <HeadLine header="Edit Lesson" />
-      <Form lesson={lesson} lectures={lectures} />
+      <Form lesson={lesson} />
     </Layout>
   );
 };

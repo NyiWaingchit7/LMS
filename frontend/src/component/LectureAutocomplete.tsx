@@ -3,22 +3,23 @@ import { Skeleton, TextField } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { debounce } from "lodash";
 import { Lecture } from "@/types/lecture";
-
+import CancelIcon from "@mui/icons-material/Cancel";
 interface Props {
   id: string;
   setSelectedIds: (data?: any) => void;
   selectedIds: number | null;
+  edit?: Lecture;
 }
 export const LectureAutoComplete = ({
   id,
   setSelectedIds,
   selectedIds,
+  edit,
 }: Props) => {
   const [items, setItems] = useState<Lecture[]>([]);
   const [show, setShow] = useState(false);
   const [searchKey, setSearchKey] = useState("");
   const [loading, setLoading] = useState(false);
-  const [demo, setDemo] = useState("");
   const container = useRef<HTMLDivElement | null>(null);
 
   const fetchLecture = async (key: string) => {
@@ -62,6 +63,12 @@ export const LectureAutoComplete = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (edit) {
+      setSearchKey(edit.title);
+    }
+  }, [edit]);
+
   return (
     <div className="relative" ref={container}>
       <TextField
@@ -76,6 +83,17 @@ export const LectureAutoComplete = ({
         }}
         onFocus={handleFocus}
         value={searchKey}
+        InputProps={{
+          endAdornment: selectedIds && (
+            <CancelIcon
+              sx={{ cursor: "pointer" }}
+              onClick={() => {
+                setSelectedIds(null);
+                setSearchKey("");
+              }}
+            />
+          ),
+        }}
       />
       {show && (
         <div className="bg-white h-[250px]  shadow-md rounded-md absolute z-50 w-full left-0  p-2 mt-2 border">

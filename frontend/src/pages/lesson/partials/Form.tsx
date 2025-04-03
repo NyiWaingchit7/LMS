@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
-import { Lecture, lectureData } from "@/types/lecture";
+import { lectureData } from "@/types/lecture";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  FormControl,
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Button, FormControl, Paper, TextField } from "@mui/material";
 import { InputLabel } from "@/component/InputLabel";
 import { Lesson } from "@/types/lesson";
 import {
@@ -25,7 +18,6 @@ import { LectureAutoComplete } from "@/component/LectureAutocomplete";
 
 interface Props {
   lesson?: Lesson;
-  lectures: Lecture[];
 }
 
 const defaultForm = {
@@ -38,7 +30,7 @@ const defaultForm = {
   lecture: lectureData,
 };
 
-export const Form = ({ lectures, lesson }: Props) => {
+export const Form = ({ lesson }: Props) => {
   const [submitForm, setForm] = useState<Lesson>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number | null>(null);
   const [videoUrl, setvideoUrl] = useState("");
@@ -127,21 +119,6 @@ export const Form = ({ lectures, lesson }: Props) => {
             setForm((prev) => ({ ...prev, content: value }));
           }}
         />
-        {/* <TextField
-          id="content"
-          type="text"
-          size="small"
-          fullWidth
-          required
-          autoComplete="off"
-          value={submitForm.content}
-          onChange={(e) => {
-            setForm({
-              ...submitForm,
-              content: e.target.value,
-            });
-          }}
-        /> */}
       </div>
 
       <div className="mt-5">
@@ -152,50 +129,8 @@ export const Form = ({ lectures, lesson }: Props) => {
             id="lectures"
             setSelectedIds={setSelectedIds}
             selectedIds={selectedIds}
+            edit={lesson?.lecture}
           />
-          {/* <Select
-            id="lectures"
-            size="small"
-            value={selectedIds || ""}
-            onChange={(e) => {
-              setSelectedIds(e.target.value as number);
-            }}
-          >
-            {lectures.map((d: Lecture) => (
-              <MenuItem key={d.id} value={d.id}>
-                {d.title}
-              </MenuItem>
-            ))}
-          </Select> */}
-          {/* <Autocomplete
-            id="lectures"
-            disableClearable
-            options={lectures}
-            getOptionLabel={(option) =>
-              typeof option === "string" ? option : option.title || ""
-            }
-            isOptionEqualToValue={(option, value) => option.id === value?.id}
-            value={lectures.find((lecture) => lecture.id === selectedIds)}
-            onChange={(event, value) => {
-              setSelectedIds(value?.id || null);
-              console.log(event);
-            }}
-            renderOption={(props, option) => (
-              <li {...props} key={option.id}>
-                {option.title}
-              </li>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Search Lectures"
-                InputProps={{
-                  ...params.InputProps,
-                  type: "search",
-                }}
-              />
-            )}
-          /> */}
         </FormControl>
         <Error message={errors?.lectureId || ""} />
       </div>

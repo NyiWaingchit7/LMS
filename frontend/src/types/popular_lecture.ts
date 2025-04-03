@@ -4,7 +4,7 @@ export interface PopularLecture {
   title: string;
   id?: number;
   lectureId: string;
-  lecture: Lecture;
+  lecture?: Lecture;
 }
 export interface PopularLectureSlice {
   items: PopularLecture[];
