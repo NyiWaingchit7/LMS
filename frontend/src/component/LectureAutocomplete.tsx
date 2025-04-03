@@ -96,7 +96,7 @@ export const LectureAutoComplete = ({
         }}
       />
       {show && (
-        <div className="bg-white h-[250px]  shadow-md rounded-md absolute z-50 w-full left-0  p-2 mt-2 border">
+        <div className="bg-white h-[250px] overflow-y-auto  shadow-md rounded-md absolute z-50 w-full left-0  p-2 mt-2 border">
           {loading ? (
             <div>
               {Array(3)
