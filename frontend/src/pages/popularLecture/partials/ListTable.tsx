@@ -69,7 +69,7 @@ export const ListTable = ({ data }: Props) => {
                     <Image src={row.assetUrl || "./test.jpg"} />
                   </TableCell> */}
                   <TableCell>{row.title}</TableCell>
-                  <TableCell>{row.lecture.title}</TableCell>
+                  <TableCell>{row?.lecture?.title}</TableCell>
 
                   <TableCell>
                     <TableAction
