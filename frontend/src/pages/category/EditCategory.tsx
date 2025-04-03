@@ -5,12 +5,12 @@ import { Form } from "./partials/Form";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
 import { setCategoryData, showCategory } from "@/store/slice/categorySlice";
-import { Category, categoryData } from "@/types/category";
+import { categoryData } from "@/types/category";
 
 export const EditCategory = () => {
   const id = Number(useParams().id);
   const dispatch = useAppDispatch();
-  const category = useAppSelector((store) => store.category.data) as Category;
+  const { data } = useAppSelector((store) => store.category);
 
   useEffect(() => {
     dispatch(showCategory(id));
@@ -22,7 +22,7 @@ export const EditCategory = () => {
   return (
     <Layout title="Edit Category">
       <HeadLine header="Edit Category" />
-      <Form category={category} />
+      <Form category={data} />
     </Layout>
   );
 };

@@ -140,6 +140,7 @@ export const detail = async (req: Request, res: Response) => {
   try {
     const exist = await prisma.popularLecture.findFirst({
       where: { id, deleted: false },
+      include: { lecture: true },
     });
     if (!exist)
       return res.status(400).json({ message: "The lecture can not be found!" });
@@ -149,14 +150,3 @@ export const detail = async (req: Request, res: Response) => {
     res.status(500).json({ error });
   }
 };
-
-// export const searchLecture = async (req: Request, res: Response) => {
-//   try {
-//     const data = await prisma.lecture.findMany({
-//       where: { deleted: false },
-//     });
-//     return res.status(200).json({ data });
-//   } catch (error) {
-//     res.status(500).json({ error });
-//   }
-// };

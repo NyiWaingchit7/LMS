@@ -27,7 +27,7 @@ export const Form = ({ category }: Props) => {
   const [imgUrl, setImgUrl] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const errors = useAppSelector((store) => store.category.error);
+  const { errors } = useAppSelector((store) => store.category);
 
   const onSuccess = () => {
     toast.success("Category created successfully");

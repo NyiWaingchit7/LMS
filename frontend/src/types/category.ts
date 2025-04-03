@@ -11,7 +11,7 @@ export interface CategorySlice {
   data: Category;
   links: any[];
   isLoading: boolean;
-  error: null | { [key: string]: string };
+  errors: null | { [key: string]: string };
 }
 
 export interface CreateCategory extends BaseOption {

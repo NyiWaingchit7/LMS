@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { Lecture } from "@/types/lecture";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  FormControl,
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Button, Paper, TextField } from "@mui/material";
 import { InputLabel } from "@/component/InputLabel";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -19,10 +11,11 @@ import {
   updatePopularLecture,
 } from "@/store/slice/popular_lectureSlice";
 import { Error } from "@/component/Error";
+import { LectureAutoComplete } from "@/component/LectureAutocomplete";
+import { PopularLecture } from "@/types/popular_lecture";
 
 interface Props {
-  lecture?: any;
-  lectures: Lecture[];
+  lecture?: PopularLecture;
 }
 
 const defaultForm = {
@@ -30,7 +23,7 @@ const defaultForm = {
   lectureId: null,
 };
 
-export const Form = ({ lecture, lectures }: Props) => {
+export const Form = ({ lecture }: Props) => {
   const [sumbitForm, setForm] = useState<any>(defaultForm);
   const [selectedIds, setSelectedIds] = useState<number | null>(null);
 
@@ -70,7 +63,7 @@ export const Form = ({ lecture, lectures }: Props) => {
     if (lecture) {
       setForm(lecture);
 
-      setSelectedIds(lecture.lectureId);
+      setSelectedIds(Number(lecture.lectureId));
     }
     return () => {
       dispatch(setPopularLectureError(null));
@@ -93,8 +86,14 @@ export const Form = ({ lecture, lectures }: Props) => {
         <Error message={errors?.title || ""} />
       </div>
       <div className="mt-5">
-        <FormControl fullWidth>
-          <InputLabel label="lectures" />
+        <InputLabel label="lectures" />
+        <LectureAutoComplete
+          id="lectures"
+          setSelectedIds={setSelectedIds}
+          selectedIds={selectedIds}
+          edit={lecture?.lecture}
+        />
+        {/* <FormControl fullWidth>
           <Select
             id="payment banks"
             size="small"
@@ -109,7 +108,7 @@ export const Form = ({ lecture, lectures }: Props) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <Error message={errors?.lectureId || ""} />
       </div>
 

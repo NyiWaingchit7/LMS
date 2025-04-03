@@ -26,7 +26,7 @@ interface Props {
 }
 export const ListTable = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  const links = useAppSelector((store) => store.category.links);
+  const { links } = useAppSelector((store) => store.category);
   const { page, searchKey } = usePage();
   const handleDelete = (id: number) => {
     dispatch(

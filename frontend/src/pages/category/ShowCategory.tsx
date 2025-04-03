@@ -6,13 +6,13 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCategoryData, showCategory } from "@/store/slice/categorySlice";
 import { Image } from "@/component/Image";
-import { Category, categoryData } from "@/types/category";
+import { categoryData } from "@/types/category";
 import { DetailButton } from "@/component/DetailButton";
 
 export const ShowCategory = () => {
   const id = Number(useParams().id);
   const dispatch = useAppDispatch();
-  const category = useAppSelector((store) => store.category.data) as Category;
+  const { data } = useAppSelector((store) => store.category);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,16 +38,14 @@ export const ShowCategory = () => {
                 -
               </td>
               <td className="px-2 py-3 " scope="col">
-                {category?.name || "-"}
+                {data?.name || "-"}
               </td>
             </tr>
             <tr>
               <th className="px-2 py-3 ">Image</th>
               <td className="px-2 py-3 ">-</td>
               <td className="px-2 py-3 ">
-                {category?.assetUrl && (
-                  <Image src={category?.assetUrl || "/test.jpg"} />
-                )}
+                {data?.assetUrl && <Image src={data?.assetUrl || ""} />}
               </td>
             </tr>
           </tbody>

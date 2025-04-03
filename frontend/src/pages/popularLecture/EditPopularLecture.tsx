@@ -4,7 +4,6 @@ import { HeadLine } from "@/component/HeadLine";
 import { Layout } from "@/component/layout/Layout";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  createPopularLecture,
   setPopularLectureData,
   showPopularLecture,
 } from "@/store/slice/popular_lectureSlice";
@@ -17,11 +16,9 @@ export const EditPopuarLecture = () => {
   const lecture = useAppSelector(
     (store) => store.popularLecture.popularLecture
   ) as PopularLecture;
-  const lectures = useAppSelector((store) => store.popularLecture.lectures);
 
   useEffect(() => {
     dispatch(showPopularLecture(id));
-    dispatch(createPopularLecture());
     return () => {
       dispatch(setPopularLectureData(null));
     };
@@ -30,7 +27,7 @@ export const EditPopuarLecture = () => {
   return (
     <Layout title="Edit Popuar Lecture">
       <HeadLine header="Edit Popular Lecture" />
-      <Form lecture={lecture} lectures={lectures} />
+      <Form lecture={lecture} />
     </Layout>
   );
 };
