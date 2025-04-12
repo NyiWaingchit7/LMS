@@ -22,7 +22,7 @@ export const index = async (req: Request, res: Response) => {
     },
   });
 
-  const data = usePagination(10, lectureData, req);
+  const data = usePagination(lectureData, req);
   return res.status(200).json({ ...data });
 };
 

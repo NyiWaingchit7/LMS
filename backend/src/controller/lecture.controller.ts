@@ -36,7 +36,7 @@ export const index = async (req: Request, res: Response) => {
     ...lecture,
     categories: lecture.LectureonCategory.map((lc) => lc.category),
   }));
-  const data = usePagination(10, lectures, req);
+  const data = usePagination(lectures, req);
   return res.status(200).json({ ...data });
 };
 

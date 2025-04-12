@@ -11,7 +11,7 @@ export const index = async (req: Request, res: Response) => {
     orderBy: { id: "desc" },
     include: { LectureonCategory: { include: { lecture: true } } },
   });
-  const data = usePagination(10, categories, req);
+  const data = usePagination(categories, req);
 
   return res.status(200).json({ ...data, query: req.query });
 };

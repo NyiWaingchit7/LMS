@@ -1,11 +1,8 @@
 import { Request } from "express";
 
-export const usePagination = (
-  perPage: number,
-  allData: any[],
-  req: Request
-) => {
+export const usePagination = (allData: any[], req: Request) => {
   const page = Number(req.query.page) || 1;
+  const perPage = req.query.limit ? Number(req.query.limit) : 10;
   const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
   const totalPages = Math.ceil(allData.length / perPage);
   const startIndex = (page - 1) * perPage;

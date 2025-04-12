@@ -13,7 +13,7 @@ export const index = async (req: Request, res: Response) => {
     orderBy: { id: "desc" },
     include: { payment_bank: true },
   });
-  const data = usePagination(10, paymentAccounts, req);
+  const data = usePagination(paymentAccounts, req);
   return res.status(200).json({ ...data });
 };
 

@@ -19,7 +19,7 @@ export const index = async (req: Request, res: Response) => {
       : { deleted: false },
     include: { student: true, lecture: true },
   });
-  const data = usePagination(10, purchases, req);
+  const data = usePagination(purchases, req);
   return res.status(200).json({ ...data });
 };
 

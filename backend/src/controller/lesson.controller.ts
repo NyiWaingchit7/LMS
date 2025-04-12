@@ -12,7 +12,7 @@ export const index = async (req: Request, res: Response) => {
     include: { lecture: true },
     orderBy: { id: "desc" },
   });
-  const data = usePagination(10, lessons, req);
+  const data = usePagination(lessons, req);
   return res.status(200).json({ ...data });
 };
 

@@ -13,8 +13,6 @@ export const TagLine = () => {
   const { page, searchKey } = usePage();
 
   useEffect(() => {
-    console.log(page, searchKey);
-
     dispatch(getTagLine({ page, searchKey }));
   }, [page, searchKey]);
 

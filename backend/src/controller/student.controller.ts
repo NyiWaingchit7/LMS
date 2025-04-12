@@ -14,7 +14,7 @@ export const index = async (req: Request, res: Response) => {
       : { deleted: false },
     orderBy: { id: "desc" },
   });
-  const data = usePagination(10, students, req);
+  const data = usePagination(students, req);
   return res.status(200).json({ ...data });
 };
 

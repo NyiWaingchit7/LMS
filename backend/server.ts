@@ -45,10 +45,12 @@ app.get(
   (req, res) => {
     if (req.user) {
       const { student, token } = req.user as any;
+      const referer = req.headers.referer || "";
+      const origin = new URL(referer).origin || "";
 
       return res.send(`
         <script>
-          window.opener.postMessage({ token: "${token}" },"${config.frontendUrl}");
+          window.opener.postMessage({ token: "${token}" },"${origin}");
           window.close();
         </script>
       `);
