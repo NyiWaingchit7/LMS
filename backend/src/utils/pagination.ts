@@ -36,6 +36,7 @@ export const usePagination = (allData: any[], req: Request) => {
 
   return {
     data,
+    total: allData.length,
     links,
     has_more_pages,
   };
