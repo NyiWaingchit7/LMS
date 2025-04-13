@@ -5,6 +5,10 @@ import { usePagination } from "../utils/pagination";
 export const index = async (req: Request, res: Response) => {
   const { searchKey, isPremium, categoryId } = req.query as any;
 
+  const parsedCategoryIds = categoryId
+    ? categoryId.split(",").map((id: string) => Number(id.trim()))
+    : [];
+
   const lectureData = await prisma.lecture.findMany({
     where: {
       deleted: false,
@@ -17,10 +21,12 @@ export const index = async (req: Request, res: Response) => {
       ...(isPremium && {
         isPremium: isPremium === "true",
       }),
-      ...(categoryId && {
+      ...(categoryId.length > 0 && {
         LectureonCategory: {
           some: {
-            categoryId: Number(categoryId),
+            categoryId: {
+              in: parsedCategoryIds,
+            },
           },
         },
       }),
