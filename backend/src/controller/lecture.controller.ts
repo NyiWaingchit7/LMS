@@ -21,7 +21,7 @@ export const index = async (req: Request, res: Response) => {
       ...(isPremium && {
         isPremium: isPremium === "true",
       }),
-      ...(categoryId.length > 0 && {
+      ...(parsedCategoryIds.length > 0 && {
         LectureonCategory: {
           some: {
             categoryId: {
